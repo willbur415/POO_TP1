@@ -28,30 +28,6 @@ namespace POO_TP1
         Objet2D sun;
         float sunRotation = 0;
 
-        private void BeginPause()
-        {
-            paused = true;
-
-        }
-        private void EndPause()
-        {
-            paused = false;
-        }
-        private void checkPauseKey(GamePadState gamePadState)
-        {
-            bool pauseKeyDownThisFrame = (gamePadState.Buttons.Start == ButtonState.Pressed);
-            // If key was not down before, but is down now, we toggle the
-            // pause setting
-            if (!pauseKeyDown && pauseKeyDownThisFrame)
-            {
-                if (!paused)
-                    BeginPause();
-                else
-                    EndPause();
-            }
-            pauseKeyDown = pauseKeyDownThisFrame;
-        }
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -146,7 +122,7 @@ namespace POO_TP1
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) || padOneState.Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            checkPauseKey(padOneState);
+            CheckPauseKey(padOneState);
 
             if (!paused)
             {
@@ -180,6 +156,30 @@ namespace POO_TP1
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+        //Code pour le pause prit dans la documentation microsoft
+        private void BeginPause()
+        {
+            paused = true;
+
+        }
+        private void EndPause()
+        {
+            paused = false;
+        }
+        private void CheckPauseKey(GamePadState gamePadState)
+        {
+            bool pauseKeyDownThisFrame = (gamePadState.Buttons.Start == ButtonState.Pressed);
+            // If key was not down before, but is down now, we toggle the
+            // pause setting
+            if (!pauseKeyDown && pauseKeyDownThisFrame)
+            {
+                if (!paused)
+                    BeginPause();
+                else
+                    EndPause();
+            }
+            pauseKeyDown = pauseKeyDownThisFrame;
         }
     }
 }
