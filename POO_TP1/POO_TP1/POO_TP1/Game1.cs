@@ -21,8 +21,8 @@ namespace POO_TP1
         SpriteBatch spriteBatch;
         public const int SCREENWIDTH = 1280;
         public const int SCREENHEIGHT = 796;
-        private bool paused = false;
-        private bool pauseKeyDown = false;
+        private bool paused;
+        private bool pauseKeyDown;
 
 
         private Factory facto;
@@ -102,7 +102,7 @@ namespace POO_TP1
             spriteBatch = new SpriteBatch(GraphicsDevice);
             facto = new Factory(Content);
             spacefield = Content.Load<Texture2D>("Graphics\\background\\stars");
-            Ship.GetInstance().Initialize(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 4, SCREENHEIGHT / 2));
+            PlayerShip.GetInstance().Initialize(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 4, SCREENHEIGHT / 2));
             eShip = Factory.createEnnemyShip(TypeShip.bigShip);
             asteroids = new List<Asteroid>();
             rand = new Random();
@@ -138,10 +138,8 @@ namespace POO_TP1
 
             if (!paused)
             {
-                Ship.GetInstance().RotationAngle += padOneState.ThumbSticks.Right.X / 16.0f;
-                Ship.GetInstance().MoveShip(padOneState.ThumbSticks.Left.Y);
-                
-                
+                PlayerShip.GetInstance().RotationAngle += padOneState.ThumbSticks.Right.X / 16.0f;
+                PlayerShip.GetInstance().MoveShip(padOneState.ThumbSticks.Left.Y);
 
             base.Update(gameTime);
         }
@@ -162,9 +160,9 @@ namespace POO_TP1
             spriteBatch.Draw(eShip.Image, eShip.Position, Color.White);
 
 
-            if (Ship.GetInstance().Alive)
+            if (PlayerShip.GetInstance().Alive)
             {
-                spriteBatch.Draw(Ship.GetInstance().Image, Ship.GetInstance().Position, null, Color.White, Ship.GetInstance().RotationAngle, Ship.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
+                spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.White, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
             }
             spriteBatch.End();
 
