@@ -106,9 +106,9 @@ namespace POO_TP1
             eShip = Factory.createEnnemyShip(TypeShip.bigShip);
             asteroids = new List<Asteroid>();
             rand = new Random();
-            for (int i = 0; i < rand.Next(2, 5); i++)
+            for (int i = 0; i < rand.Next(2, 6); i++)
             {
-
+                asteroids.Add(new Asteroid(Content.Load<Texture2D>("Graphics\\sprites\\asteroid_small"), new Vector2(rand.Next(0,1000), rand.Next(0,600))));
             }
             // TODO: use this.Content to load your game content here
         }
@@ -141,8 +141,14 @@ namespace POO_TP1
                 PlayerShip.GetInstance().RotationAngle += padOneState.ThumbSticks.Right.X / 16.0f;
                 PlayerShip.GetInstance().MoveShip(padOneState.ThumbSticks.Left.Y);
 
-            base.Update(gameTime);
-        }
+                foreach (Asteroid ast in asteroids)
+                {
+                    ast.Move();
+                    PlayerShip.GetInstance().CheckCollisionBox(ast);
+                }
+
+                base.Update(gameTime);
+            }
 
             base.Update(gameTime);
         }
@@ -159,6 +165,10 @@ namespace POO_TP1
             spriteBatch.Draw(spacefield, Vector2.Zero, Color.White);
             spriteBatch.Draw(eShip.Image, eShip.Position, Color.White);
 
+            foreach (Asteroid ast in asteroids)
+            {
+                spriteBatch.Draw(ast.Image, ast.Position, Color.White);
+            }
 
             if (PlayerShip.GetInstance().Alive)
             {

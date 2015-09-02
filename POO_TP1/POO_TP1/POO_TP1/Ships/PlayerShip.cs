@@ -58,6 +58,14 @@ namespace POO_TP1
             }
         }
 
+        public void CheckCollisionBox(Objet2D theOther)
+        {
+            if (boiteCollision.Intersects(theOther.BoiteCollision))
+            {
+                alive = false;
+            }
+        }
+
         public void MoveShip(float newThrust)
         {
             //Rappel, le thrust arrière doit être plus lent

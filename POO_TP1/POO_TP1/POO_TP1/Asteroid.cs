@@ -11,6 +11,7 @@ namespace POO_TP1
     {
         private Vector2 velocity;
         private AsteroidSize size;
+        private Random rand;
 
         public Vector2 Velocity
         {
@@ -36,17 +37,20 @@ namespace POO_TP1
             }
         }
 
-        public Asteroid(Texture2D image, Vector2 position, Vector2 velocity) : base(image, position)
+        public Asteroid(Texture2D image, Vector2 position) : base(image, position)
         {
-            Velocity = velocity;
+            rand = new Random();
+            Velocity = new Vector2(rand.Next(-2, 2), rand.Next(-2, 2));
         }
 
         public void Move()
         {
             position += Velocity;
 
-            //OtherSide(ref position.X, ref boiteCollision.Min.X, ref boiteCollision.Max.X, ref sphereCollision.Center.X, Game1.SCREENWIDTH, image.Width);
-            //OtherSide(ref position.Y, ref boiteCollision.Min.Y, ref boiteCollision.Max.Y, ref sphereCollision.Center.Y, Game1.SCREENHEIGHT, image.Height);
+            updateCollisions();
+
+            OtherSide(ref position.X, ref boiteCollision.Min.X, ref boiteCollision.Max.X, ref sphereCollision.Center.X, Game1.SCREENWIDTH, image.Width);
+            OtherSide(ref position.Y, ref boiteCollision.Min.Y, ref boiteCollision.Max.Y, ref sphereCollision.Center.Y, Game1.SCREENHEIGHT, image.Height);
         }
 
         public float CheckAsteroidSize()
@@ -65,6 +69,11 @@ namespace POO_TP1
             }
         }
 
+        private void updateCollisions()
+        {
+            boiteCollision = new BoundingBox(new Vector3(position.X - offset.X, position.Y - offset.Y, 0), new Vector3(position.X + offset.X, position.Y + +offset.Y, 0));
+            sphereCollision = new BoundingSphere(new Vector3(position.X, position.Y, 0), offset.X);
+        }
 
         private void OtherSide(ref float position, ref float minBox, ref float maxBox, ref float sphere, int screenSize, int imageSize)
         {
