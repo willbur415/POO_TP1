@@ -7,24 +7,24 @@ using POO_TP1;
 
 namespace POO_TP1
 {
-    class Ship : Objet2D
+    class PlayerShip : Objet2D
     {
         private Vector2 thrust;
         private const double MAXSPEED = 100.0;
         private const float SLOWFACTOR = 20.0f;
         private bool alive;
         private int playerTotalLife = 3;
-        private static Ship ship = null;
+        private static PlayerShip ship = null;
 
-        public static Ship GetInstance()
+        public static PlayerShip GetInstance()
         {
             if (ship == null)
             {
-                ship = new Ship();
+                ship = new PlayerShip();
             }
             return ship;
         }
-        private Ship()     
+        private PlayerShip()     
         {
             alive = true;
         }
