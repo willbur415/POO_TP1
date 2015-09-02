@@ -7,7 +7,7 @@ using POO_TP1;
 
 namespace POO_TP1
 {
-    class PlayerShip : Objet2D
+    class PlayerShip : Objet2D, Observer
     {
         private Vector2 thrust;
         private const double MAXSPEED = 100.0;
@@ -123,6 +123,11 @@ namespace POO_TP1
                 maxBox += screenSize + imageSize;
                 sphere += screenSize + imageSize;
             }
+        }
+
+        public void Notify(ObservedSubject subject)
+        {
+
         }
     }
 }

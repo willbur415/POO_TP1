@@ -12,24 +12,8 @@ using POO_TP1;
 
 namespace POO_TP1
 {
-    class Score : Observer
+    interface Observer
     {
-        private int playerScore;
-        public Score()
-        {
-            playerScore = 0;
-        }
-
-        public int PlayerScore
-        {
-            get { return playerScore;}
-            set { playerScore = value; }
-        }
-
-        public void Notify(ObservedSubject subject)
-        {
-
-        }
-
+        void Notify(ObservedSubject subject);
     }
 }

@@ -12,24 +12,12 @@ using POO_TP1;
 
 namespace POO_TP1
 {
-    class Score : Observer
+    enum BonusType
     {
-        private int playerScore;
-        public Score()
-        {
-            playerScore = 0;
-        }
-
-        public int PlayerScore
-        {
-            get { return playerScore;}
-            set { playerScore = value; }
-        }
-
-        public void Notify(ObservedSubject subject)
-        {
-
-        }
-
+        bonus1, bonus2, bonus3, bonus4, bonus5
+    }
+    class Bonus : Objet2D
+    {
+       
     }
 }
