@@ -24,7 +24,6 @@ namespace POO_TP1
 
         Texture2D spacefield;
         Objet2D sun;
-        Ship playerShip;
         float sunRotation = 0;
 
 
@@ -96,7 +95,7 @@ namespace POO_TP1
             spriteBatch = new SpriteBatch(GraphicsDevice);
             spacefield = Content.Load<Texture2D>("Graphics\\background\\stars");
             sun = new Objet2D(Content.Load<Texture2D>("Graphics\\background\\sun"), new Vector2(SCREENWIDTH / 2, SCREENHEIGHT / 2));
-            playerShip = new Ship(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 4, SCREENHEIGHT / 2));
+            Ship.GetInstance().Initialize(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 4, SCREENHEIGHT / 2));
             // TODO: use this.Content to load your game content here
         }
 
@@ -121,9 +120,9 @@ namespace POO_TP1
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) || padOneState.Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            playerShip.RotationAngle += padOneState.ThumbSticks.Right.X / 16.0f;
-            playerShip.MoveShip(padOneState.ThumbSticks.Left.Y);
-            playerShip.CheckCollisionSphere(sun);
+            Ship.GetInstance().RotationAngle += padOneState.ThumbSticks.Right.X / 16.0f;
+            Ship.GetInstance().MoveShip(padOneState.ThumbSticks.Left.Y);
+            Ship.GetInstance().CheckCollisionSphere(sun);
             sunRotation += (float)(Math.PI / 500);
             base.Update(gameTime);
         }
@@ -140,9 +139,9 @@ namespace POO_TP1
             spriteBatch.Draw(spacefield, Vector2.Zero, Color.White);
             spriteBatch.Draw(sun.Image, sun.Position, null, Color.White, sunRotation, sun.Offset, 1.0f, SpriteEffects.None, 0f);
 
-            if (playerShip.Alive)
+            if (Ship.GetInstance().Alive)
             {
-                spriteBatch.Draw(playerShip.Image, playerShip.Position, null, Color.White, playerShip.RotationAngle, playerShip.Offset, 1.0f, SpriteEffects.None, 0f);
+                spriteBatch.Draw(Ship.GetInstance().Image, Ship.GetInstance().Position, null, Color.White, Ship.GetInstance().RotationAngle, Ship.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
             }
             spriteBatch.End();
 
