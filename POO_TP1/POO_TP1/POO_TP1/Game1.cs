@@ -21,11 +21,36 @@ namespace POO_TP1
         SpriteBatch spriteBatch;
         public const int SCREENWIDTH = 1280;
         public const int SCREENHEIGHT = 796;
+        private bool paused = false;
+        private bool pauseKeyDown = false;
 
         Texture2D spacefield;
         Objet2D sun;
         float sunRotation = 0;
 
+        private void BeginPause()
+        {
+            paused = true;
+
+        }
+        private void EndPause()
+        {
+            paused = false;
+        }
+        private void checkPauseKey(GamePadState gamePadState)
+        {
+            bool pauseKeyDownThisFrame = (gamePadState.Buttons.Start == ButtonState.Pressed);
+            // If key was not down before, but is down now, we toggle the
+            // pause setting
+            if (!pauseKeyDown && pauseKeyDownThisFrame)
+            {
+                if (!paused)
+                    BeginPause();
+                else
+                    EndPause();
+            }
+            pauseKeyDown = pauseKeyDownThisFrame;
+        }
 
         public Game1()
         {
@@ -44,6 +69,7 @@ namespace POO_TP1
             // TODO : ajouter la logique d’initialisation ici
             InitGraphicsMode(SCREENWIDTH, SCREENHEIGHT, false);
             base.Initialize();
+            
         }
 
         private bool InitGraphicsMode(int width, int height, bool fullScreen)
@@ -120,10 +146,18 @@ namespace POO_TP1
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) || padOneState.Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            Ship.GetInstance().RotationAngle += padOneState.ThumbSticks.Right.X / 16.0f;
-            Ship.GetInstance().MoveShip(padOneState.ThumbSticks.Left.Y);
-            Ship.GetInstance().CheckCollisionSphere(sun);
-            sunRotation += (float)(Math.PI / 500);
+            checkPauseKey(padOneState);
+
+            if (!paused)
+            {
+                Ship.GetInstance().RotationAngle += padOneState.ThumbSticks.Right.X / 16.0f;
+                Ship.GetInstance().MoveShip(padOneState.ThumbSticks.Left.Y);
+                Ship.GetInstance().CheckCollisionSphere(sun);
+                sunRotation += (float)(Math.PI / 500);
+
+                base.Update(gameTime);
+            }
+            
             base.Update(gameTime);
         }
 
