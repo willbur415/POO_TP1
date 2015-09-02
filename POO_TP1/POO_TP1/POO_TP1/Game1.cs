@@ -105,6 +105,7 @@ namespace POO_TP1
             Ship.GetInstance().Initialize(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 4, SCREENHEIGHT / 2));
             eShip = Factory.createEnnemyShip(TypeShip.bigShip);
             asteroids = new List<Asteroid>();
+            rand = new Random();
             for (int i = 0; i < rand.Next(2, 5); i++)
             {
 
