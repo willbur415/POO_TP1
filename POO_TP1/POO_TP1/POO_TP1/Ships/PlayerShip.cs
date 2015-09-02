@@ -14,7 +14,7 @@ namespace POO_TP1
         private const float SLOWFACTOR = 20.0f;
         private bool alive;
         private int playerTotalLife = 3;
-        private static PlayerShip ship = null;
+        private static PlayerShip ship;
 
         public static PlayerShip GetInstance()
         {
