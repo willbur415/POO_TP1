@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Exercice5
+namespace POO_TP1
 {
     class Objet2D
     {
