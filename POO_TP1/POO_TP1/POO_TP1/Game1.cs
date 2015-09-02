@@ -21,8 +21,8 @@ namespace POO_TP1
         SpriteBatch spriteBatch;
         public const int SCREENWIDTH = 1280;
         public const int SCREENHEIGHT = 796;
-        private bool paused = false;
-        private bool pauseKeyDown = false;
+        private bool paused;
+        private bool pauseKeyDown;
 
 
         Factory facto;
@@ -63,11 +63,8 @@ namespace POO_TP1
                     graphics.PreferredBackBufferHeight = height;
                     graphics.IsFullScreen = fullScreen;
                     graphics.ApplyChanges();
-                    
-           
-                    
+                               
                     return true;
-
 
                 }
             }
@@ -137,10 +134,8 @@ namespace POO_TP1
                 Ship.GetInstance().RotationAngle += padOneState.ThumbSticks.Right.X / 16.0f;
                 Ship.GetInstance().MoveShip(padOneState.ThumbSticks.Left.Y);
                 
-                
-
-            base.Update(gameTime);
-        }
+                base.Update(gameTime);
+            }
 
             base.Update(gameTime);
         }
