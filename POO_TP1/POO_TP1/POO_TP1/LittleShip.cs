@@ -9,10 +9,10 @@ namespace POO_TP1
 {
     public class LittleShip : EnnemyShip
     {
-        public LittleShip(Texture2D image, Vector2 position)
-            : base(image, position)
+        public LittleShip(Texture2D image, Vector2 position, TypeShip type)
+            : base(image, position, type)
         {
- 
+            
         }
     }
 }

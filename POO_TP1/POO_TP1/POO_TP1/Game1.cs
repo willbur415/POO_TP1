@@ -22,9 +22,11 @@ namespace POO_TP1
         public const int SCREENWIDTH = 1280;
         public const int SCREENHEIGHT = 796;
 
+
+        Factory facto;
         Texture2D spacefield;
         Ship playerShip;
-        Asteroid asteroid;
+        EnnemyShip eShip;
 
 
         public Game1()
@@ -59,7 +61,12 @@ namespace POO_TP1
                     graphics.PreferredBackBufferHeight = height;
                     graphics.IsFullScreen = fullScreen;
                     graphics.ApplyChanges();
+                    
+           
+                    
                     return true;
+
+
                 }
             }
             else
@@ -93,9 +100,10 @@ namespace POO_TP1
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            facto = new Factory(Content);
             spacefield = Content.Load<Texture2D>("Graphics\\background\\stars");
-
             playerShip = new Ship(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 4, SCREENHEIGHT / 2));
+            eShip = Factory.createEnnemyShip(TypeShip.littleShip);
             // TODO: use this.Content to load your game content here
         }
 
@@ -135,6 +143,8 @@ namespace POO_TP1
 
             spriteBatch.Begin();
             spriteBatch.Draw(spacefield, Vector2.Zero, Color.White);
+            spriteBatch.Draw(eShip.Image, eShip.Position, Color.White);
+
 
             if (playerShip.Alive)
             {
