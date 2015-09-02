@@ -24,7 +24,23 @@ namespace POO_TP1
         private BoundingSphere sphereCollision;
         public enum BonusType
         {
-            bonus1, bonus2, bonus3, bonus4, bonus5
+            invincible, extraLife, doublePoints, slowDown, extraPoints
+        }
+
+        public BonusType Type
+        {
+            get { return type; }
+            set { type = value; }
+        }
+
+        public Texture2D Image
+        {
+            get { return image; }
+        }
+
+        public Vector2 Position
+        {
+            get { return position; }
         }
 
         public Bonus(Texture2D image, Vector2 position, BonusType type)
