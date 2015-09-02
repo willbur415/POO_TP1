@@ -21,7 +21,6 @@ namespace POO_TP1
         {
             Factory.content = content;
             content.RootDirectory = "Content";
-            
         }
 
         public static EnnemyShip createEnnemyShip(TypeShip typeShip)
@@ -32,7 +31,7 @@ namespace POO_TP1
             }
             else
             {
-                return new LittleShip(content.Load<Texture2D>("Graphics\\sprites\\LittleShip"), new Vector2(150, 150), TypeShip.littleShip);
+                return new BigShip(content.Load<Texture2D>("Graphics\\sprites\\BigShip"), new Vector2(150, 150), TypeShip.littleShip);
             }
         }
     }
