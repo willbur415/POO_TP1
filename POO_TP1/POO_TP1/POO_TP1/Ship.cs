@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using POO_TP1;
 
 
-namespace Exercice5
+namespace POO_TP1
 {
     class Ship : Objet2D
     {
