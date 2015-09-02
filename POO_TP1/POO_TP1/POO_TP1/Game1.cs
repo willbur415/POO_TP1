@@ -24,9 +24,11 @@ namespace POO_TP1
         private bool paused = false;
         private bool pauseKeyDown = false;
 
+
+        Factory facto;
         Texture2D spacefield;
-        Objet2D sun;
-        float sunRotation = 0;
+        Ship playerShip;
+        EnnemyShip eShip;
 
         public Game1()
         {
@@ -61,7 +63,12 @@ namespace POO_TP1
                     graphics.PreferredBackBufferHeight = height;
                     graphics.IsFullScreen = fullScreen;
                     graphics.ApplyChanges();
+                    
+           
+                    
                     return true;
+
+
                 }
             }
             else
@@ -95,9 +102,12 @@ namespace POO_TP1
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            facto = new Factory(Content);
             spacefield = Content.Load<Texture2D>("Graphics\\background\\stars");
-            sun = new Objet2D(Content.Load<Texture2D>("Graphics\\background\\sun"), new Vector2(SCREENWIDTH / 2, SCREENHEIGHT / 2));
+
             Ship.GetInstance().Initialize(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 4, SCREENHEIGHT / 2));
+            
+            eShip = Factory.createEnnemyShip(TypeShip.littleShip);
             // TODO: use this.Content to load your game content here
         }
 
@@ -128,12 +138,12 @@ namespace POO_TP1
             {
                 Ship.GetInstance().RotationAngle += padOneState.ThumbSticks.Right.X / 16.0f;
                 Ship.GetInstance().MoveShip(padOneState.ThumbSticks.Left.Y);
-                Ship.GetInstance().CheckCollisionSphere(sun);
-                sunRotation += (float)(Math.PI / 500);
+                
+                
 
-                base.Update(gameTime);
-            }
-            
+            base.Update(gameTime);
+        }
+
             base.Update(gameTime);
         }
 
@@ -147,7 +157,8 @@ namespace POO_TP1
 
             spriteBatch.Begin();
             spriteBatch.Draw(spacefield, Vector2.Zero, Color.White);
-            spriteBatch.Draw(sun.Image, sun.Position, null, Color.White, sunRotation, sun.Offset, 1.0f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(eShip.Image, eShip.Position, Color.White);
+
 
             if (Ship.GetInstance().Alive)
             {
