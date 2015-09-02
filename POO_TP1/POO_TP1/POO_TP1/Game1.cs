@@ -25,10 +25,12 @@ namespace POO_TP1
         private bool pauseKeyDown;
 
 
-        Factory facto;
-        Texture2D spacefield;
-        PlayerShip playerShip;
-        EnnemyShip eShip;
+        private Factory facto;
+        private Texture2D spacefield;
+        private EnnemyShip eShip;
+        private List<Asteroid> asteroids;
+        private Random rand;
+
 
         public Game1()
         {
@@ -63,9 +65,8 @@ namespace POO_TP1
                     graphics.PreferredBackBufferHeight = height;
                     graphics.IsFullScreen = fullScreen;
                     graphics.ApplyChanges();
-                               
+                    
                     return true;
-
                 }
             }
             else
@@ -103,6 +104,12 @@ namespace POO_TP1
             spacefield = Content.Load<Texture2D>("Graphics\\background\\stars");
             PlayerShip.GetInstance().Initialize(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 4, SCREENHEIGHT / 2));
             eShip = Factory.createEnnemyShip(TypeShip.bigShip);
+            asteroids = new List<Asteroid>();
+            rand = new Random();
+            for (int i = 0; i < rand.Next(2, 6); i++)
+            {
+                asteroids.Add(new Asteroid(Content.Load<Texture2D>("Graphics\\sprites\\asteroid_small"), new Vector2(rand.Next(0,1000), rand.Next(0,600))));
+            }
             // TODO: use this.Content to load your game content here
         }
 
@@ -133,7 +140,13 @@ namespace POO_TP1
             {
                 PlayerShip.GetInstance().RotationAngle += padOneState.ThumbSticks.Right.X / 16.0f;
                 PlayerShip.GetInstance().MoveShip(padOneState.ThumbSticks.Left.Y);
-                
+
+                foreach (Asteroid ast in asteroids)
+                {
+                    ast.Move();
+                    PlayerShip.GetInstance().CheckCollisionBox(ast);
+                }
+
                 base.Update(gameTime);
             }
 
@@ -152,6 +165,10 @@ namespace POO_TP1
             spriteBatch.Draw(spacefield, Vector2.Zero, Color.White);
             spriteBatch.Draw(eShip.Image, eShip.Position, Color.White);
 
+            foreach (Asteroid ast in asteroids)
+            {
+                spriteBatch.Draw(ast.Image, ast.Position, Color.White);
+            }
 
             if (PlayerShip.GetInstance().Alive)
             {
