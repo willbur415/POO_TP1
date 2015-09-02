@@ -14,10 +14,16 @@ namespace POO_TP1
 {
     class Score
     {
-        public int playerScore { get; set; }
+        private int playerScore;
         public Score()
         {
             playerScore = 0;
+        }
+
+        public int PlayerScore
+        {
+            get { return playerScore;}
+            set { playerScore = value; }
         }
 
     }
