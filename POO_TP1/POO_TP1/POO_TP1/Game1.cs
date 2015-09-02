@@ -21,13 +21,14 @@ namespace POO_TP1
         SpriteBatch spriteBatch;
         public const int SCREENWIDTH = 1280;
         public const int SCREENHEIGHT = 796;
+        private bool paused = false;
+        private bool pauseKeyDown = false;
 
 
         Factory facto;
         Texture2D spacefield;
         Ship playerShip;
         EnnemyShip eShip;
-
 
         public Game1()
         {
@@ -46,6 +47,7 @@ namespace POO_TP1
             // TODO : ajouter la logique d’initialisation ici
             InitGraphicsMode(SCREENWIDTH, SCREENHEIGHT, false);
             base.Initialize();
+            
         }
 
         private bool InitGraphicsMode(int width, int height, bool fullScreen)
@@ -102,7 +104,9 @@ namespace POO_TP1
             spriteBatch = new SpriteBatch(GraphicsDevice);
             facto = new Factory(Content);
             spacefield = Content.Load<Texture2D>("Graphics\\background\\stars");
-            playerShip = new Ship(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 4, SCREENHEIGHT / 2));
+
+            Ship.GetInstance().Initialize(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 4, SCREENHEIGHT / 2));
+            
             eShip = Factory.createEnnemyShip(TypeShip.littleShip);
             // TODO: use this.Content to load your game content here
         }
@@ -128,8 +132,18 @@ namespace POO_TP1
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) || padOneState.Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            playerShip.RotationAngle += padOneState.ThumbSticks.Right.X / 16.0f;
-            playerShip.MoveShip(padOneState.ThumbSticks.Left.Y);
+            CheckPauseKey(padOneState);
+
+            if (!paused)
+            {
+                Ship.GetInstance().RotationAngle += padOneState.ThumbSticks.Right.X / 16.0f;
+                Ship.GetInstance().MoveShip(padOneState.ThumbSticks.Left.Y);
+                
+                
+
+            base.Update(gameTime);
+        }
+
             base.Update(gameTime);
         }
 
@@ -146,13 +160,37 @@ namespace POO_TP1
             spriteBatch.Draw(eShip.Image, eShip.Position, Color.White);
 
 
-            if (playerShip.Alive)
+            if (Ship.GetInstance().Alive)
             {
-                spriteBatch.Draw(playerShip.Image, playerShip.Position, null, Color.White, playerShip.RotationAngle, playerShip.Offset, 1.0f, SpriteEffects.None, 0f);
+                spriteBatch.Draw(Ship.GetInstance().Image, Ship.GetInstance().Position, null, Color.White, Ship.GetInstance().RotationAngle, Ship.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
             }
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+        //Code pour le pause prit dans la documentation microsoft
+        private void BeginPause()
+        {
+            paused = true;
+
+        }
+        private void EndPause()
+        {
+            paused = false;
+        }
+        private void CheckPauseKey(GamePadState gamePadState)
+        {
+            bool pauseKeyDownThisFrame = (gamePadState.Buttons.Start == ButtonState.Pressed);
+            // If key was not down before, but is down now, we toggle the
+            // pause setting
+            if (!pauseKeyDown && pauseKeyDownThisFrame)
+            {
+                if (!paused)
+                    BeginPause();
+                else
+                    EndPause();
+            }
+            pauseKeyDown = pauseKeyDownThisFrame;
         }
     }
 }

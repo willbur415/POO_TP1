@@ -13,6 +13,27 @@ namespace POO_TP1
         private const double MAXSPEED = 100.0;
         private const float SLOWFACTOR = 20.0f;
         private bool alive;
+        private static Ship ship = null;
+
+        public static Ship GetInstance()
+        {
+            if (ship == null)
+            {
+                ship = new Ship();
+            }
+            return ship;
+        }
+        private Ship()     
+        {
+            alive = true;
+        }
+
+        public void Initialize(Texture2D image, Vector2 position)
+        {
+            base.image = image;
+            base.position = position;
+            FillObject2DInfo();
+        }
 
         public bool Alive
         {
@@ -20,12 +41,7 @@ namespace POO_TP1
             {
                 return alive;
             }
-        }
-
-        public Ship(Texture2D image, Vector2 position) : base(image, position)
-        {
-            alive = true;
-        }
+        }  
 
         public void CheckCollisionSphere(Objet2D theOther)
         {
