@@ -104,10 +104,8 @@ namespace POO_TP1
             spriteBatch = new SpriteBatch(GraphicsDevice);
             facto = new Factory(Content);
             spacefield = Content.Load<Texture2D>("Graphics\\background\\stars");
-
             Ship.GetInstance().Initialize(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 4, SCREENHEIGHT / 2));
-            
-            eShip = Factory.createEnnemyShip(TypeShip.littleShip);
+            eShip = Factory.createEnnemyShip(TypeShip.bigShip);
             // TODO: use this.Content to load your game content here
         }
 
