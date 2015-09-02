@@ -13,6 +13,7 @@ namespace POO_TP1
         private const double MAXSPEED = 100.0;
         private const float SLOWFACTOR = 20.0f;
         private bool alive;
+        private int playerTotalLife = 3;
         private static Ship ship = null;
 
         public static Ship GetInstance()
@@ -41,7 +42,13 @@ namespace POO_TP1
             {
                 return alive;
             }
-        }  
+        }
+
+        public int PlayerTotalLife
+        {
+            get { return playerTotalLife; }
+            set { playerTotalLife = value; }
+        }
 
         public void CheckCollisionSphere(Objet2D theOther)
         {
