@@ -108,7 +108,7 @@ namespace POO_TP1
             rand = new Random();
             for (int i = 0; i < rand.Next(2, 6); i++)
             {
-                asteroids.Add(new Asteroid(Content.Load<Texture2D>("Graphics\\sprites\\asteroid_small"), new Vector2(rand.Next(0,1000), rand.Next(0,600))));
+                asteroids.Add(new Asteroid(Content.Load<Texture2D>("Graphics\\sprites\\official_asteroid"), new Vector2(rand.Next(0, 1000), rand.Next(0, 600))));
             }
             // TODO: use this.Content to load your game content here
         }
@@ -129,7 +129,7 @@ namespace POO_TP1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            GamePadState padOneState = GamePad.GetState(PlayerIndex.One);
+            GamePadState padOneState = GamePad.GetState(PlayerIndex.One); 
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) || padOneState.Buttons.Back == ButtonState.Pressed)
                 this.Exit();

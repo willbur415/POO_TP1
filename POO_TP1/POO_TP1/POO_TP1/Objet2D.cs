@@ -33,7 +33,7 @@ namespace POO_TP1
             this.offset = new Vector2(image.Width / 2, image.Height / 2);
             this.posCenter = new Vector2(position.X + offset.X, position.Y + offset.Y);
             this.boiteCollision = new BoundingBox(new Vector3(position.X - offset.X, position.Y - offset.Y, 0), new Vector3(position.X + offset.X, position.Y + +offset.Y, 0));
-            this.sphereCollision = new BoundingSphere(new Vector3(position.X, position.Y, 0), offset.X);
+            this.sphereCollision = new BoundingSphere(new Vector3(position.X - offset.X, position.Y - offset.Y, 0), offset.X);
         }
 
         public Texture2D Image
@@ -71,6 +71,7 @@ namespace POO_TP1
                 return sphereCollision;
             }
         }
+
         public float RotationAngle
         {
             get
