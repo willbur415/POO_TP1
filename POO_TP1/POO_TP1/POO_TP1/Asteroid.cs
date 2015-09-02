@@ -5,7 +5,8 @@ using System.Text;
 
 namespace POO_TP1
 {
-    class Asteroid
+    class Asteroid : Objet2D
     {
+
     }
 }
