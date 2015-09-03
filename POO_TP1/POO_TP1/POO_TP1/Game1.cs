@@ -138,7 +138,7 @@ namespace POO_TP1
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) || padOneState.Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            CheckPauseKey(padOneState);
+            CheckPauseKey(padOneState, keyboardState);
 
             if (!paused)
             {
@@ -169,7 +169,6 @@ namespace POO_TP1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             spriteBatch.Draw(spacefield, Vector2.Zero, Color.White);
 
@@ -186,16 +185,16 @@ namespace POO_TP1
                 {
                     spriteBatch.Draw(PlayerShip.GetInstance().Bullet.Image, PlayerShip.GetInstance().Bullet.Position, Color.White);
                     spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.White, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
-                }
-                if (paused)
-                {
-                    spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().PlayButton, GameMenu.GetInstance().PlayButtonPos,
-                                             Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-                    spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().OptionsButton, GameMenu.GetInstance().OptionsButtonPos,
-                                             Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-                    spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().ExitButton, GameMenu.GetInstance().ExitButtonPos,
-                                             Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-                }
+                }   
+            }
+            else
+            {
+                spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().PlayButton, GameMenu.GetInstance().PlayButtonPos,
+                                         Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+                spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().OptionsButton, GameMenu.GetInstance().OptionsButtonPos,
+                                         Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+                spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().ExitButton, GameMenu.GetInstance().ExitButtonPos,
+                                         Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
             }
             spriteBatch.End();
             base.Draw(gameTime);
@@ -211,9 +210,9 @@ namespace POO_TP1
         {
             paused = false;
         }
-        private void CheckPauseKey(GamePadState gamePadState)
+        private void CheckPauseKey(GamePadState gamePadState, KeyboardState keyboardState)
         {
-            bool pauseKeyDownThisFrame = (gamePadState.Buttons.Start == ButtonState.Pressed);
+            bool pauseKeyDownThisFrame = (gamePadState.Buttons.Start == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Enter));
             // If key was not down before, but is down now, we toggle the
             // pause setting
             if (!pauseKeyDown && pauseKeyDownThisFrame)
@@ -246,6 +245,7 @@ namespace POO_TP1
             }
             if (keyboardState.IsKeyDown(Keys.A)) PlayerShip.GetInstance().RotationAngle -= 0.05f;
             if (keyboardState.IsKeyDown(Keys.D)) PlayerShip.GetInstance().RotationAngle += 0.05f;
+            if (keyboardState.IsKeyDown(Keys.Space)) PlayerShip.GetInstance().Shoot();
         }
 
         private void loadAsteroids()
