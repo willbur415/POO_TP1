@@ -8,7 +8,7 @@ using POO_TP1;
 
 namespace POO_TP1
 {
-    class PlayerShip : Objet2D, Observer
+    class PlayerShip : MovableObject, Observer
     {
         private const double MAXSPEED = 100.0;
         private const float SLOWFACTOR = 20.0f;
@@ -102,14 +102,18 @@ namespace POO_TP1
 
             //Angle 0 est un vecteur qui pointe vers le haut, et on augmente l'angle dans le sens des aiguilles d'une montre
 
-            velocity.X += (float)(Math.Sin((double)rotationAngle) * newThrust);
-            velocity.Y -= (float)(Math.Cos((double)rotationAngle) * newThrust);
+            velocity.X += (float)(Math.Sin((double)rotationAngle) * newThrust) / SLOWFACTOR;
+            velocity.Y -= (float)(Math.Cos((double)rotationAngle) * newThrust) / SLOWFACTOR;
+
+            //this.position.X += velocity.X / SLOWFACTOR;
+            //this.position.Y += velocity.Y / SLOWFACTOR;
 
             //Dans bien des vieux jeux la vitesse maximum semble être par axe, mais comme on a de la puissance de calcul, on va la faire totale.
             MaxThrust();
 
             //Il faut aussi déplacer les poly de collision
-            MoveAll(velocity.X / SLOWFACTOR, velocity.Y / SLOWFACTOR);
+            //Move(velocity.X / SLOWFACTOR, velocity.Y / SLOWFACTOR);
+            Move();
 
             //Déplacement de l'autre côté.  On se donne un buffer de la taille de notre objet
             OtherSide(ref position.X, ref boiteCollision.Min.X, ref boiteCollision.Max.X, ref sphereCollision.Center.X, Game1.SCREENWIDTH, image.Width);
@@ -118,8 +122,8 @@ namespace POO_TP1
 
         private void MoveAll(float moveX, float moveY)
         {
-            this.position.X += moveX;
-            this.position.Y += moveY;
+            //this.position.X += moveX;
+            //this.position.Y += moveY;
 
             this.boiteCollision.Min.X += moveX;
             this.boiteCollision.Min.Y += moveY;

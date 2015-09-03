@@ -7,7 +7,7 @@ namespace POO_TP1
 {
     enum AsteroidSize { small, medium, large}
 
-    class Asteroid : Objet2D
+    class Asteroid : MovableObject
     {
         private AsteroidSize size;
         private Random rand;

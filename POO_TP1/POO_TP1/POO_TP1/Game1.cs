@@ -271,7 +271,7 @@ namespace POO_TP1
             rand = new Random();
             for (int i = 0; i < rand.Next(2, 6); i++)
             {
-                asteroids.Add(new Asteroid(Content.Load<Texture2D>("Graphics\\sprites\\official_asteroid"), new Vector2(rand.Next(0, 1000), rand.Next(0, 600)),i));
+                asteroids.Add(new Asteroid(Content.Load<Texture2D>("Graphics\\sprites\\official_asteroid"), new Vector2(0, 0),i));
             }
         }
     }
