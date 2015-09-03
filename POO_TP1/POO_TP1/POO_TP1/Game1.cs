@@ -210,7 +210,7 @@ namespace POO_TP1
                 spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().ExitButton, GameMenu.GetInstance().ExitButtonPos,
                                          Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
             
-            if ()
+            
         }
 
         //Code for game pausing taking in microsoft documentation
