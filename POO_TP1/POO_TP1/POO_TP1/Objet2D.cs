@@ -10,6 +10,7 @@ namespace POO_TP1
     {
         protected Texture2D image;
         protected Vector2 position;
+        protected Vector2 velocity;
         protected Vector2 posCenter;
         protected Vector2 offset;
 
@@ -48,6 +49,21 @@ namespace POO_TP1
             get
             {
                 return position;
+            }
+            set
+            {
+                position = value;
+            }
+        }
+        public Vector2 Velocity
+        {
+            get
+            {
+                return velocity;
+            }
+            set
+            {
+                velocity = value;
             }
         }
         public Vector2 Offset

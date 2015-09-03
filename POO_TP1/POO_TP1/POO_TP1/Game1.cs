@@ -104,14 +104,11 @@ namespace POO_TP1
             facto = new Factory(Content);
             spacefield = Content.Load<Texture2D>("Graphics\\background\\stars");
             PlayerShip.GetInstance().Initialize(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 4, SCREENHEIGHT / 2));
+            PlayerShip.GetInstance().InitBullets(Content);
             eShip = Factory.createEnnemyShip(TypeShip.bigShip);
             bonus = Factory.createBonus(Bonus.BonusType.slowDown);
-            asteroids = new List<Asteroid>();
-            rand = new Random();
-            for (int i = 0; i < rand.Next(2, 6); i++)
-            {
-                asteroids.Add(new Asteroid(Content.Load<Texture2D>("Graphics\\sprites\\official_asteroid"), new Vector2(rand.Next(0, 1000), rand.Next(0, 600))));
-            }
+            loadAsteroids();
+            
             // TODO: use this.Content to load your game content here
         }
 
@@ -202,6 +199,11 @@ namespace POO_TP1
             if (PlayerShip.GetInstance().Alive)
             {
                 spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.White, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
+                
+                foreach (Bullet bullet in PlayerShip.GetInstance().Bullets)
+                {
+                    spriteBatch.Draw(bullet.Image, bullet.Position, Color.White);
+                }
             }
             spriteBatch.End();
 
@@ -230,6 +232,16 @@ namespace POO_TP1
                     EndPause();
             }
             pauseKeyDown = pauseKeyDownThisFrame;
+        }
+
+        private void loadAsteroids()
+        {
+            asteroids = new List<Asteroid>();
+            rand = new Random();
+            for (int i = 0; i < rand.Next(2, 6); i++)
+            {
+                asteroids.Add(new Asteroid(Content.Load<Texture2D>("Graphics\\sprites\\official_asteroid"), new Vector2(rand.Next(0, 1000), rand.Next(0, 600))));
+            }
         }
     }
 }

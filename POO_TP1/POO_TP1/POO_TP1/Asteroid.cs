@@ -9,21 +9,8 @@ namespace POO_TP1
 
     class Asteroid : Objet2D
     {
-        private Vector2 velocity;
         private AsteroidSize size;
         private Random rand;
-
-        public Vector2 Velocity
-        {
-            get
-            {
-                return velocity;
-            }
-            set 
-            {
-                velocity = value;
-            }
-        }
 
         public AsteroidSize Size
         {
