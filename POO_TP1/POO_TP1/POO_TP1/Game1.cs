@@ -22,8 +22,13 @@ namespace POO_TP1
         private SpriteFont font;
         public const int SCREENWIDTH = 1280;
         public const int SCREENHEIGHT = 796;
+        private const float TIME_BETWEEN_SHOTS_SEC= 3;
+        private GameTime time;
         private bool paused = true;
         private bool pauseKeyDown;
+        private float now;
+        private float lastTime;
+        private float deltaTime;
 
 
         private Factory facto;
@@ -132,6 +137,7 @@ namespace POO_TP1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            time = gameTime;
             GamePadState padOneState = GamePad.GetState(PlayerIndex.One);
             KeyboardState keyboardState = Keyboard.GetState(PlayerIndex.One);
 
@@ -174,6 +180,10 @@ namespace POO_TP1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            if (PlayerShip.GetInstance().Cooldown > 0)
+            {
+                PlayerShip.GetInstance().Cooldown--;
+            }
             spriteBatch.Begin();
             spriteBatch.Draw(spacefield, Vector2.Zero, Color.White);
 
@@ -262,7 +272,13 @@ namespace POO_TP1
             }
             if (keyboardState.IsKeyDown(Keys.A)) PlayerShip.GetInstance().RotationAngle -= 0.05f;
             if (keyboardState.IsKeyDown(Keys.D)) PlayerShip.GetInstance().RotationAngle += 0.05f;
-            if (keyboardState.IsKeyDown(Keys.Space)) PlayerShip.GetInstance().Shoot();
+            if (keyboardState.IsKeyDown(Keys.Space))
+            {
+                if (PlayerShip.GetInstance().Cooldown == 0)
+                {
+                    PlayerShip.GetInstance().Shoot();
+                }
+            }
         }
 
         private void loadAsteroids()
@@ -273,6 +289,11 @@ namespace POO_TP1
             {
                 asteroids.Add(new Asteroid(Content.Load<Texture2D>("Graphics\\sprites\\official_asteroid"), new Vector2(0, 0),i));
             }
+        }
+
+        private void checkFireTime()
+        {
+
         }
     }
 }
