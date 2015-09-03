@@ -194,7 +194,12 @@ namespace POO_TP1
             }
             if (paused)
             {
-                GameMenu.GetInstance().CallMenu(ref spriteBatch);
+               spriteBatch.DrawString(GameMenu.GetInstance().Font,GameMenu.GetInstance().PlayButton,GameMenu.GetInstance().PlayButtonPos,
+                                        Color.White,0,GameMenu.GetInstance().FontOrigin,1.0f,SpriteEffects.None, 0.5f);
+               spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().OptionsButton, GameMenu.GetInstance().OptionsButtonPos,
+                                        Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+               spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().ExitButton, GameMenu.GetInstance().ExitButtonPos,
+                                        Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
             }
 
             spriteBatch.End();
