@@ -13,9 +13,9 @@ namespace POO_TP1
         private static GameMenu menu;
         private SpriteFont font;
 
-        private string playButton;
-        private string exitButton;
-        private string optionsButton;
+        private int selectedItemIndex;
+        private int nbMenuItems;
+        private string[] menuItems = new string[3];
         private Vector2 playButtonPos;
         private Vector2 optionsButtonPos;
         private Vector2 exitButtonsPos;
@@ -37,6 +37,11 @@ namespace POO_TP1
 
         public void Initialize(SpriteFont font,ref GraphicsDeviceManager graphics)
         {
+            menuItems[0] = "Play";
+            menuItems[1] = "Options";
+            menuItems[2] = "Exit";
+            nbMenuItems = 3;
+            selectedItemIndex = 0;
             this.font = font;
             playButtonPos = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
                      graphics.GraphicsDevice.Viewport.Height / 2);
@@ -44,23 +49,40 @@ namespace POO_TP1
                      graphics.GraphicsDevice.Viewport.Height / 2 + 75);
             exitButtonPosition = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
                      graphics.GraphicsDevice.Viewport.Height / 2 + 150);
-            playButton = "Play";
-            exitButton = "Exit";
-            optionsButton = "Options";
-            fontOrigin = font.MeasureString(playButton) / 2;
+            fontOrigin = font.MeasureString(menuItems[0]) / 2;
+
+            
+        }
+
+        public void choiceUp()
+        {
+            if (selectedItemIndex - 1 >= 0)
+            {
+                
+            }
+        }
+
+        public void choiceDown()
+        {
+        }
+
+        public int SelectedItemIndex
+        {
+            get { return selectedItemIndex;}
+            set { selectedItemIndex = value; }
         }
 
         public String PlayButton
         {
-            get {return playButton; }
+            get {return menuItems[0]; }
         }
         public String ExitButton
         {
-            get { return exitButton; }
+            get { return menuItems[2]; }
         }
         public String OptionsButton
         {
-            get { return optionsButton; }
+            get { return menuItems[1]; }
         }
 
         public Vector2 PlayButtonPosition
