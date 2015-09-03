@@ -16,7 +16,7 @@ namespace POO_TP1
         private bool alive;
         private int playerTotalLife = 3;
         private static PlayerShip ship;
-        private Bullet bullet;
+        private Bullet[] bullets;
 
         public static PlayerShip GetInstance()
         {
@@ -35,18 +35,19 @@ namespace POO_TP1
         {
             base.image = image;
             base.position = position;
+            bullets = new Bullet[MAX_BULLETS];
             FillObject2DInfo();
         }
 
-        public Bullet Bullet
+        public Bullet[] Bullet
         {
             get
             {
-                return bullet;
+                return bullets;
             }
             set
             {
-                bullet = value;
+                bullets = value;
             }
         }
 
@@ -150,14 +151,21 @@ namespace POO_TP1
 
         public void Shoot()
         {
-            bullet.Position = this.position;
-            bullet.Velocity = new Vector2((float)Math.Sin((double)rotationAngle) * 10, -(float)Math.Cos((double)rotationAngle) * 10);
-            bullet.IsShooted = true;            
+            foreach (Bullet bullet in bullets)
+            {
+                //bullet.Position = this.position;
+                //bullet.Velocity = new Vector2((float)Math.Sin((double)rotationAngle) * 10, -(float)Math.Cos((double)rotationAngle) * 10);
+                //bullet.IsShooted = true;
+            }
+
         }
 
         public void InitBullets(ContentManager content)
         {
-            bullet = new Bullet(content.Load<Texture2D>("Graphics\\sprites\\Bullet"));
+            for (int i = 0; i < bullets.Length; i++)
+            {
+                //bullets[i] = new Bullet(content.Load<Texture2D>("Graphics\\sprites\\Bullet"));
+            }
         }
 
         public void Notify(ObservedSubject subject)
