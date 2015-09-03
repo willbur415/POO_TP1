@@ -8,16 +8,20 @@ using POO_TP1;
 
 namespace POO_TP1
 {
-    class PlayerShip : Objet2D, Observer
+    class PlayerShip : MovableObject, Observer
     {
         private const double MAXSPEED = 100.0;
         private const float SLOWFACTOR = 20.0f;
         private const int MAX_BULLETS = 10;
+        private const int COOLDOWN_TIME = 20;
         private bool alive;
         private int playerTotalLife = 3;
         private static PlayerShip ship;
         private Bullet[] bullets;
-        private bool canShoot = true;
+        private bool firstShot = false;
+        private int cooldown;
+
+        public const int TIME_BETWEEN_SHOTS_MILI = 3000;
 
         public static PlayerShip GetInstance()
         {
@@ -52,15 +56,15 @@ namespace POO_TP1
             }
         }
 
-        public bool CanShoot
+        public bool FirstShot
         {
             get
             {
-                return canShoot;
+                return firstShot;
             }
             set
             {
-                canShoot = value;
+                firstShot = value;
             }
         }
 
@@ -69,6 +73,19 @@ namespace POO_TP1
             get
             {
                 return alive;
+            }
+        }
+
+
+        public int Cooldown
+        {
+            get
+            {
+                return cooldown;
+            }
+            set
+            {
+                cooldown = value;
             }
         }
 
@@ -102,32 +119,24 @@ namespace POO_TP1
 
             //Angle 0 est un vecteur qui pointe vers le haut, et on augmente l'angle dans le sens des aiguilles d'une montre
 
-            velocity.X += (float)(Math.Sin((double)rotationAngle) * newThrust);
-            velocity.Y -= (float)(Math.Cos((double)rotationAngle) * newThrust);
+            velocity.X += (float)(Math.Sin((double)rotationAngle) * newThrust) / SLOWFACTOR;
+            velocity.Y -= (float)(Math.Cos((double)rotationAngle) * newThrust) / SLOWFACTOR;
 
             //Dans bien des vieux jeux la vitesse maximum semble être par axe, mais comme on a de la puissance de calcul, on va la faire totale.
             MaxThrust();
 
             //Il faut aussi déplacer les poly de collision
-            MoveAll(velocity.X / SLOWFACTOR, velocity.Y / SLOWFACTOR);
-
-            //Déplacement de l'autre côté.  On se donne un buffer de la taille de notre objet
-            OtherSide(ref position.X, ref boiteCollision.Min.X, ref boiteCollision.Max.X, ref sphereCollision.Center.X, Game1.SCREENWIDTH, image.Width);
-            OtherSide(ref position.Y, ref boiteCollision.Min.Y, ref boiteCollision.Max.Y, ref sphereCollision.Center.Y, Game1.SCREENHEIGHT, image.Height);
+            move();
+            bulletsFollow();
         }
 
-        private void MoveAll(float moveX, float moveY)
+        private void bulletsFollow()
         {
-            this.position.X += moveX;
-            this.position.Y += moveY;
-
-            this.boiteCollision.Min.X += moveX;
-            this.boiteCollision.Min.Y += moveY;
-            this.boiteCollision.Max.X += moveX;
-            this.boiteCollision.Max.Y += moveY;
-
-            this.sphereCollision.Center.X += moveX;
-            this.sphereCollision.Center.Y += moveY;
+            foreach (Bullet bullet in bullets)
+            {
+                if (!bullet.IsShooted)
+                    bullet.Position = this.position;
+            }
         }
 
         private void MaxThrust()
@@ -144,37 +153,19 @@ namespace POO_TP1
             }
         }
 
-        private void OtherSide(ref float position, ref float minBox, ref float maxBox, ref float sphere, int screenSize, int imageSize)
-        {
-            if (position > screenSize + imageSize / 2)
-            {
-                position -= screenSize + imageSize;
-                minBox -= screenSize + imageSize;
-                maxBox -= screenSize + imageSize;
-                sphere -= screenSize + imageSize;
-            }
-            else if (position < -imageSize / 2)
-            {
-                position += screenSize + imageSize;
-                minBox += screenSize + imageSize;
-                maxBox += screenSize + imageSize;
-                sphere += screenSize + imageSize;
-            }
-        }
-
-        public void Shoot()
+        public bool Shoot()
         {
             foreach (Bullet bullet in bullets)
             {
-                if (canShoot)
+                if (!bullet.IsShooted)
                 {
-                    bullet.Position = this.position;
                     bullet.Velocity = new Vector2((float)Math.Sin((double)rotationAngle) * 10, -(float)Math.Cos((double)rotationAngle) * 10);
                     bullet.IsShooted = true;
-                    return;
+                    cooldown = COOLDOWN_TIME;
+                    return true;
                 }
             }
-
+            return false;
         }
 
         public void InitBullets(ContentManager content)
