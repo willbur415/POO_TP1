@@ -16,8 +16,10 @@ namespace POO_TP1
         private string playButton;
         private string exitButton;
         private string optionsButton;
-
-        private Vector2 fontPos;
+        private Vector2 playButtonPos;
+        private Vector2 optionsButtonPos;
+        private Vector2 exitButtonsPos;
+        private Vector2 fontOrigin;
         private Vector2 cursorPosition;
         private Vector2 playButtonPosition;
         private Vector2 exitButtonPosition;
@@ -36,16 +38,57 @@ namespace POO_TP1
         public void Initialize(SpriteFont font,ref GraphicsDeviceManager graphics)
         {
             this.font = font;
-            fontPos = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
+            playButtonPos = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
                      graphics.GraphicsDevice.Viewport.Height / 2);
+            optionsButtonPos = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
+                     graphics.GraphicsDevice.Viewport.Height / 2 + 75);
+            exitButtonPosition = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
+                     graphics.GraphicsDevice.Viewport.Height / 2 + 150);
             playButton = "Play";
             exitButton = "Exit";
             optionsButton = "Options";
+            fontOrigin = font.MeasureString(playButton) / 2;
         }
 
-        public void CallMenu(ref SpriteBatch spriteBatch)
+        public String PlayButton
         {
-            //spriteBatch.DrawString(font,playButton,fontPos,Color.LightGreen,0,font.MeasureString(playButton) / 2, 1.0f, SpriteEffects.None, 0,5f);
+            get {return playButton; }
+        }
+        public String ExitButton
+        {
+            get { return exitButton; }
+        }
+        public String OptionsButton
+        {
+            get { return optionsButton; }
+        }
+
+        public Vector2 PlayButtonPosition
+        {
+            get { return playButtonPosition;}
+        }
+
+        public SpriteFont Font
+        {
+            get { return font;}
+        }
+
+        public Vector2 PlayButtonPos
+        {
+            get { return playButtonPos;}
+        }
+        public Vector2 OptionsButtonPos
+        {
+            get { return optionsButtonPos; }
+        }
+        public Vector2 ExitButtonPos
+        {
+            get { return exitButtonPosition; }
+        }
+
+        public Vector2 FontOrigin
+        {
+            get { return fontOrigin;}
         }
     }
 }
