@@ -71,8 +71,14 @@ namespace POO_TP1
 
         private void updateCollisions()
         {
-            boiteCollision = new BoundingBox(new Vector3(position.X - offset.X, position.Y - offset.Y, 0), new Vector3(position.X + offset.X, position.Y + +offset.Y, 0));
-            sphereCollision = new BoundingSphere(new Vector3(position.X, position.Y, 0), offset.X);
+            boiteCollision.Min.X = position.X;
+            boiteCollision.Max.X = position.X;
+            boiteCollision.Min.Y = position.Y;
+            boiteCollision.Max.Y = position.Y;
+
+            sphereCollision.Center.X = position.X;
+            sphereCollision.Center.Y = position.Y;
+
         }
 
         private void OtherSide(ref float position, ref float minBox, ref float maxBox, ref float sphere, int screenSize, int imageSize)
