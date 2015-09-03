@@ -151,7 +151,10 @@ namespace POO_TP1
                 {
                     CheckKeyboardKeys(keyboardState);
                 }
-                //PlayerShip.GetInstance().Bullet.Update();
+                foreach (Bullet bullet in PlayerShip.GetInstance().Bullets)
+                {
+                    bullet.Update();
+                }
                 foreach (Asteroid ast in asteroids)
                 {
                     ast.Move();
@@ -185,7 +188,10 @@ namespace POO_TP1
 
                 if (PlayerShip.GetInstance().Alive)
                 {
-                    //spriteBatch.Draw(PlayerShip.GetInstance().Bullet.Image, PlayerShip.GetInstance().Bullet.Position, Color.White);
+                    foreach (Bullet bullet in PlayerShip.GetInstance().Bullets)
+                    {
+                        spriteBatch.Draw(bullet.Image, bullet.Position, Color.White);
+                    }
                     spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.White, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
                 }   
             }
