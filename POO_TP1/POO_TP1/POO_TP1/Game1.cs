@@ -207,7 +207,7 @@ namespace POO_TP1
 
             base.Draw(gameTime);
         }
-        //Code pour le pause prit dans la documentation microsoft
+
         private void BeginPause()
         {
             paused = true;
