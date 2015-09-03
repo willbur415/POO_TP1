@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bonus.cs" />
+    <Compile Include="Bullet.cs" />
     <Compile Include="Factory.cs" />
     <Compile Include="Asteroid.cs" />
     <Compile Include="GameMenu.cs" />
