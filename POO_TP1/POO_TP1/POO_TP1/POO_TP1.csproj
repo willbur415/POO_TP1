@@ -75,6 +75,7 @@
     <Compile Include="Bonus.cs" />
     <Compile Include="Factory.cs" />
     <Compile Include="Asteroid.cs" />
+    <Compile Include="GameMenu.cs" />
     <Compile Include="Objet2D.cs" />
     <Compile Include="ObservedSubject.cs" />
     <Compile Include="Observer.cs" />
