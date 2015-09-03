@@ -150,7 +150,8 @@ namespace POO_TP1
                 else
                 {
                     CheckKeyboardKeys(keyboardState);
-                    }
+                }
+                PlayerShip.GetInstance().Bullet.Update();
                 foreach (Asteroid ast in asteroids)
                 {
                     ast.Move();

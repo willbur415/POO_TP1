@@ -25,7 +25,7 @@ namespace POO_TP1
             FillObject2DInfo();
         }
 
-        public void update()
+        public void Update()
         {
             this.position += this.velocity;
         }
