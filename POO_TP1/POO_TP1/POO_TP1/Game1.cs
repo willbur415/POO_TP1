@@ -165,6 +165,8 @@ namespace POO_TP1
                     }
                     if (keyboardState.IsKeyDown(Keys.A)) PlayerShip.GetInstance().RotationAngle -= 0.05f;
                     if (keyboardState.IsKeyDown(Keys.D)) PlayerShip.GetInstance().RotationAngle += 0.05f;
+                    if (keyboardState.IsKeyDown(Keys.Space)) PlayerShip.GetInstance().Shoot();
+                    PlayerShip.GetInstance().Bullet.update();
                 }
                 foreach (Asteroid ast in asteroids)
                 {
@@ -199,11 +201,7 @@ namespace POO_TP1
             if (PlayerShip.GetInstance().Alive)
             {
                 spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.White, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
-                
-                foreach (Bullet bullet in PlayerShip.GetInstance().Bullets)
-                {
-                    spriteBatch.Draw(bullet.Image, bullet.Position, Color.White);
-                }
+                spriteBatch.Draw(PlayerShip.GetInstance().Bullet.Image, PlayerShip.GetInstance().Bullet.Position, Color.White);
             }
             spriteBatch.End();
 
@@ -240,7 +238,7 @@ namespace POO_TP1
             rand = new Random();
             for (int i = 0; i < rand.Next(2, 6); i++)
             {
-                asteroids.Add(new Asteroid(Content.Load<Texture2D>("Graphics\\sprites\\official_asteroid"), new Vector2(rand.Next(0, 1000), rand.Next(0, 600))));
+                asteroids.Add(new Asteroid(Content.Load<Texture2D>("Graphics\\sprites\\official_asteroid"), new Vector2(rand.Next(0, 1000), rand.Next(0, 600)),i));
             }
         }
     }
