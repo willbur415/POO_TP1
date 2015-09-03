@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 using POO_TP1;
 
 
@@ -9,12 +10,13 @@ namespace POO_TP1
 {
     class PlayerShip : Objet2D, Observer
     {
-        private Vector2 thrust;
         private const double MAXSPEED = 100.0;
         private const float SLOWFACTOR = 20.0f;
+        private const int MAX_BULLETS = 10;
         private bool alive;
         private int playerTotalLife = 3;
         private static PlayerShip ship;
+        private Bullet bullet;
 
         public static PlayerShip GetInstance()
         {
@@ -32,8 +34,20 @@ namespace POO_TP1
         public void Initialize(Texture2D image, Vector2 position)
         {
             base.image = image;
-            this.position = position;
+            base.position = position;
             FillObject2DInfo();
+        }
+
+        public Bullet Bullet
+        {
+            get
+            {
+                return bullet;
+            }
+            set
+            {
+                bullet = value;
+            }
         }
 
         public bool Alive
@@ -73,14 +87,15 @@ namespace POO_TP1
                 newThrust /= 2;
 
             //Angle 0 est un vecteur qui pointe vers le haut, et on augmente l'angle dans le sens des aiguilles d'une montre
-            thrust.X += (float)(Math.Sin((double)rotationAngle) * newThrust);
-            thrust.Y -= (float)(Math.Cos((double)rotationAngle) * newThrust);
+
+            velocity.X += (float)(Math.Sin((double)rotationAngle) * newThrust);
+            velocity.Y -= (float)(Math.Cos((double)rotationAngle) * newThrust);
 
             //Dans bien des vieux jeux la vitesse maximum semble être par axe, mais comme on a de la puissance de calcul, on va la faire totale.
             MaxThrust();
 
             //Il faut aussi déplacer les poly de collision
-            MoveAll(thrust.X / SLOWFACTOR, thrust.Y / SLOWFACTOR);
+            MoveAll(velocity.X / SLOWFACTOR, velocity.Y / SLOWFACTOR);
 
             //Déplacement de l'autre côté.  On se donne un buffer de la taille de notre objet
             OtherSide(ref position.X, ref boiteCollision.Min.X, ref boiteCollision.Max.X, ref sphereCollision.Center.X, Game1.SCREENWIDTH, image.Width);
@@ -104,14 +119,14 @@ namespace POO_TP1
         private void MaxThrust()
         {
             //Calcul de la vitesse maximum actuelle (pythagore)
-            double totalSpeed = Math.Sqrt((double)(thrust.X * thrust.X + thrust.Y * thrust.Y));
+            double totalSpeed = Math.Sqrt((double)(velocity.X * velocity.X + velocity.Y * velocity.Y));
 
             //Si plus grande que la vitesse actuelle, on se fait un ratio
             if (totalSpeed > MAXSPEED)
             {
                 float ratio = (float)(MAXSPEED / totalSpeed);
-                thrust.X *= ratio;
-                thrust.Y *= ratio;
+                velocity.X *= ratio;
+                velocity.Y *= ratio;
             }
         }
 
@@ -131,6 +146,18 @@ namespace POO_TP1
                 maxBox += screenSize + imageSize;
                 sphere += screenSize + imageSize;
             }
+        }
+
+        public void Shoot()
+        {
+            bullet.Position = this.position;
+            bullet.Velocity = new Vector2((float)Math.Sin((double)rotationAngle) * 10, -(float)Math.Cos((double)rotationAngle) * 10);
+            bullet.IsShooted = true;            
+        }
+
+        public void InitBullets(ContentManager content)
+        {
+            bullet = new Bullet(content.Load<Texture2D>("Graphics\\sprites\\Bullet"));
         }
 
         public void Notify(ObservedSubject subject)

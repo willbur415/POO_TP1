@@ -9,21 +9,9 @@ namespace POO_TP1
 
     class Asteroid : Objet2D
     {
-        private Vector2 velocity;
         private AsteroidSize size;
         private Random rand;
-
-        public Vector2 Velocity
-        {
-            get
-            {
-                return velocity;
-            }
-            set 
-            {
-                velocity = value;
-            }
-        }
+        private const float ASTEROIDS_SPEED = 2;
 
         public AsteroidSize Size
         {
@@ -37,10 +25,11 @@ namespace POO_TP1
             }
         }
 
-        public Asteroid(Texture2D image, Vector2 position) : base(image, position)
+        public Asteroid(Texture2D image, Vector2 position, float rotationAngle) : base(image, position)
         {
             rand = new Random();
-            Velocity = new Vector2(rand.Next(-2, 2), rand.Next(-2, 2));
+            velocity.X = (float)(Math.Sin((double)rotationAngle) * ASTEROIDS_SPEED);
+            velocity.Y = (float)(Math.Cos((double)rotationAngle) * ASTEROIDS_SPEED);
         }
 
         public void Move()
