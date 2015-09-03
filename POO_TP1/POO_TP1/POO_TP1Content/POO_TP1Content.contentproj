@@ -112,6 +112,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Graphics\sprites\Menu\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Kootenay.spritefont">
+      <Name>Kootenay</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Graphics\sprites\Bullet.png">
       <Name>Bullet</Name>
       <Importer>TextureImporter</Importer>

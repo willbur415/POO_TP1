@@ -21,7 +21,6 @@ namespace POO_TP1
         public Factory(ContentManager content)
         {
             Factory.content = content;
-            content.RootDirectory = "Content";
         }
 
         public static EnnemyShip createEnnemyShip(TypeShip typeShip)
