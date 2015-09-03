@@ -131,18 +131,44 @@ namespace POO_TP1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            GamePadState padOneState = GamePad.GetState(PlayerIndex.One); 
+            GamePadState padOneState = GamePad.GetState(PlayerIndex.One);
+            KeyboardState keyboardState = Keyboard.GetState(PlayerIndex.One);
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) || padOneState.Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
             CheckPauseKey(padOneState);
 
+            
+
             if (!paused)
             {
-                PlayerShip.GetInstance().RotationAngle += padOneState.ThumbSticks.Right.X / 16.0f;
-                PlayerShip.GetInstance().MoveShip(padOneState.ThumbSticks.Left.Y);
-
+                if (padOneState.IsConnected)
+                {
+                    PlayerShip.GetInstance().RotationAngle += padOneState.ThumbSticks.Right.X / 16.0f;
+                    PlayerShip.GetInstance().MoveShip(padOneState.ThumbSticks.Left.Y);
+                }
+                else
+                {
+                    if (keyboardState.IsKeyDown(Keys.W))
+                    {
+                        PlayerShip.GetInstance().MoveShip(1.0f);
+                    }
+                    else
+                    {
+                        PlayerShip.GetInstance().MoveShip(0);
+                    }
+                    if (keyboardState.IsKeyDown(Keys.S))
+                    {
+                        PlayerShip.GetInstance().MoveShip(-1.0f);
+                    }
+                    else
+                    {
+                        PlayerShip.GetInstance().MoveShip(0);
+                    }
+                    if (keyboardState.IsKeyDown(Keys.A)) PlayerShip.GetInstance().RotationAngle -= 0.05f;
+                    if (keyboardState.IsKeyDown(Keys.D)) PlayerShip.GetInstance().RotationAngle += 0.05f;
+                }
                 foreach (Asteroid ast in asteroids)
                 {
                     ast.Move();
