@@ -32,7 +32,7 @@ namespace POO_TP1
         public void Initialize(Texture2D image, Vector2 position)
         {
             base.image = image;
-            this.position = position;
+            base.position = position;
             FillObject2DInfo();
         }
 

@@ -152,7 +152,7 @@ namespace POO_TP1
                 {
                     if (keyboardState.IsKeyDown(Keys.W))
                     {
-                        PlayerShip.GetInstance().MoveShip(1.0f);
+                        PlayerShip.GetInstance().MoveShip(0.5f);
                     }
                     else
                     {
@@ -160,7 +160,7 @@ namespace POO_TP1
                     }
                     if (keyboardState.IsKeyDown(Keys.S))
                     {
-                        PlayerShip.GetInstance().MoveShip(-1.0f);
+                        PlayerShip.GetInstance().MoveShip(-0.5f);
                     }
                     else
                     {
