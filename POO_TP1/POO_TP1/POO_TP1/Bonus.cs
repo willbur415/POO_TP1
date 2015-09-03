@@ -12,12 +12,46 @@ using POO_TP1;
 
 namespace POO_TP1
 {
-    enum BonusType
+    
+    class Bonus : ObservedSubject
     {
-        bonus1, bonus2, bonus3, bonus4, bonus5
-    }
-    class Bonus : Objet2D
-    {
-       
+        private Texture2D image;
+        private Vector2 position;
+        private Vector2 posCenter;
+        private Vector2 offset;
+        private BonusType type;
+        private BoundingBox boiteCollision;
+        private BoundingSphere sphereCollision;
+        public enum BonusType
+        {
+            invincible, extraLife, doublePoints, slowDown, extraPoints
+        }
+
+        public BonusType Type
+        {
+            get { return type; }
+            set { type = value; }
+        }
+
+        public Texture2D Image
+        {
+            get { return image; }
+        }
+
+        public Vector2 Position
+        {
+            get { return position; }
+        }
+
+        public Bonus(Texture2D image, Vector2 position, BonusType type)
+        {
+            this.image = image;
+            this.position = position;
+            this.type = type;
+            offset = new Vector2(image.Width / 2, image.Height / 2);
+            posCenter = new Vector2(position.X + offset.X, position.Y + offset.Y);
+            boiteCollision = new BoundingBox(new Vector3(position.X - offset.X, position.Y - offset.Y, 0), new Vector3(position.X + offset.X, position.Y + +offset.Y, 0));
+            sphereCollision = new BoundingSphere(new Vector3(position.X, position.Y, 0), offset.X);
+        }
     }
 }

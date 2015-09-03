@@ -28,6 +28,7 @@ namespace POO_TP1
         private Factory facto;
         private Texture2D spacefield;
         private EnnemyShip eShip;
+        private Bonus bonus;
         private List<Asteroid> asteroids;
         private Random rand;
 
@@ -104,6 +105,7 @@ namespace POO_TP1
             spacefield = Content.Load<Texture2D>("Graphics\\background\\stars");
             PlayerShip.GetInstance().Initialize(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 4, SCREENHEIGHT / 2));
             eShip = Factory.createEnnemyShip(TypeShip.bigShip);
+            bonus = Factory.createBonus(Bonus.BonusType.slowDown);
             asteroids = new List<Asteroid>();
             rand = new Random();
             for (int i = 0; i < rand.Next(2, 6); i++)
@@ -164,6 +166,7 @@ namespace POO_TP1
             spriteBatch.Begin();
             spriteBatch.Draw(spacefield, Vector2.Zero, Color.White);
             spriteBatch.Draw(eShip.Image, eShip.Position, Color.White);
+            spriteBatch.Draw(bonus.Image, bonus.Position, Color.White);
 
             foreach (Asteroid ast in asteroids)
             {
