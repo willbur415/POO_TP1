@@ -27,8 +27,6 @@ namespace POO_TP1
 
         public void update()
         {
-            this.velocity.X *= 1.1f;
-            this.velocity.Y *= 1.1f;
             this.position += this.velocity;
         }
 

@@ -151,7 +151,7 @@ namespace POO_TP1
         public void Shoot()
         {
             bullet.Position = this.position;
-            bullet.Velocity = new Vector2((float)Math.Sin((double)rotationAngle), -(float)Math.Cos((double)rotationAngle));
+            bullet.Velocity = new Vector2((float)Math.Sin((double)rotationAngle) * 10, -(float)Math.Cos((double)rotationAngle) * 10);
             bullet.IsShooted = true;            
         }
 
