@@ -49,13 +49,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Graphics\sprites\asteroid_01.png">
-      <Name>asteroid_01</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Graphics\sprites\LittleShip.png">
       <Name>LittleShip</Name>
       <Importer>TextureImporter</Importer>
@@ -107,6 +100,13 @@
   <ItemGroup>
     <Compile Include="Graphics\sprites\Bonus\slowDown.png">
       <Name>slowDown</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Graphics\sprites\official_asteroid.png">
+      <Name>official_asteroid</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

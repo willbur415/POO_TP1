@@ -32,7 +32,7 @@ namespace POO_TP1
         public void Initialize(Texture2D image, Vector2 position)
         {
             base.image = image;
-            base.position = position;
+            this.position = position;
             FillObject2DInfo();
         }
 
@@ -60,7 +60,7 @@ namespace POO_TP1
 
         public void CheckCollisionBox(Objet2D theOther)
         {
-            if (boiteCollision.Intersects(theOther.BoiteCollision))
+            if (sphereCollision.Intersects(theOther.SphereCollision))
             {
                 alive = false;
             }
