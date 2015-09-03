@@ -175,28 +175,28 @@ namespace POO_TP1
 
             if (!paused)
             {
-            spriteBatch.Draw(eShip.Image, eShip.Position, Color.White);
+                spriteBatch.Draw(eShip.Image, eShip.Position, Color.White);
 
-            foreach (Asteroid ast in asteroids)
-            {
-                spriteBatch.Draw(ast.Image, ast.Position, Color.White);
-            }
+                foreach (Asteroid ast in asteroids)
+                {
+                    spriteBatch.Draw(ast.Image, ast.Position, Color.White);
+                }
 
-            if (PlayerShip.GetInstance().Alive)
-            {
-                spriteBatch.Draw(PlayerShip.GetInstance().Bullet.Image, PlayerShip.GetInstance().Bullet.Position, Color.White);
-                spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.White, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
+                if (PlayerShip.GetInstance().Alive)
+                {
+                    spriteBatch.Draw(PlayerShip.GetInstance().Bullet.Image, PlayerShip.GetInstance().Bullet.Position, Color.White);
+                    spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.White, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
+                }
+                if (paused)
+                {
+                    spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().PlayButton, GameMenu.GetInstance().PlayButtonPos,
+                                             Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+                    spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().OptionsButton, GameMenu.GetInstance().OptionsButtonPos,
+                                             Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+                    spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().ExitButton, GameMenu.GetInstance().ExitButtonPos,
+                                             Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+                }
             }
-            if (paused)
-            {
-               spriteBatch.DrawString(GameMenu.GetInstance().Font,GameMenu.GetInstance().PlayButton,GameMenu.GetInstance().PlayButtonPos,
-                                        Color.White,0,GameMenu.GetInstance().FontOrigin,1.0f,SpriteEffects.None, 0.5f);
-               spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().OptionsButton, GameMenu.GetInstance().OptionsButtonPos,
-                                        Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-               spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().ExitButton, GameMenu.GetInstance().ExitButtonPos,
-                                        Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-            }
-
             spriteBatch.End();
             base.Draw(gameTime);
             
