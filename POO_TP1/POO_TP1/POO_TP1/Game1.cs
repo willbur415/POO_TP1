@@ -19,9 +19,10 @@ namespace POO_TP1
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private SpriteFont font;
         public const int SCREENWIDTH = 1280;
         public const int SCREENHEIGHT = 796;
-        private bool paused;
+        private bool paused = true;
         private bool pauseKeyDown;
 
 
@@ -99,13 +100,15 @@ namespace POO_TP1
         /// </summary>
         protected override void LoadContent()
         {
+            font = Content.Load<SpriteFont>("Kootenay");
+            GameMenu.GetInstance().Initialize(font, ref graphics);
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
             facto = new Factory(Content);
             spacefield = Content.Load<Texture2D>("Graphics\\background\\stars");
             PlayerShip.GetInstance().Initialize(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 4, SCREENHEIGHT / 2));
             eShip = Factory.createEnnemyShip(TypeShip.bigShip);
-            bonus = Factory.createBonus(Bonus.BonusType.slowDown);
             asteroids = new List<Asteroid>();
             rand = new Random();
             for (int i = 0; i < rand.Next(2, 6); i++)
@@ -139,8 +142,6 @@ namespace POO_TP1
 
             CheckPauseKey(padOneState);
 
-            
-
             if (!paused)
             {
                 if (padOneState.IsConnected)
@@ -150,24 +151,7 @@ namespace POO_TP1
                 }
                 else
                 {
-                    if (keyboardState.IsKeyDown(Keys.W))
-                    {
-                        PlayerShip.GetInstance().MoveShip(1.0f);
-                    }
-                    else
-                    {
-                        PlayerShip.GetInstance().MoveShip(0);
-                    }
-                    if (keyboardState.IsKeyDown(Keys.S))
-                    {
-                        PlayerShip.GetInstance().MoveShip(-1.0f);
-                    }
-                    else
-                    {
-                        PlayerShip.GetInstance().MoveShip(0);
-                    }
-                    if (keyboardState.IsKeyDown(Keys.A)) PlayerShip.GetInstance().RotationAngle -= 0.05f;
-                    if (keyboardState.IsKeyDown(Keys.D)) PlayerShip.GetInstance().RotationAngle += 0.05f;
+                    CheckKeyboardKeys(keyboardState);
                 }
                 foreach (Asteroid ast in asteroids)
                 {
@@ -188,26 +172,36 @@ namespace POO_TP1
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
             spriteBatch.Begin();
             spriteBatch.Draw(spacefield, Vector2.Zero, Color.White);
-            spriteBatch.Draw(eShip.Image, eShip.Position, Color.White);
-            spriteBatch.Draw(bonus.Image, bonus.Position, Color.White);
 
-            foreach (Asteroid ast in asteroids)
+            if (!paused)
             {
-                spriteBatch.Draw(ast.Image, ast.Position, Color.White);
+                spriteBatch.Draw(eShip.Image, eShip.Position, Color.White);
+
+                foreach (Asteroid ast in asteroids)
+                {
+                    spriteBatch.Draw(ast.Image, ast.Position, Color.White);
+                }
+
+                if (PlayerShip.GetInstance().Alive)
+                {
+                    spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null,
+                        Color.White, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f,
+                        SpriteEffects.None, 0f);
+                }
+
+            }
+            if (paused)
+            {
+                GameMenu.GetInstance().CallMenu(ref spriteBatch);
             }
 
-            if (PlayerShip.GetInstance().Alive)
-            {
-                spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.White, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
-            }
             spriteBatch.End();
-
             base.Draw(gameTime);
+            
         }
-        //Code pour le pause prit dans la documentation microsoft
+        //Code for game pausing taking in microsoft documentation
         private void BeginPause()
         {
             paused = true;
@@ -230,6 +224,28 @@ namespace POO_TP1
                     EndPause();
             }
             pauseKeyDown = pauseKeyDownThisFrame;
+        }
+
+        private void CheckKeyboardKeys(KeyboardState keyboardState)
+        {
+            if (keyboardState.IsKeyDown(Keys.W))
+            {
+                PlayerShip.GetInstance().MoveShip(1.0f);
+            }
+            else
+            {
+                PlayerShip.GetInstance().MoveShip(0);
+            }
+            if (keyboardState.IsKeyDown(Keys.S))
+            {
+                PlayerShip.GetInstance().MoveShip(-1.0f);
+            }
+            else
+            {
+                PlayerShip.GetInstance().MoveShip(0);
+            }
+            if (keyboardState.IsKeyDown(Keys.A)) PlayerShip.GetInstance().RotationAngle -= 0.05f;
+            if (keyboardState.IsKeyDown(Keys.D)) PlayerShip.GetInstance().RotationAngle += 0.05f;
         }
     }
 }
