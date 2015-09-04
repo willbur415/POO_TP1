@@ -31,6 +31,8 @@ namespace POO_TP1
             OtherSide(ref position.Y, ref boiteCollision.Min.Y, ref boiteCollision.Max.Y, ref sphereCollision.Center.Y, Game1.SCREENHEIGHT, image.Height);
         }
 
+        public abstract void CheckCollisionBox(Objet2D theOther);
+
         private void UpdateCollision()
         {
             this.boiteCollision.Min.X = position.X;

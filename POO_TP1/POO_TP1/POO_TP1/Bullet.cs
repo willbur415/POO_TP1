@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace POO_TP1
 {
-    public class Bullet : Objet2D
+    public class Bullet : MovableObject
     {
         private Boolean isShooted;
         private const int BULLET_SPAWN_POS = -100;
@@ -42,10 +42,15 @@ namespace POO_TP1
             }
             else
             {
-                this.velocity = Vector2.Zero;
-                this.position.X = BULLET_SPAWN_POS;
-                this.position.Y = BULLET_SPAWN_POS;
-                lifeTime = BULLET_LIFE_TIME;
+                resetBullet();
+            }
+        }
+
+        public override void CheckCollisionBox(Objet2D theOther)
+        {
+            if(boiteCollision.Intersects(theOther.BoiteCollision))
+            {
+                resetBullet();
             }
         }
 
@@ -71,6 +76,14 @@ namespace POO_TP1
             {
                 lifeTime = value;
             }
+        }
+
+        private void resetBullet()
+        {
+            this.velocity = Vector2.Zero;
+            this.position.X = BULLET_SPAWN_POS;
+            this.position.Y = BULLET_SPAWN_POS;
+            lifeTime = BULLET_LIFE_TIME;
         }
     }
 }

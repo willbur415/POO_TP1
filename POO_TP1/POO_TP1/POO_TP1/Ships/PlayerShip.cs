@@ -103,7 +103,7 @@ namespace POO_TP1
             }
         }
 
-        public void CheckCollisionBox(Objet2D theOther)
+        public override void CheckCollisionBox(Objet2D theOther)
         {
             if (boiteCollision.Intersects(theOther.BoiteCollision))
             {

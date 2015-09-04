@@ -145,25 +145,12 @@ namespace POO_TP1
 
             if (!paused)
             {
-                if (padOneState.IsConnected)
-                {
-                    CheckPadInputs(padOneState);
-                }
-                else
-                {
-                    CheckKeyboardKeys(keyboardState);
-                }
-                foreach (Bullet bullet in PlayerShip.GetInstance().Bullets)
-                {
-                    bullet.Update();
-                }
-                foreach (Asteroid ast in asteroids)
-                {
-                    ast.Move();
-                    PlayerShip.GetInstance().CheckCollisionBox(ast);
-                }
+                if (padOneState.IsConnected) CheckPadInputs(padOneState);
+                else CheckKeyboardKeys(keyboardState);
 
-                base.Update(gameTime);
+                updateBullets();
+                checkAsteroidHit();
+                //base.Update(gameTime);
             }
 
             
@@ -296,6 +283,23 @@ namespace POO_TP1
             if (PlayerShip.GetInstance().Cooldown == 0)
             {
                 PlayerShip.GetInstance().Shoot();
+            }
+        }
+
+        private void checkAsteroidHit()
+        {
+            foreach (Asteroid ast in asteroids)
+            {
+                ast.Move();
+                PlayerShip.GetInstance().CheckCollisionBox(ast);
+            }
+        }
+
+        private void updateBullets()
+        {
+            foreach (Bullet bullet in PlayerShip.GetInstance().Bullets)
+            {
+                bullet.Update();
             }
         }
     }
