@@ -40,7 +40,7 @@ namespace POO_TP1
 
         public Vector2 Position
         {
-            get { return position; }
+            get { return position;}
         }
 
         public Bonus(Texture2D image, Vector2 position, BonusType type)
