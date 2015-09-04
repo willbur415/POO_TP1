@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace POO_TP1
 {
-    enum AsteroidSize { small, medium, large}
+    public enum AsteroidSize { small, medium, large}
 
-    class Asteroid : MovableObject
+    public class Asteroid : MovableObject
     {
         private AsteroidSize size;
         private Random rand;
@@ -35,6 +35,11 @@ namespace POO_TP1
         public new void Move()
         {
             base.move();
+        }
+
+        public override void CheckCollisionBox(Objet2D theOther)
+        {
+            // override if needed
         }
 
         public float CheckAsteroidSize()

@@ -26,9 +26,6 @@ namespace POO_TP1
         private GameTime time;
         private bool paused = true;
         private bool pauseKeyDown;
-        private float now;
-        private float lastTime;
-        private float deltaTime;
 
 
         private Factory facto;
@@ -148,29 +145,13 @@ namespace POO_TP1
 
             if (!paused)
             {
-                if (padOneState.IsConnected)
-                {
-                    PlayerShip.GetInstance().RotationAngle += padOneState.ThumbSticks.Right.X / 16.0f;
-                    PlayerShip.GetInstance().MoveShip(padOneState.ThumbSticks.Left.Y);
-                }
-                else
-                {
-                    CheckKeyboardKeys(keyboardState);
-                }
-                foreach (Bullet bullet in PlayerShip.GetInstance().Bullets)
-                {
-                    bullet.Update();
-                }
-                foreach (Asteroid ast in asteroids)
-                {
-                    ast.Move();
-                    PlayerShip.GetInstance().CheckCollisionBox(ast);
-                }
+                if (padOneState.IsConnected) CheckPadInputs(padOneState);
+                else CheckKeyboardKeys(keyboardState);
 
-                base.Update(gameTime);
+                updateBullets();
+                checkAsteroidHit();
+                //base.Update(gameTime);
             }
-
-            
             base.Update(gameTime);
         }
 
@@ -180,10 +161,6 @@ namespace POO_TP1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            if (PlayerShip.GetInstance().Cooldown > 0)
-            {
-                PlayerShip.GetInstance().Cooldown--;
-            }
             spriteBatch.Begin();
             spriteBatch.Draw(spacefield, Vector2.Zero, Color.White);
 
@@ -191,18 +168,11 @@ namespace POO_TP1
             {
                 spriteBatch.Draw(eShip.Image, eShip.Position, Color.White);
 
-                foreach (Asteroid ast in asteroids)
-                {
-                    spriteBatch.Draw(ast.Image, ast.Position, Color.White);
-                }
+                drawAsteroids(spriteBatch);
 
                 if (PlayerShip.GetInstance().Alive)
                 {
-                    foreach (Bullet bullet in PlayerShip.GetInstance().Bullets)
-                    {
-                        spriteBatch.Draw(bullet.Image, bullet.Position, Color.White);
-                    }
-                    spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.White, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
+                    drawPlayer(spriteBatch);
                 }   
             }
             else
@@ -252,6 +222,13 @@ namespace POO_TP1
             pauseKeyDown = pauseKeyDownThisFrame;
         }
 
+        private void CheckPadInputs(GamePadState padState)
+        {
+            PlayerShip.GetInstance().RotationAngle += padState.ThumbSticks.Right.X / 16.0f;
+            PlayerShip.GetInstance().MoveShip(padState.ThumbSticks.Left.Y);
+            if (padState.IsButtonDown(Buttons.A)) playerShoot();
+        }
+
         private void CheckKeyboardKeys(KeyboardState keyboardState)
         {
             if (keyboardState.IsKeyDown(Keys.W))
@@ -274,10 +251,7 @@ namespace POO_TP1
             if (keyboardState.IsKeyDown(Keys.D)) PlayerShip.GetInstance().RotationAngle += 0.05f;
             if (keyboardState.IsKeyDown(Keys.Space))
             {
-                if (PlayerShip.GetInstance().Cooldown == 0)
-                {
-                    PlayerShip.GetInstance().Shoot();
-                }
+                playerShoot();
             }
         }
 
@@ -287,13 +261,55 @@ namespace POO_TP1
             rand = new Random();
             for (int i = 0; i < rand.Next(2, 6); i++)
             {
-                asteroids.Add(new Asteroid(Content.Load<Texture2D>("Graphics\\sprites\\official_asteroid"), new Vector2(0, 0),i));
+                asteroids.Add(new Asteroid(Content.Load<Texture2D>("Graphics\\sprites\\asteroid_big"), new Vector2(0, 0),i));
             }
         }
 
-        private void checkFireTime()
+        private void playerShoot()
         {
+            if (PlayerShip.GetInstance().Cooldown == 0)
+            {
+                PlayerShip.GetInstance().Shoot();
+            }
+        }
 
+        private void checkAsteroidHit()
+        {
+            foreach (Asteroid ast in asteroids)
+            {
+                ast.Move();
+                PlayerShip.GetInstance().CheckCollisionBox(ast);
+                //To change
+                foreach (Bullet bullet in PlayerShip.GetInstance().Bullets)
+                {
+                    bullet.CheckCollisionBox(ast);
+                }
+            }
+        }
+
+        private void updateBullets()
+        {
+            foreach (Bullet bullet in PlayerShip.GetInstance().Bullets)
+            {
+                bullet.Update();
+            }
+        }
+
+        private void drawAsteroids(SpriteBatch spriteBatch)
+        {
+            foreach (Asteroid ast in asteroids)
+            {
+                spriteBatch.Draw(ast.Image, ast.Position, Color.White);
+            }
+        }
+
+        private void drawPlayer(SpriteBatch spriteBatch)
+        {
+            foreach (Bullet bullet in PlayerShip.GetInstance().Bullets)
+            {
+                spriteBatch.Draw(bullet.Image, bullet.Position, Color.White);
+            }
+            spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.White, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
         }
     }
 }

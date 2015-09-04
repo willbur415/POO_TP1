@@ -31,12 +31,14 @@ namespace POO_TP1
             OtherSide(ref position.Y, ref boiteCollision.Min.Y, ref boiteCollision.Max.Y, ref sphereCollision.Center.Y, Game1.SCREENHEIGHT, image.Height);
         }
 
+        public abstract void CheckCollisionBox(Objet2D theOther);
+
         private void UpdateCollision()
         {
             this.boiteCollision.Min.X = position.X;
             this.boiteCollision.Min.Y = position.Y;
-            this.boiteCollision.Max.X = position.X;
-            this.boiteCollision.Max.Y = position.Y;
+            this.boiteCollision.Max.X = position.X + image.Width;
+            this.boiteCollision.Max.Y = position.Y + image.Height;
 
             this.sphereCollision.Center.X = position.X;
             this.sphereCollision.Center.Y = position.Y;
