@@ -105,8 +105,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Graphics\sprites\official_asteroid.png">
-      <Name>official_asteroid</Name>
+    <Compile Include="Graphics\sprites\asteroid_medium.png">
+      <Name>asteroid_medium</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -124,6 +124,13 @@
   <ItemGroup>
     <Compile Include="Graphics\sprites\Bullet.png">
       <Name>Bullet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Graphics\sprites\asteroid_big.png">
+      <Name>asteroid_big</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

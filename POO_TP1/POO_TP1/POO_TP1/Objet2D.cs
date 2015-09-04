@@ -33,7 +33,7 @@ namespace POO_TP1
         {
             this.offset = new Vector2(image.Width / 2, image.Height / 2);
             this.posCenter = new Vector2(position.X + offset.X, position.Y + offset.Y);
-            this.boiteCollision = new BoundingBox(new Vector3(position.X - offset.X, position.Y - offset.Y, 0), new Vector3(position.X + offset.X, position.Y + +offset.Y, 0));
+            setBoundings();
             this.sphereCollision = new BoundingSphere(new Vector3(position.X - offset.X, position.Y - offset.Y, 0), offset.X);
         }
 
@@ -98,6 +98,13 @@ namespace POO_TP1
             {
                 rotationAngle = value;
             }
+        }
+        private void setBoundings()
+        {
+            this.boiteCollision.Min.X = this.position.X;
+            this.boiteCollision.Min.Y = this.position.Y;
+            this.boiteCollision.Max.X = this.position.X + image.Width;
+            this.boiteCollision.Max.Y = this.position.Y + image.Height;
         }
     }
 }
