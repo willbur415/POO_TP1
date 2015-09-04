@@ -152,8 +152,6 @@ namespace POO_TP1
                 checkAsteroidHit();
                 //base.Update(gameTime);
             }
-
-            
             base.Update(gameTime);
         }
 
@@ -174,18 +172,11 @@ namespace POO_TP1
             {
                 spriteBatch.Draw(eShip.Image, eShip.Position, Color.White);
 
-                foreach (Asteroid ast in asteroids)
-                {
-                    spriteBatch.Draw(ast.Image, ast.Position, Color.White);
-                }
+                drawAsteroids(spriteBatch);
 
                 if (PlayerShip.GetInstance().Alive)
                 {
-                    foreach (Bullet bullet in PlayerShip.GetInstance().Bullets)
-                    {
-                        spriteBatch.Draw(bullet.Image, bullet.Position, Color.White);
-                    }
-                    spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.White, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
+                    drawPlayer(spriteBatch);
                 }   
             }
             else
@@ -301,6 +292,23 @@ namespace POO_TP1
             {
                 bullet.Update();
             }
+        }
+
+        private void drawAsteroids(SpriteBatch spriteBatch)
+        {
+            foreach (Asteroid ast in asteroids)
+            {
+                spriteBatch.Draw(ast.Image, ast.Position, Color.White);
+            }
+        }
+
+        private void drawPlayer(SpriteBatch spriteBatch)
+        {
+            foreach (Bullet bullet in PlayerShip.GetInstance().Bullets)
+            {
+                spriteBatch.Draw(bullet.Image, bullet.Position, Color.White);
+            }
+            spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.White, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
         }
     }
 }
