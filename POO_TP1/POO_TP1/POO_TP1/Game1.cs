@@ -17,8 +17,10 @@ namespace POO_TP1
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        public static ContentManager contentManager;
         private SpriteFont font;
         public const int SCREENWIDTH = 1280;
         public const int SCREENHEIGHT = 796;
@@ -32,7 +34,8 @@ namespace POO_TP1
         private Texture2D spacefield;
         private EnnemyShip eShip;
         private Bonus bonus;
-        private List<Asteroid> asteroids;
+        public static List<Asteroid> Asteroids;
+        public static List<Asteroid> DeadAsteroids;
         private Random rand;
 
 
@@ -40,6 +43,7 @@ namespace POO_TP1
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            contentManager = Content;
         }
 
         /// <summary>
@@ -150,6 +154,7 @@ namespace POO_TP1
 
                 updateBullets();
                 checkAsteroidHit();
+                DeadAsteroids.Clear();
                 //base.Update(gameTime);
             }
             base.Update(gameTime);
@@ -257,11 +262,12 @@ namespace POO_TP1
 
         private void loadAsteroids()
         {
-            asteroids = new List<Asteroid>();
+            Asteroids = new List<Asteroid>();
+            DeadAsteroids = new List<Asteroid>();
             rand = new Random();
             for (int i = 0; i < rand.Next(2, 6); i++)
             {
-                asteroids.Add(new Asteroid(Content.Load<Texture2D>("Graphics\\sprites\\asteroid_big"), new Vector2(0, 0),i));
+                Asteroids.Add(new Asteroid(Content.Load<Texture2D>("Graphics\\sprites\\asteroid_big"), new Vector2(0, 0),i, AsteroidSize.large));
             }
         }
 
@@ -275,7 +281,7 @@ namespace POO_TP1
 
         private void checkAsteroidHit()
         {
-            foreach (Asteroid ast in asteroids)
+            foreach (Asteroid ast in Asteroids)
             {
                 ast.Move();
                 PlayerShip.GetInstance().CheckCollisionBox(ast);
@@ -297,7 +303,7 @@ namespace POO_TP1
 
         private void drawAsteroids(SpriteBatch spriteBatch)
         {
-            foreach (Asteroid ast in asteroids)
+            foreach (Asteroid ast in Asteroids)
             {
                 spriteBatch.Draw(ast.Image, ast.Position, Color.White);
             }

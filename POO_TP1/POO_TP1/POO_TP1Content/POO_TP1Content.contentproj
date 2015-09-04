@@ -105,8 +105,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Graphics\sprites\official_asteroid.png">
-      <Name>official_asteroid</Name>
+    <Compile Include="Graphics\sprites\asteroid_medium.png">
+      <Name>asteroid_medium</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

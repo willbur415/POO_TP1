@@ -14,7 +14,6 @@ namespace POO_TP1
         {
  
         }
-
         public MovableObject()
         {
  
@@ -30,6 +29,15 @@ namespace POO_TP1
             OtherSide(ref position.X, ref boiteCollision.Min.X, ref boiteCollision.Max.X, ref sphereCollision.Center.X, Game1.SCREENWIDTH, image.Width);
             OtherSide(ref position.Y, ref boiteCollision.Min.Y, ref boiteCollision.Max.Y, ref sphereCollision.Center.Y, Game1.SCREENHEIGHT, image.Height);
         }
+        protected bool IsAsteroid(Objet2D objet)
+        {
+            if (objet.GetType() == typeof(Asteroid))
+            {
+                return true;
+            }
+            return false;
+        }
+
 
         public abstract void CheckCollisionBox(Objet2D theOther);
 
