@@ -161,10 +161,6 @@ namespace POO_TP1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            if (PlayerShip.GetInstance().Cooldown > 0)
-            {
-                PlayerShip.GetInstance().Cooldown--;
-            }
             spriteBatch.Begin();
             spriteBatch.Draw(spacefield, Vector2.Zero, Color.White);
 
@@ -283,6 +279,11 @@ namespace POO_TP1
             {
                 ast.Move();
                 PlayerShip.GetInstance().CheckCollisionBox(ast);
+                //To change
+                foreach (Bullet bullet in PlayerShip.GetInstance().Bullets)
+                {
+                    bullet.CheckCollisionBox(ast);
+                }
             }
         }
 

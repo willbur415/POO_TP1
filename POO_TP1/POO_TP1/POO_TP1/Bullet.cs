@@ -30,7 +30,7 @@ namespace POO_TP1
 
         public void Update()
         {
-            this.position += this.velocity;
+            base.move();
 
             if (isShooted)
             {

@@ -113,6 +113,10 @@ namespace POO_TP1
 
         public void MoveShip(float newThrust)
         {
+            if (cooldown > 0)
+            {
+                cooldown--;
+            }
             //Rappel, le thrust arrière doit être plus lent
             if (newThrust < 0)
                 newThrust /= 2;
