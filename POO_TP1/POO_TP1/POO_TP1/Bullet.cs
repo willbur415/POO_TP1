@@ -11,6 +11,8 @@ namespace POO_TP1
     {
         private Boolean isShooted;
         private const int BULLET_SPAWN_POS = -100;
+        private const int BULLET_LIFE_TIME = 100;
+        private int lifeTime = BULLET_LIFE_TIME;
 
         public Bullet(Texture2D image, Vector2 position)
             : base(image, position)
@@ -29,6 +31,22 @@ namespace POO_TP1
         public void Update()
         {
             this.position += this.velocity;
+
+            if (isShooted)
+            {
+                if (lifeTime < 0)
+                {
+                    isShooted = false;
+                }
+                lifeTime--;
+            }
+            else
+            {
+                this.velocity = Vector2.Zero;
+                this.position.X = BULLET_SPAWN_POS;
+                this.position.Y = BULLET_SPAWN_POS;
+                lifeTime = BULLET_LIFE_TIME;
+            }
         }
 
         public Boolean IsShooted
@@ -40,6 +58,18 @@ namespace POO_TP1
             set
             {
                 isShooted = value;
+            }
+        }
+
+        public int LifeTime
+        {
+            get
+            {
+                return lifeTime;
+            }
+            set 
+            {
+                lifeTime = value;
             }
         }
     }

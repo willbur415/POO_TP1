@@ -105,7 +105,7 @@ namespace POO_TP1
 
         public void CheckCollisionBox(Objet2D theOther)
         {
-            if (sphereCollision.Intersects(theOther.SphereCollision))
+            if (boiteCollision.Intersects(theOther.BoiteCollision))
             {
                 alive = false;
             }

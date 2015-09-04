@@ -26,9 +26,6 @@ namespace POO_TP1
         private GameTime time;
         private bool paused = true;
         private bool pauseKeyDown;
-        private float now;
-        private float lastTime;
-        private float deltaTime;
 
 
         private Factory facto;
@@ -150,8 +147,7 @@ namespace POO_TP1
             {
                 if (padOneState.IsConnected)
                 {
-                    PlayerShip.GetInstance().RotationAngle += padOneState.ThumbSticks.Right.X / 16.0f;
-                    PlayerShip.GetInstance().MoveShip(padOneState.ThumbSticks.Left.Y);
+                    CheckPadInputs(padOneState);
                 }
                 else
                 {
@@ -252,6 +248,13 @@ namespace POO_TP1
             pauseKeyDown = pauseKeyDownThisFrame;
         }
 
+        private void CheckPadInputs(GamePadState padState)
+        {
+            PlayerShip.GetInstance().RotationAngle += padState.ThumbSticks.Right.X / 16.0f;
+            PlayerShip.GetInstance().MoveShip(padState.ThumbSticks.Left.Y);
+            if (padState.IsButtonDown(Buttons.A)) playerShoot();
+        }
+
         private void CheckKeyboardKeys(KeyboardState keyboardState)
         {
             if (keyboardState.IsKeyDown(Keys.W))
@@ -274,10 +277,7 @@ namespace POO_TP1
             if (keyboardState.IsKeyDown(Keys.D)) PlayerShip.GetInstance().RotationAngle += 0.05f;
             if (keyboardState.IsKeyDown(Keys.Space))
             {
-                if (PlayerShip.GetInstance().Cooldown == 0)
-                {
-                    PlayerShip.GetInstance().Shoot();
-                }
+                playerShoot();
             }
         }
 
@@ -291,9 +291,12 @@ namespace POO_TP1
             }
         }
 
-        private void checkFireTime()
+        private void playerShoot()
         {
-
+            if (PlayerShip.GetInstance().Cooldown == 0)
+            {
+                PlayerShip.GetInstance().Shoot();
+            }
         }
     }
 }
