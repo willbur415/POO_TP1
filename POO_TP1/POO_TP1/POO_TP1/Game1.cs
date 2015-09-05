@@ -143,9 +143,6 @@ namespace POO_TP1
             GamePadState padOneState = GamePad.GetState(PlayerIndex.One);
             KeyboardState keyboardState = Keyboard.GetState(PlayerIndex.One);
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape) || padOneState.Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-
             CheckPauseKey(padOneState, keyboardState);
 
             if (!paused)
@@ -166,7 +163,11 @@ namespace POO_TP1
                         GameMenu.GetInstance().UpdateMenu(ref padOneState, ref keyboardState);
                         menuCounter = 0;
                     } 
-                }        
+                }
+                if (padOneState.Buttons.A == ButtonState.Pressed)
+                {
+                    CheckGameMenuChoice();
+                }
             }
             base.Update(gameTime);
         }
@@ -201,6 +202,22 @@ namespace POO_TP1
             spriteBatch.End();
             base.Draw(gameTime);
             
+        }
+
+        private void CheckGameMenuChoice()
+        {
+            if (GameMenu.GetInstance().SelectedItemIndex == 0)
+            {
+                paused = false;
+            }
+            if (GameMenu.GetInstance().SelectedItemIndex == 1)
+            {
+
+            }
+            if (GameMenu.GetInstance().SelectedItemIndex == 2)
+            {
+                Exit();
+            }
         }
 
         //Code for game pausing taking in microsoft documentation
