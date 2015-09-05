@@ -22,9 +22,6 @@ namespace POO_TP1
         private Vector2 exitButtonsPos;
         private Vector2 fontOrigin;
         private Vector2 cursorPosition;
-        private Vector2 playButtonPosition;
-        private Vector2 exitButtonPosition;
-        private Vector2 optionsButtonPosition;
 
         public static GameMenu GetInstance()
         {
@@ -48,7 +45,7 @@ namespace POO_TP1
                      graphics.GraphicsDevice.Viewport.Height / 2);
             optionsButtonPos = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
                      graphics.GraphicsDevice.Viewport.Height / 2 + 75);
-            exitButtonPosition = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
+            exitButtonsPos = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
                      graphics.GraphicsDevice.Viewport.Height / 2 + 150);
             fontOrigin = font.MeasureString(menuItems[0]) / 2;
 
@@ -57,60 +54,89 @@ namespace POO_TP1
 
         public void DrawMenu(ref SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().PlayButton, GameMenu.GetInstance().PlayButtonPos,
+            if (selectedItemIndex == 0)
+            {
+                
+                spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().PlayButton, GameMenu.GetInstance().PlayButtonPos,
                                         Color.Blue, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-            spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().OptionsButton, GameMenu.GetInstance().OptionsButtonPos,
-                                     Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-            spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().ExitButton, GameMenu.GetInstance().ExitButtonPos,
-                                     Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+                spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().OptionsButton, GameMenu.GetInstance().OptionsButtonPos,
+                                         Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+                spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().ExitButton, GameMenu.GetInstance().ExitButtonPos,
+                                         Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+        
+            }
+            if (selectedItemIndex == 1)
+            {
+                
+                spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().PlayButton, GameMenu.GetInstance().PlayButtonPos,
+                                        Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+                spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().OptionsButton, GameMenu.GetInstance().OptionsButtonPos,
+                                         Color.Blue, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+                spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().ExitButton, GameMenu.GetInstance().ExitButtonPos,
+                                         Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+         
+            }
+            if (selectedItemIndex == 2)
+            {
+                
+                spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().PlayButton, GameMenu.GetInstance().PlayButtonPos,
+                                        Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+                spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().OptionsButton, GameMenu.GetInstance().OptionsButtonPos,
+                                         Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+                spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().ExitButton, GameMenu.GetInstance().ExitButtonPos,
+                                         Color.Blue, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+               
+            }
+            
         }
 
         public void UpdateMenu(ref GamePadState gamePad, ref KeyboardState keyboard)
         {
             if (gamePad.DPad.Down == ButtonState.Pressed)
             {
+                if (selectedItemIndex + 1 < nbMenuItems)
+                {
+                    selectedItemIndex++;
+                    
+                }
             }
             if (gamePad.DPad.Up == ButtonState.Pressed)
             {
+                if (selectedItemIndex - 1 >= 0)
+                {
+                    selectedItemIndex--;
+                    
+                }
             }
-        }
-
-        public void choiceUp()
-        {
-            if (selectedItemIndex - 1 >= 0)
+            if (selectedItemIndex < 0)
             {
-                
+                selectedItemIndex = 0;
             }
-        }
-
-        public void choiceDown()
-        {
+            if (selectedItemIndex >= nbMenuItems)
+            {
+                selectedItemIndex = nbMenuItems - 1;
+            }
+            
         }
 
         public int SelectedItemIndex
         {
             get { return selectedItemIndex;}
-            set { selectedItemIndex = value; }
         }
 
         public String PlayButton
         {
             get {return menuItems[0]; }
         }
-        public String ExitButton
-        {
-            get { return menuItems[2]; }
-        }
         public String OptionsButton
         {
             get { return menuItems[1]; }
         }
-
-        public Vector2 PlayButtonPosition
+        public String ExitButton
         {
-            get { return playButtonPosition;}
+            get { return menuItems[2]; }
         }
-
+       
         public SpriteFont Font
         {
             get { return font;}
@@ -126,7 +152,7 @@ namespace POO_TP1
         }
         public Vector2 ExitButtonPos
         {
-            get { return exitButtonPosition; }
+            get { return exitButtonsPos; }
         }
 
         public Vector2 FontOrigin
