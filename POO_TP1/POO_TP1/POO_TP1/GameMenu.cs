@@ -55,39 +55,32 @@ namespace POO_TP1
         public void DrawMenu(ref SpriteBatch spriteBatch)
         {
             if (selectedItemIndex == 0)
-            {
-                
+            {       
                 spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().PlayButton, GameMenu.GetInstance().PlayButtonPos,
                                         Color.Blue, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
                 spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().OptionsButton, GameMenu.GetInstance().OptionsButtonPos,
                                          Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
                 spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().ExitButton, GameMenu.GetInstance().ExitButtonPos,
                                          Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-        
             }
             if (selectedItemIndex == 1)
             {
-                
                 spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().PlayButton, GameMenu.GetInstance().PlayButtonPos,
                                         Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
                 spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().OptionsButton, GameMenu.GetInstance().OptionsButtonPos,
                                          Color.Blue, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
                 spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().ExitButton, GameMenu.GetInstance().ExitButtonPos,
-                                         Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-         
+                                          Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);        
             }
             if (selectedItemIndex == 2)
-            {
-                
+            {      
                 spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().PlayButton, GameMenu.GetInstance().PlayButtonPos,
                                         Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
                 spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().OptionsButton, GameMenu.GetInstance().OptionsButtonPos,
                                          Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
                 spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().ExitButton, GameMenu.GetInstance().ExitButtonPos,
-                                         Color.Blue, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-               
-            }
-            
+                                         Color.Blue, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);     
+            }         
         }
 
         public void UpdateMenu(ref GamePadState gamePad, ref KeyboardState keyboard)
@@ -108,6 +101,12 @@ namespace POO_TP1
                     
                 }
             }
+            CheckIndex();
+            
+        }
+
+        private void CheckIndex()
+        {
             if (selectedItemIndex < 0)
             {
                 selectedItemIndex = 0;
@@ -116,7 +115,6 @@ namespace POO_TP1
             {
                 selectedItemIndex = nbMenuItems - 1;
             }
-            
         }
 
         public int SelectedItemIndex
@@ -154,7 +152,6 @@ namespace POO_TP1
         {
             get { return exitButtonsPos; }
         }
-
         public Vector2 FontOrigin
         {
             get { return fontOrigin;}
