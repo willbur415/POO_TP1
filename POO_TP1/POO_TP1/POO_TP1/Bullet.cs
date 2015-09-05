@@ -48,15 +48,17 @@ namespace POO_TP1
 
         public override void CheckCollisionBox(Objet2D theOther)
         {
-            if (boiteCollision.Intersects(theOther.BoiteCollision))
+            if (this.isShooted)
             {
-                if (base.IsAsteroid(theOther))
+                if (boiteCollision.Intersects(theOther.BoiteCollision))
                 {
-                    (theOther as Asteroid).Split();
+                    if (base.IsAsteroid(theOther))
+                    {
+                        (theOther as Asteroid).Split();
+                    }
+                    resetBullet();
                 }
-                resetBullet();
-            }    
-            
+            }
         }
 
         public Boolean IsShooted

@@ -45,21 +45,18 @@ namespace POO_TP1
 
         public void Split()
         {
-            //if (size == AsteroidSize.large)
-            //{
-            //    if (Game1.Asteroids.Contains(this))
-            //    {
-            //        Game1.Asteroids.Add(new Asteroid(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\asteroid_medium"), this.position, rotationAngle, AsteroidSize.medium));
-            //    }
-            //}
-            //else if (size == AsteroidSize.medium)
-            //{
+            if (size == AsteroidSize.large)
+            {
+                Game1.DeadAsteroids.Add(this);
+            }
+            else if (size == AsteroidSize.medium)
+            {
 
-            //}
-            //else
-            //{
- 
-            //}
+            }
+            else
+            {
+
+            }
         }
 
         public float CheckAsteroidSize()
