@@ -89,6 +89,7 @@
     <Compile Include="Ships\EnnemyShip.cs" />
     <Compile Include="Ships\LittleShip.cs" />
     <Compile Include="Ships\PlayerShip.cs" />
+    <Compile Include="UI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
