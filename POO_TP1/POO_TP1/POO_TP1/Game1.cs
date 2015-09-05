@@ -155,7 +155,10 @@ namespace POO_TP1
                 updateBullets();
                 updateAsteroids();
                 DeadAsteroids.Clear();
-                //base.Update(gameTime);
+            }
+            else
+            {
+                GameMenu.GetInstance().UpdateMenu(ref padOneState, ref keyboardState);
             }
             base.Update(gameTime);
         }
@@ -182,23 +185,11 @@ namespace POO_TP1
             }
             else
             {
-                InteractiveMenu(ref spriteBatch);     
+                GameMenu.GetInstance().DrawMenu(ref spriteBatch);     
             }
 
             spriteBatch.End();
             base.Draw(gameTime);
-            
-        }
-
-        private void InteractiveMenu(ref SpriteBatch spriteBatch)
-        {
-                spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().PlayButton, GameMenu.GetInstance().PlayButtonPos,
-                                        Color.Blue, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-                spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().OptionsButton, GameMenu.GetInstance().OptionsButtonPos,
-                                         Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-                spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().ExitButton, GameMenu.GetInstance().ExitButtonPos,
-                                         Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-            
             
         }
 
@@ -231,7 +222,7 @@ namespace POO_TP1
         {
             PlayerShip.GetInstance().RotationAngle += padState.ThumbSticks.Right.X / 16.0f;
             PlayerShip.GetInstance().MoveShip(padState.ThumbSticks.Left.Y);
-            if (padState.IsButtonDown(Buttons.A)) playerShoot();
+            if (padState.IsButtonDown(Buttons.RightTrigger)) playerShoot();
         }
 
         private void CheckKeyboardKeys(KeyboardState keyboardState)
