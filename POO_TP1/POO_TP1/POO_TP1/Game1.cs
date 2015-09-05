@@ -147,9 +147,12 @@ namespace POO_TP1
 
             if (!paused)
             {
-                if (padOneState.IsConnected) CheckPadInputs(padOneState);
-                else CheckKeyboardKeys(keyboardState);
-
+                if (PlayerShip.GetInstance().IsAlive)
+                {
+                    if (padOneState.IsConnected) CheckPadInputs(padOneState);
+                    else CheckKeyboardKeys(keyboardState);
+                }
+                
                 updateBullets();
                 updateAsteroids();
                 DeadAsteroids.Clear();
@@ -285,7 +288,9 @@ namespace POO_TP1
             rand = new Random();
             for (int i = 0; i < rand.Next(2, 6); i++)
             {
-                Asteroids.Add(new Asteroid(Content.Load<Texture2D>("Graphics\\sprites\\asteroid_big"), Vector2.Zero,i, AsteroidSize.large));
+                Asteroid ast = new Asteroid(Content.Load<Texture2D>("Graphics\\sprites\\asteroid_big"), Vector2.Zero, i, AsteroidSize.large);
+                Asteroids.Add(ast);
+                ast.AddObserver(UI.GetInstance());
             }
         }
 
