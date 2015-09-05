@@ -25,9 +25,9 @@ namespace POO_TP1
         public const int SCREENWIDTH = 1280;
         public const int SCREENHEIGHT = 796;
         private const float TIME_BETWEEN_SHOTS_SEC= 3;
-        private GameTime time;
         private bool paused = true;
         private bool pauseKeyDown;
+        private int menuCounter;
 
 
         private Factory facto;
@@ -138,7 +138,7 @@ namespace POO_TP1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            time = gameTime;
+            menuCounter++;
             GamePadState padOneState = GamePad.GetState(PlayerIndex.One);
             KeyboardState keyboardState = Keyboard.GetState(PlayerIndex.One);
 
@@ -158,7 +158,14 @@ namespace POO_TP1
             }
             else
             {
-                GameMenu.GetInstance().UpdateMenu(ref padOneState, ref keyboardState);
+                if (padOneState.DPad.Down == ButtonState.Pressed || padOneState.DPad.Up == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Down) || keyboardState.IsKeyDown(Keys.Up))
+                {
+                    if (menuCounter > 10)
+                    {
+                        GameMenu.GetInstance().UpdateMenu(ref padOneState, ref keyboardState);
+                        menuCounter = 0;
+                    } 
+                }        
             }
             base.Update(gameTime);
         }
