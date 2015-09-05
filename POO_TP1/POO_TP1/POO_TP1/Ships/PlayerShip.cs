@@ -14,6 +14,7 @@ namespace POO_TP1
         private const float SLOWFACTOR = 20.0f;
         private const int MAX_BULLETS = 10;
         private const int COOLDOWN_TIME = 20;
+        private const int BULLET_SPAWN_POS = -100;
         private bool alive;
         private int playerTotalLife = 3;
         private static PlayerShip ship;
@@ -176,7 +177,7 @@ namespace POO_TP1
         {
             for (int i = 0; i < bullets.Length; i++)
             {
-                bullets[i] = new Bullet(content.Load<Texture2D>("Graphics\\sprites\\Bullet"));
+                bullets[i] = new Bullet(content.Load<Texture2D>("Graphics\\sprites\\Bullet"), new Vector2(BULLET_SPAWN_POS, BULLET_SPAWN_POS));
             }
         }
 

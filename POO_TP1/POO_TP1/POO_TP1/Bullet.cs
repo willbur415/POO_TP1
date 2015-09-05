@@ -48,9 +48,16 @@ namespace POO_TP1
 
         public override void CheckCollisionBox(Objet2D theOther)
         {
-            if(boiteCollision.Intersects(theOther.BoiteCollision))
+            if (this.isShooted)
             {
-                resetBullet();
+                if (boiteCollision.Intersects(theOther.BoiteCollision))
+                {
+                    if (base.IsAsteroid(theOther))
+                    {
+                        (theOther as Asteroid).Split();
+                    }
+                    resetBullet();
+                }
             }
         }
 
@@ -81,9 +88,10 @@ namespace POO_TP1
         private void resetBullet()
         {
             this.velocity = Vector2.Zero;
-            this.position.X = BULLET_SPAWN_POS;
-            this.position.Y = BULLET_SPAWN_POS;
+            this.position.X = Vector2.Zero.X + BULLET_SPAWN_POS;
+            this.position.Y = Vector2.Zero.Y + BULLET_SPAWN_POS;
             lifeTime = BULLET_LIFE_TIME;
+            isShooted = false;
         }
     }
 }
