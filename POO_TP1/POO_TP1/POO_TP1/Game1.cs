@@ -153,7 +153,7 @@ namespace POO_TP1
                 else CheckKeyboardKeys(keyboardState);
 
                 updateBullets();
-                checkAsteroidHit();
+                updateAsteroids();
                 DeadAsteroids.Clear();
                 //base.Update(gameTime);
             }
@@ -279,17 +279,12 @@ namespace POO_TP1
             }
         }
 
-        private void checkAsteroidHit()
+        private void updateAsteroids()
         {
-            foreach (Asteroid ast in Asteroids)
+            for (int i = 0; i < Asteroids.Count; i++)
             {
-                ast.Move();
-                PlayerShip.GetInstance().CheckCollisionBox(ast);
-                //To change
-                foreach (Bullet bullet in PlayerShip.GetInstance().Bullets)
-                {
-                    bullet.CheckCollisionBox(ast);
-                }
+                Asteroids[i].Move();
+                PlayerShip.GetInstance().CheckCollisionBox(Asteroids[i]);
             }
         }
 
@@ -298,6 +293,17 @@ namespace POO_TP1
             foreach (Bullet bullet in PlayerShip.GetInstance().Bullets)
             {
                 bullet.Update();
+                for (int i = 0; i < Asteroids.Count; i++)
+                {
+                    bullet.CheckCollisionBox(Asteroids[i]);
+                }
+                for (int i = 0; i < DeadAsteroids.Count; i++)
+                {
+                    if (Asteroids.Contains(DeadAsteroids[i]))
+                    {
+                        Asteroids.Remove(DeadAsteroids[i]);
+                    }
+                }
             }
         }
 
