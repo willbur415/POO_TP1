@@ -32,6 +32,7 @@ namespace POO_TP1
             velocity.X = (float)(Math.Sin((double)rotationAngle) * ASTEROIDS_SPEED);
             velocity.Y = (float)(Math.Cos((double)rotationAngle) * ASTEROIDS_SPEED);
             this.size = size;
+            this.AddObserver(UI.GetInstance());
         }
 
         public new void Move()
@@ -58,6 +59,7 @@ namespace POO_TP1
             {
                 Game1.DeadAsteroids.Add(this);
             }
+            NotifyAllObservers();
         }
 
         public float CheckAsteroidSize()
@@ -79,12 +81,16 @@ namespace POO_TP1
         private void addSmallerAsteroid(AsteroidSize size)
         {
             float newRotationAngle = (float)((Math.PI * 2) / 3);
+            Asteroid newAst1;
+            Asteroid newAst2;
 
             Game1.DeadAsteroids.Add(this);
             if (size == AsteroidSize.medium)
             {
-                Game1.Asteroids.Add(new Asteroid(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\asteroid_medium"), this.position, this.rotationAngle + newRotationAngle, size));
+                newAst1 = new Asteroid(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\asteroid_medium"), this.position, this.rotationAngle + newRotationAngle, size);
+                newAst2 = new Asteroid(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\asteroid_medium"), this.position, this.rotationAngle - newRotationAngle, size);
                 Game1.Asteroids.Add(new Asteroid(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\asteroid_medium"), this.position, this.rotationAngle - newRotationAngle, size));
+                Game1.Asteroids.Add(new Asteroid(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\asteroid_medium"), this.position, this.rotationAngle + newRotationAngle, size));
             }
             else
             {

@@ -53,19 +53,42 @@ namespace POO_TP1
             origin.X = LIFE_ORIGIN_POS;
         }
 
-        public void updateScore(int score)
+        private void updateScore(int score)
         {
             this.score += score;
         }
 
-        public void updateLife(int life)
+        private void updateLife(int life)
         {
             this.numberOfLife += life;
         }
 
         public void Notify(ObservedSubject subject)
         {
- 
+            if (subject is Asteroid)
+            {
+                Asteroid ast = subject as Asteroid;
+                if (ast.Size == AsteroidSize.large)
+                {
+                    updateScore(100);
+                }
+                else if (ast.Size == AsteroidSize.medium)
+                {
+                    updateScore(50);
+                }
+                else
+                {
+                    updateScore(20);
+                }
+
+            }
+            else if (subject is PlayerShip)
+            {
+                if (!(subject as PlayerShip).IsAlive)
+                {
+                    updateLife(-1);
+                }
+            }
         }
     }
 }

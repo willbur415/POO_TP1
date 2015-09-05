@@ -29,6 +29,7 @@ namespace POO_TP1
             if (ship == null)
             {
                 ship = new PlayerShip();
+                ship.AddObserver(UI.GetInstance());
             }
             return ship;
         }
@@ -54,6 +55,14 @@ namespace POO_TP1
             set
             {
                 bullets = value;
+            }
+        }
+
+        public bool IsAlive
+        {
+            get
+            {
+                return alive;
             }
         }
 
@@ -106,9 +115,10 @@ namespace POO_TP1
 
         public override void CheckCollisionBox(Objet2D theOther)
         {
-            if (boiteCollision.Intersects(theOther.BoiteCollision))
+            if (boiteCollision.Intersects(theOther.BoiteCollision) && alive)
             {
                 alive = false;
+                ship.NotifyAllObservers();
             }
         }
 
