@@ -166,7 +166,22 @@ namespace POO_TP1
                         GameMenu.GetInstance().UpdateMenu(ref padOneState, ref keyboardState);
                         menuCounter = 0;
                     } 
-                }        
+                }
+                if (padOneState.Buttons.A == ButtonState.Pressed)
+                {
+                    if (GameMenu.GetInstance().SelectedItemIndex == 0)
+                    {
+                        paused = false;
+                    }
+                    if (GameMenu.GetInstance().SelectedItemIndex == 1)
+                    {
+                        
+                    }
+                    if (GameMenu.GetInstance().SelectedItemIndex == 2)
+                    {
+                        Exit();
+                    }
+                }
             }
             base.Update(gameTime);
         }
