@@ -183,6 +183,10 @@ namespace POO_TP1
 
         public void Notify(ObservedSubject subject)
         {
+            if (subject is Bonus)
+            {
+                //Apply bonus
+            }
 
         }
     }

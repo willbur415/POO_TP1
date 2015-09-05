@@ -12,8 +12,13 @@ using POO_TP1;
 
 namespace POO_TP1
 {
-    
-    class Bonus : ObservedSubject
+
+    public enum BonusType
+    {
+        invincible, extraLife, doublePoints, slowDown, extraPoints
+    }
+
+    public class Bonus : ObservedSubject
     {
         private Texture2D image;
         private Vector2 position;
@@ -22,10 +27,6 @@ namespace POO_TP1
         private BonusType type;
         private BoundingBox boiteCollision;
         private BoundingSphere sphereCollision;
-        public enum BonusType
-        {
-            invincible, extraLife, doublePoints, slowDown, extraPoints
-        }
 
         public BonusType Type
         {
