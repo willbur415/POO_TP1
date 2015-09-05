@@ -52,5 +52,15 @@ namespace POO_TP1
             }
             origin.X = LIFE_ORIGIN_POS;
         }
+
+        public void updateScore(int score)
+        {
+            this.score += score;
+        }
+
+        public void updateLife(int life)
+        {
+            this.numberOfLife += life;
+        }
     }
 }
