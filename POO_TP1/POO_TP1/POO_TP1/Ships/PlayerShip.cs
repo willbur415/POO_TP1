@@ -10,7 +10,7 @@ namespace POO_TP1
 {
     class PlayerShip : MovableObject, Observer
     {
-        private const double MAXSPEED = 2.0;
+        private const double MAXSPEED = 5.0;
         private const float SLOWFACTOR = 20.0f;
         private const int MAX_BULLETS = 5;
         private const int COOLDOWN_TIME = 20;
