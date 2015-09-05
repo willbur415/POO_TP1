@@ -108,6 +108,7 @@ namespace POO_TP1
         {
             font = Content.Load<SpriteFont>("Kootenay");
             GameMenu.GetInstance().Initialize(font, ref graphics);
+            UI.GetInstance().Initialize();
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -174,6 +175,7 @@ namespace POO_TP1
 
             if (!paused)
             {
+                
                 spriteBatch.Draw(eShip.Image, eShip.Position, Color.White);
 
                 drawAsteroids(spriteBatch);
@@ -181,7 +183,8 @@ namespace POO_TP1
                 if (PlayerShip.GetInstance().Alive)
                 {
                     drawPlayer(spriteBatch);
-                }   
+                }
+                UI.GetInstance().draw(ref spriteBatch);
             }
             else
             {
