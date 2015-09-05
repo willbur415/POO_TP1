@@ -35,27 +35,27 @@ namespace POO_TP1
             }
         }
 
-        public static Bonus createBonus(Bonus.BonusType bonusType)
+        public static Bonus createBonus(BonusType bonusType)
         {
-            if (bonusType == Bonus.BonusType.invincible)
+            if (bonusType == BonusType.invincible)
             {
-                return new Bonus(content.Load<Texture2D>("Graphics\\sprites\\Bonus\\invincible"), new Vector2(150, 150), Bonus.BonusType.invincible);
+                return new Bonus(content.Load<Texture2D>("Graphics\\sprites\\Bonus\\invincible"), new Vector2(150, 150), BonusType.invincible);
             }
-            if (bonusType == Bonus.BonusType.doublePoints)
+            if (bonusType == BonusType.doublePoints)
             {
-                return new Bonus(content.Load<Texture2D>("Graphics\\sprites\\Bonus\\doublePoints"), new Vector2(150, 150), Bonus.BonusType.doublePoints);
+                return new Bonus(content.Load<Texture2D>("Graphics\\sprites\\Bonus\\doublePoints"), new Vector2(150, 150), BonusType.doublePoints);
             }
-            if (bonusType == Bonus.BonusType.extraLife)
+            if (bonusType == BonusType.extraLife)
             {
-                return new Bonus(content.Load<Texture2D>("Graphics\\sprites\\Bonus\\extraLife"), new Vector2(150, 150), Bonus.BonusType.extraLife);
+                return new Bonus(content.Load<Texture2D>("Graphics\\sprites\\Bonus\\extraLife"), new Vector2(150, 150), BonusType.extraLife);
             }
-            if (bonusType == Bonus.BonusType.extraPoints)
+            if (bonusType == BonusType.extraPoints)
             {
-                return new Bonus(content.Load<Texture2D>("Graphics\\sprites\\Bonus\\extraPoints"), new Vector2(150, 150), Bonus.BonusType.extraPoints);
+                return new Bonus(content.Load<Texture2D>("Graphics\\sprites\\Bonus\\extraPoints"), new Vector2(150, 150), BonusType.extraPoints);
             }
-            if (bonusType == Bonus.BonusType.slowDown)
+            if (bonusType == BonusType.slowDown)
             {
-                return new Bonus(content.Load<Texture2D>("Graphics\\sprites\\Bonus\\slowDown"), new Vector2(150, 150), Bonus.BonusType.slowDown);
+                return new Bonus(content.Load<Texture2D>("Graphics\\sprites\\Bonus\\slowDown"), new Vector2(150, 150), BonusType.slowDown);
             }
 
             return null;
