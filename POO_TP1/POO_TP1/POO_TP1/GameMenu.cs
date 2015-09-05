@@ -5,6 +5,7 @@ using System.Net.Mime;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace POO_TP1
 {
@@ -52,6 +53,26 @@ namespace POO_TP1
             fontOrigin = font.MeasureString(menuItems[0]) / 2;
 
             
+        }
+
+        public void DrawMenu(ref SpriteBatch spriteBatch)
+        {
+            spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().PlayButton, GameMenu.GetInstance().PlayButtonPos,
+                                        Color.Blue, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+            spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().OptionsButton, GameMenu.GetInstance().OptionsButtonPos,
+                                     Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+            spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().ExitButton, GameMenu.GetInstance().ExitButtonPos,
+                                     Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+        }
+
+        public void UpdateMenu(ref GamePadState gamePad, ref KeyboardState keyboard)
+        {
+            if (gamePad.DPad.Down == ButtonState.Pressed)
+            {
+            }
+            if (gamePad.DPad.Up == ButtonState.Pressed)
+            {
+            }
         }
 
         public void choiceUp()
