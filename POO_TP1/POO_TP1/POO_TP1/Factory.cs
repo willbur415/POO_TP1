@@ -57,7 +57,6 @@ namespace POO_TP1
             {
                 return new Bonus(content.Load<Texture2D>("Graphics\\sprites\\Bonus\\slowDown"), new Vector2(150, 150), BonusType.slowDown);
             }
-
             return null;
         }
     }
