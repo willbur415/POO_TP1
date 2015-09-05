@@ -12,7 +12,7 @@ namespace POO_TP1
     {
         private const double MAXSPEED = 100.0;
         private const float SLOWFACTOR = 20.0f;
-        private const int MAX_BULLETS = 10;
+        private const int MAX_BULLETS = 5;
         private const int COOLDOWN_TIME = 20;
         private const int BULLET_SPAWN_POS = -100;
         private bool alive;
