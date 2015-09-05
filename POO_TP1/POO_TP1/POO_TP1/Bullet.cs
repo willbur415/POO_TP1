@@ -11,7 +11,7 @@ namespace POO_TP1
     {
         private Boolean isShooted;
         private const int BULLET_SPAWN_POS = -100;
-        private const int BULLET_LIFE_TIME = 60;
+        private const int BULLET_LIFE_TIME = 100;
         private int lifeTime = BULLET_LIFE_TIME;
 
         public Bullet(Texture2D image, Vector2 position)

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace POO_TP1
 {
-    class UI
+    class UI : Observer
     {
         private const int LIFE_ORIGIN_POS = 7;
         private const int LIFE_SPACING = 5;
@@ -61,6 +61,11 @@ namespace POO_TP1
         public void updateLife(int life)
         {
             this.numberOfLife += life;
+        }
+
+        public void Notify(ObservedSubject subject)
+        {
+ 
         }
     }
 }
