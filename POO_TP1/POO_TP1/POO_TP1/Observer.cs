@@ -12,7 +12,7 @@ using POO_TP1;
 
 namespace POO_TP1
 {
-    interface Observer
+    public interface Observer
     {
         void Notify(ObservedSubject subject);
     }

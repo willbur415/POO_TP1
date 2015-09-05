@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace POO_TP1
 {
-    public class Objet2D
+    public class Objet2D : ObservedSubject
     {
         protected Texture2D image;
         protected Vector2 position;
