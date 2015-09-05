@@ -5,7 +5,7 @@ using System.Text;
 
 namespace POO_TP1
 {
-    class ObservedSubject
+    public abstract class ObservedSubject
     {
         protected List<Observer> observers; 
         public ObservedSubject()
