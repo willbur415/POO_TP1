@@ -28,6 +28,7 @@ namespace POO_TP1
 
         public Asteroid(Texture2D image, Vector2 position, float rotationAngle, AsteroidSize size) : base(image, position)
         {
+            this.rotationAngle = rotationAngle;
             velocity.X = (float)(Math.Sin((double)rotationAngle) * ASTEROIDS_SPEED);
             velocity.Y = (float)(Math.Cos((double)rotationAngle) * ASTEROIDS_SPEED);
             this.size = size;
@@ -47,15 +48,15 @@ namespace POO_TP1
         {
             if (size == AsteroidSize.large)
             {
-                Game1.DeadAsteroids.Add(this);
+                addSmallerAsteroid(AsteroidSize.medium);
             }
             else if (size == AsteroidSize.medium)
             {
-
+                addSmallerAsteroid(AsteroidSize.small);
             }
             else
             {
-
+                Game1.DeadAsteroids.Add(this);
             }
         }
 
@@ -73,6 +74,24 @@ namespace POO_TP1
             {
                 return 0.3f;
             }
+        }
+
+        private void addSmallerAsteroid(AsteroidSize size)
+        {
+            float newRotationAngle = (float)((Math.PI * 2) / 3);
+
+            Game1.DeadAsteroids.Add(this);
+            if (size == AsteroidSize.medium)
+            {
+                Game1.Asteroids.Add(new Asteroid(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\asteroid_medium"), this.position, this.rotationAngle + newRotationAngle, size));
+                Game1.Asteroids.Add(new Asteroid(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\asteroid_medium"), this.position, this.rotationAngle - newRotationAngle, size));
+            }
+            else
+            {
+                Game1.Asteroids.Add(new Asteroid(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\asteroid_small"), this.position, this.rotationAngle + newRotationAngle, size));
+                Game1.Asteroids.Add(new Asteroid(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\asteroid_small"), this.position, this.rotationAngle - newRotationAngle, size));
+            }
+            
         }
     }
 }
