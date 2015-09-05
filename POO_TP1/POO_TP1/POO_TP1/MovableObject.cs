@@ -12,11 +12,9 @@ namespace POO_TP1
         public MovableObject(Texture2D image, Vector2 position)
             : base(image, position)
         {
- 
         }
         public MovableObject()
         {
- 
         }
 
         protected void move()
@@ -29,6 +27,7 @@ namespace POO_TP1
             OtherSide(ref position.X, ref boiteCollision.Min.X, ref boiteCollision.Max.X, ref sphereCollision.Center.X, Game1.SCREENWIDTH, image.Width);
             OtherSide(ref position.Y, ref boiteCollision.Min.Y, ref boiteCollision.Max.Y, ref sphereCollision.Center.Y, Game1.SCREENHEIGHT, image.Height);
         }
+
         protected bool IsAsteroid(Objet2D objet)
         {
             if (objet.GetType() == typeof(Asteroid))
