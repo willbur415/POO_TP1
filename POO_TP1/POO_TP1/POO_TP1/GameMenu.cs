@@ -85,7 +85,7 @@ namespace POO_TP1
 
         public void UpdateMenu(ref GamePadState gamePad, ref KeyboardState keyboard)
         {
-            if (gamePad.DPad.Down == ButtonState.Pressed)
+            if (gamePad.DPad.Down == ButtonState.Pressed || keyboard.IsKeyDown(Keys.Down))
             {
                 if (selectedItemIndex + 1 < nbMenuItems)
                 {
@@ -93,7 +93,7 @@ namespace POO_TP1
                     
                 }
             }
-            if (gamePad.DPad.Up == ButtonState.Pressed)
+            if (gamePad.DPad.Up == ButtonState.Pressed || keyboard.IsKeyDown(Keys.Up))
             {
                 if (selectedItemIndex - 1 >= 0)
                 {
