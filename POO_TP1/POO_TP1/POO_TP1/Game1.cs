@@ -167,7 +167,7 @@ namespace POO_TP1
                         menuCounter = 0;
                     } 
                 }
-                if (padOneState.Buttons.A == ButtonState.Pressed)
+                if (padOneState.Buttons.A == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Enter))
                 {
                     CheckGameMenuChoice();
                 }
@@ -235,7 +235,7 @@ namespace POO_TP1
         }
         private void CheckPauseKey(GamePadState gamePadState, KeyboardState keyboardState)
         {
-            bool pauseKeyDownThisFrame = (gamePadState.Buttons.Start == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Enter));
+            bool pauseKeyDownThisFrame = (gamePadState.Buttons.Start == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Escape));
             // If key was not down before, but is down now, we toggle the
             // pause setting
             if (!pauseKeyDown && pauseKeyDownThisFrame)
