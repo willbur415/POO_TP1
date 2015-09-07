@@ -27,7 +27,6 @@ namespace POO_TP1
         private GameState gameState;
         private const float TIME_BETWEEN_SHOTS_SEC= 3;
         private bool pauseKeyDown;
-        private int menuCounter;
         private double currentTime;
         private double recordedTime = 0;
 
@@ -140,7 +139,6 @@ namespace POO_TP1
         {
             currentTime = gameTime.TotalGameTime.TotalMilliseconds;
 
-            menuCounter++;
             GamePadState padOneState = GamePad.GetState(PlayerIndex.One);
             KeyboardState keyboardState = Keyboard.GetState(PlayerIndex.One);
 
@@ -339,10 +337,10 @@ namespace POO_TP1
 
         private void checkMenuControls(ref GamePadState padState, ref KeyboardState keyboardState, double currentTime)
         {
-            
+           
             if (padState.DPad.Down == ButtonState.Pressed || padState.DPad.Up == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Down) || keyboardState.IsKeyDown(Keys.Up))
             {
-                if (currentTime > recordedTime)
+                if (currentTime > recordedTime + 150)
                 {
                     GameMenu.GetInstance().UpdateMenu(ref padState, ref keyboardState);
                     recordedTime = currentTime;
