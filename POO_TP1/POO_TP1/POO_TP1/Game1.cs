@@ -159,18 +159,7 @@ namespace POO_TP1
             }
             else
             {
-                if (padOneState.DPad.Down == ButtonState.Pressed || padOneState.DPad.Up == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Down) || keyboardState.IsKeyDown(Keys.Up))
-                {
-                    if (menuCounter > 10)
-                    {
-                        GameMenu.GetInstance().UpdateMenu(ref padOneState, ref keyboardState);
-                        menuCounter = 0;
-                    } 
-                }
-                if (padOneState.Buttons.A == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Enter))
-                {
-                    CheckGameMenuChoice();
-                }
+                checkMenuControls(ref padOneState, ref keyboardState);
             }
             base.Update(gameTime);
         }
@@ -345,6 +334,22 @@ namespace POO_TP1
                 spriteBatch.Draw(bullet.Image, bullet.Position, Color.White);
             }
             spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.White, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
+        }
+
+        private void checkMenuControls(ref GamePadState padState, ref KeyboardState keyboardState)
+        {
+            if (padState.DPad.Down == ButtonState.Pressed || padState.DPad.Up == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Down) || keyboardState.IsKeyDown(Keys.Up))
+            {
+                if (menuCounter > 10)
+                {
+                    GameMenu.GetInstance().UpdateMenu(ref padState, ref keyboardState);
+                    menuCounter = 0;
+                }
+            }
+            if (padState.Buttons.A == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Enter))
+            {
+                CheckGameMenuChoice();
+            }
         }
     }
 }
