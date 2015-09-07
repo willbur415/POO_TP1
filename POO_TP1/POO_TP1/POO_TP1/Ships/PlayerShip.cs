@@ -14,6 +14,7 @@ namespace POO_TP1
         private const float SLOWFACTOR = 20.0f;
         private const int MAX_BULLETS = 5;
         private const int COOLDOWN_TIME = 20;
+        private const int RESPAWN_TIME = 70;
         private const int BULLET_SPAWN_POS = -100;
         private bool alive;
         private int playerTotalLife = 3;
@@ -21,6 +22,7 @@ namespace POO_TP1
         private Bullet[] bullets;
         private bool firstShot = false;
         private int cooldown;
+        private int respawnTime;
 
         public const int TIME_BETWEEN_SHOTS_MILI = 3000;
 
@@ -117,17 +119,18 @@ namespace POO_TP1
         {
             if (boiteCollision.Intersects(theOther.BoiteCollision) && alive)
             {
-                alive = false;
+                playerDead();
                 ship.NotifyAllObservers();
             }
         }
 
-        public void MoveShip(float newThrust)
+        public void Update(float newThrust)
         {
             if (cooldown > 0)
             {
                 cooldown--;
             }
+            
             //Rappel, le thrust arrière doit être plus lent
             if (newThrust < 0)
                 newThrust /= 2;
@@ -143,6 +146,30 @@ namespace POO_TP1
             //Il faut aussi déplacer les poly de collision
             move();
             bulletsFollow();
+        }
+
+        public void CheckRespawnTime()
+        {
+            if (respawnTime > 0)
+            {
+                respawnTime--;
+            }
+            else
+            {
+                respawn();
+            }
+        }
+
+        private void playerDead()
+        {
+            alive = false;
+            respawnTime = RESPAWN_TIME;
+        }
+
+        private void respawn()
+        {
+            this.alive = true;
+            this.velocity = Vector2.Zero;
         }
 
         private void bulletsFollow()

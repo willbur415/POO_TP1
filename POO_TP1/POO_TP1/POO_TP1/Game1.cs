@@ -152,6 +152,10 @@ namespace POO_TP1
                     if (padOneState.IsConnected) CheckPadInputs(padOneState);
                     else CheckKeyboardKeys(keyboardState);
                 }
+                else
+                {
+                    PlayerShip.GetInstance().CheckRespawnTime();
+                }
                 
                 updateBullets();
                 updateAsteroids();
@@ -240,7 +244,7 @@ namespace POO_TP1
         private void CheckPadInputs(GamePadState padState)
         {
             PlayerShip.GetInstance().RotationAngle += padState.ThumbSticks.Right.X / 16.0f;
-            PlayerShip.GetInstance().MoveShip(padState.ThumbSticks.Left.Y);
+            PlayerShip.GetInstance().Update(padState.ThumbSticks.Left.Y);
             if (padState.IsButtonDown(Buttons.RightTrigger)) playerShoot();
         }
 
@@ -248,19 +252,19 @@ namespace POO_TP1
         {
             if (keyboardState.IsKeyDown(Keys.W))
             {
-                PlayerShip.GetInstance().MoveShip(1.0f);
+                PlayerShip.GetInstance().Update(1.0f);
             }
             else
             {
-                PlayerShip.GetInstance().MoveShip(0);
+                PlayerShip.GetInstance().Update(0);
             }
             if (keyboardState.IsKeyDown(Keys.S))
             {
-                PlayerShip.GetInstance().MoveShip(-1.0f);
+                PlayerShip.GetInstance().Update(-1.0f);
             }
             else
             {
-                PlayerShip.GetInstance().MoveShip(0);
+                PlayerShip.GetInstance().Update(0);
             }
             if (keyboardState.IsKeyDown(Keys.A)) PlayerShip.GetInstance().RotationAngle -= 0.05f;
             if (keyboardState.IsKeyDown(Keys.D)) PlayerShip.GetInstance().RotationAngle += 0.05f;
