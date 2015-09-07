@@ -84,7 +84,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Score.cs" />
     <Compile Include="Ships\BigShip.cs" />
     <Compile Include="Ships\EnnemyShip.cs" />
     <Compile Include="Ships\LittleShip.cs" />
@@ -96,7 +95,6 @@
     <Content Include="GameThumbnail.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </Content>
-    <Content Include="Score.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\POO_TP1Content\POO_TP1Content.contentproj">
