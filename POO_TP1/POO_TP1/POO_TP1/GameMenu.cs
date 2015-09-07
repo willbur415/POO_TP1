@@ -18,7 +18,7 @@ namespace POO_TP1
         private int nbMenuItems;
         private string[] menuItems = new string[3];
         private Vector2 playButtonPos;
-        private Vector2 optionsButtonPos;
+        private Vector2 scoresButtonPos;
         private Vector2 exitButtonsPos;
         private Vector2 fontOrigin;
         private Vector2 cursorPosition;
@@ -36,14 +36,14 @@ namespace POO_TP1
         public void Initialize(SpriteFont font,ref GraphicsDeviceManager graphics)
         {
             menuItems[0] = "Play";
-            menuItems[1] = "Options";
+            menuItems[1] = "Scores";
             menuItems[2] = "Exit";
             nbMenuItems = 3;
             selectedItemIndex = 0;
             this.font = font;
             playButtonPos = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
                      graphics.GraphicsDevice.Viewport.Height / 2);
-            optionsButtonPos = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
+            scoresButtonPos = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
                      graphics.GraphicsDevice.Viewport.Height / 2 + 75);
             exitButtonsPos = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
                      graphics.GraphicsDevice.Viewport.Height / 2 + 150);
@@ -58,7 +58,7 @@ namespace POO_TP1
             {       
                 spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().PlayButton, GameMenu.GetInstance().PlayButtonPos,
                                         Color.Blue, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-                spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().OptionsButton, GameMenu.GetInstance().OptionsButtonPos,
+                spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().OptionsButton, GameMenu.GetInstance().ScoresButtonPos,
                                          Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
                 spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().ExitButton, GameMenu.GetInstance().ExitButtonPos,
                                          Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
@@ -67,7 +67,7 @@ namespace POO_TP1
             {
                 spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().PlayButton, GameMenu.GetInstance().PlayButtonPos,
                                         Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-                spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().OptionsButton, GameMenu.GetInstance().OptionsButtonPos,
+                spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().OptionsButton, GameMenu.GetInstance().ScoresButtonPos,
                                          Color.Blue, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
                 spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().ExitButton, GameMenu.GetInstance().ExitButtonPos,
                                           Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);        
@@ -76,7 +76,7 @@ namespace POO_TP1
             {      
                 spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().PlayButton, GameMenu.GetInstance().PlayButtonPos,
                                         Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-                spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().OptionsButton, GameMenu.GetInstance().OptionsButtonPos,
+                spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().OptionsButton, GameMenu.GetInstance().ScoresButtonPos,
                                          Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
                 spriteBatch.DrawString(GameMenu.GetInstance().Font, GameMenu.GetInstance().ExitButton, GameMenu.GetInstance().ExitButtonPos,
                                          Color.Blue, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);     
@@ -144,9 +144,9 @@ namespace POO_TP1
         {
             get { return playButtonPos;}
         }
-        public Vector2 OptionsButtonPos
+        public Vector2 ScoresButtonPos
         {
-            get { return optionsButtonPos; }
+            get { return scoresButtonPos; }
         }
         public Vector2 ExitButtonPos
         {
