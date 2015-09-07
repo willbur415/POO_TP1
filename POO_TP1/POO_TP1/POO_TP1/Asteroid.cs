@@ -45,15 +45,15 @@ namespace POO_TP1
             // override if needed
         }
 
-        public void Split()
+        public void Split(float bulletRotationAngle)
         {
             if (size == AsteroidSize.large)
             {
-                addSmallerAsteroid(AsteroidSize.medium);
+                addSmallerAsteroid(AsteroidSize.medium, bulletRotationAngle);
             }
             else if (size == AsteroidSize.medium)
             {
-                addSmallerAsteroid(AsteroidSize.small);
+                addSmallerAsteroid(AsteroidSize.small, bulletRotationAngle);
             }
             else
             {
@@ -78,7 +78,7 @@ namespace POO_TP1
             }
         }
 
-        private void addSmallerAsteroid(AsteroidSize size)
+        private void addSmallerAsteroid(AsteroidSize size, float bulletRotationAngle)
         {
             float newRotationAngle = (float)((Math.PI * 2) / 3);
             Asteroid newAst1;
@@ -87,16 +87,16 @@ namespace POO_TP1
             LevelManager.GetInstance().DeadAsteroids.Add(this);
             if (size == AsteroidSize.medium)
             {
-                newAst1 = new Asteroid(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\asteroid_medium"), this.position, this.rotationAngle + newRotationAngle, size);
-                newAst2 = new Asteroid(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\asteroid_medium"), this.position, this.rotationAngle - newRotationAngle, size);
-                LevelManager.GetInstance().Asteroids.Add(new Asteroid(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\asteroid_medium"), this.position, this.rotationAngle - newRotationAngle, size));
-                LevelManager.GetInstance().Asteroids.Add(new Asteroid(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\asteroid_medium"), this.position, this.rotationAngle + newRotationAngle, size));
+                newAst1 = new Asteroid(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\asteroid_medium"), this.position, bulletRotationAngle + newRotationAngle, size);
+                newAst2 = new Asteroid(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\asteroid_medium"), this.position, bulletRotationAngle - newRotationAngle, size);
             }
             else
             {
-                LevelManager.GetInstance().Asteroids.Add(new Asteroid(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\asteroid_small"), this.position, this.rotationAngle + newRotationAngle, size));
-                LevelManager.GetInstance().Asteroids.Add(new Asteroid(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\asteroid_small"), this.position, this.rotationAngle - newRotationAngle, size));
+                newAst1 = new Asteroid(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\asteroid_small"), this.position, bulletRotationAngle + newRotationAngle, size);
+                newAst2 = new  Asteroid(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\asteroid_small"), this.position, bulletRotationAngle - newRotationAngle, size);
             }
+            LevelManager.GetInstance().Asteroids.Add(newAst1);
+            LevelManager.GetInstance().Asteroids.Add(newAst2);
             
         }
     }

@@ -222,6 +222,7 @@ namespace POO_TP1
             {
                 if (!bullet.IsShooted)
                 {
+                    bullet.RotationAngle = this.rotationAngle;
                     bullet.Velocity = new Vector2((float)Math.Sin((double)rotationAngle) * 10, -(float)Math.Cos((double)rotationAngle) * 10);
                     bullet.IsShooted = true;
                     cooldown = COOLDOWN_TIME;
