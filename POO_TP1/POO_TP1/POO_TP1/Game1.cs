@@ -24,8 +24,8 @@ namespace POO_TP1
         private SpriteFont font;
         public const int SCREENWIDTH = 1280;
         public const int SCREENHEIGHT = 796;
+        private GameState gameState;
         private const float TIME_BETWEEN_SHOTS_SEC= 3;
-        private bool paused = true;
         private bool pauseKeyDown;
         private int menuCounter;
 
@@ -108,9 +108,8 @@ namespace POO_TP1
             font = Content.Load<SpriteFont>("Kootenay");
             GameMenu.GetInstance().Initialize(font, ref graphics);
             UI.GetInstance().Initialize();
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            gameState = GameState.Menu;
             facto = new Factory(Content);
             spacefield = Content.Load<Texture2D>("Graphics\\background\\stars");
             PlayerShip.GetInstance().Initialize(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 4, SCREENHEIGHT / 2));
@@ -143,23 +142,15 @@ namespace POO_TP1
 
             CheckPauseKey(padOneState, keyboardState);
 
-            if (!paused)
+            if (gameState == GameState.InGame)
             {
-                if (PlayerShip.GetInstance().IsAlive)
-                {
-                    if (padOneState.IsConnected) CheckPadInputs(padOneState);
-                    else CheckKeyboardKeys(keyboardState);
-                }
-                else
-                {
-                    PlayerShip.GetInstance().CheckRespawnTime();
-                }
-                
+
+                updatePlayer(padOneState, keyboardState);
                 updateBullets();
                 updateAsteroids();
                 DeadAsteroids.Clear();
             }
-            else
+            else if (gameState == GameState.Menu)
             {
                 checkMenuControls(ref padOneState, ref keyboardState);
             }
@@ -175,7 +166,7 @@ namespace POO_TP1
             spriteBatch.Begin();
             spriteBatch.Draw(spacefield, Vector2.Zero, Color.White);
 
-            if (!paused)
+            if (gameState == GameState.InGame)
             {
 
                 drawAsteroids(spriteBatch);
@@ -200,7 +191,7 @@ namespace POO_TP1
         {
             if (GameMenu.GetInstance().SelectedItemIndex == 0)
             {
-                paused = false;
+                gameState = GameState.InGame;
             }
             if (GameMenu.GetInstance().SelectedItemIndex == 1)
             {
@@ -212,16 +203,6 @@ namespace POO_TP1
             }
         }
 
-        //Code for game pausing taking in microsoft documentation
-        private void BeginPause()
-        {
-            paused = true;
-
-        }
-        private void EndPause()
-        {
-            paused = false;
-        }
         private void CheckPauseKey(GamePadState gamePadState, KeyboardState keyboardState)
         {
             bool pauseKeyDownThisFrame = (gamePadState.Buttons.Start == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Escape));
@@ -229,10 +210,10 @@ namespace POO_TP1
             // pause setting
             if (!pauseKeyDown && pauseKeyDownThisFrame)
             {
-                if (!paused)
-                    BeginPause();
+                if (gameState != GameState.Menu)
+                    gameState = GameState.Menu;
                 else
-                    EndPause();
+                    gameState = GameState.InGame;
             }
             pauseKeyDown = pauseKeyDownThisFrame;
         }
@@ -288,6 +269,19 @@ namespace POO_TP1
             if (PlayerShip.GetInstance().Cooldown == 0)
             {
                 PlayerShip.GetInstance().Shoot();
+            }
+        }
+
+        private void updatePlayer(GamePadState padState, KeyboardState keyboardState)
+        {
+            if (PlayerShip.GetInstance().IsAlive)
+            {
+                if (padState.IsConnected) CheckPadInputs(padState);
+                else CheckKeyboardKeys(keyboardState);
+            }
+            else
+            {
+                PlayerShip.GetInstance().CheckRespawnTime();
             }
         }
 
