@@ -70,7 +70,7 @@ namespace POO_TP1
                 Asteroid ast = subject as Asteroid;
                 if (ast.Size == AsteroidSize.large)
                 {
-                    updateScore(100);
+                    updateScore(20);
                 }
                 else if (ast.Size == AsteroidSize.medium)
                 {
@@ -78,7 +78,7 @@ namespace POO_TP1
                 }
                 else
                 {
-                    updateScore(20);
+                    updateScore(100);
                 }
 
             }
