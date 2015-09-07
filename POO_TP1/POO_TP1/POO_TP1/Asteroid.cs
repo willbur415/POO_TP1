@@ -35,7 +35,7 @@ namespace POO_TP1
             this.AddObserver(UI.GetInstance());
         }
 
-        public new void Move()
+        public void Move()
         {
             base.move();
         }
