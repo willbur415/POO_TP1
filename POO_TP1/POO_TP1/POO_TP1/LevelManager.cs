@@ -66,6 +66,18 @@ namespace POO_TP1
             }
         }
 
+        public int CurrentLevel
+        {
+            get
+            {
+                return currentLevel;
+            }
+            set
+            {
+                currentLevel = value;
+            }
+        }
+
         public void ChangeLevel()
         {
             asteroids.Clear();
