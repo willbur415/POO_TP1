@@ -48,6 +48,13 @@ namespace POO_TP1
             FillObject2DInfo();
         }
 
+        public void ResetPosition()
+        {
+            base.position.X = Game1.SCREENWIDTH / 2;
+            base.position.Y = Game1.SCREENHEIGHT / 2;
+            base.velocity = Vector2.Zero;
+        }
+
         public Bullet[] Bullets
         {
             get
