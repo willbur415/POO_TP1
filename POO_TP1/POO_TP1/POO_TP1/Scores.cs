@@ -12,12 +12,9 @@ namespace POO_TP1
     {
         private static Scores score;
         private SpriteFont font;
-        private Vector2 namePos;
-        private Vector2 scorePos;
         private Vector2 origin;
         private GraphicsDeviceManager graphics;
         private int posCounter;
-        private bool isScoreShowing;
 
         public static Scores GetInstance()
         {
@@ -31,14 +28,8 @@ namespace POO_TP1
 
         public void Initialize(SpriteFont font, ref GraphicsDeviceManager graphics)
         {
-            posCounter = 0;
             this.graphics = graphics;
             this.font = font;
-            namePos = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
-                     graphics.GraphicsDevice.Viewport.Height / 2);
-            scorePos = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2 + 300,
-                     graphics.GraphicsDevice.Viewport.Height / 2);
-            isScoreShowing = false;
 
         }
 
@@ -46,7 +37,7 @@ namespace POO_TP1
         {
             
             origin = font.MeasureString(scoreList.Keys.ElementAt(0));
-
+            posCounter = 0;
             foreach (KeyValuePair<string, string> list in scoreList)
             {
                 spriteBatch.DrawString(Scores.GetInstance().Font, list.Key, new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
