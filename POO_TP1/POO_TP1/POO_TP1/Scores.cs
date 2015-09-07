@@ -6,9 +6,26 @@ using System.Xml;
 
 namespace POO_TP1
 {
-    class SaveScore
+    class Scores
     {
-        public SaveScore()
+        private static Scores score;
+
+        public static Scores GetInstance()
+        {
+            if (score == null)
+            {
+                score = new Scores();
+            }
+
+            return score;
+        }
+
+        public void Initialize()
+        {
+
+        }
+
+        public void ShowScores()
         {
 
         }

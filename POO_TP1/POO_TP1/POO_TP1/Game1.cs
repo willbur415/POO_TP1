@@ -156,7 +156,7 @@ namespace POO_TP1
             }
             else if (gameState == GameState.Menu)
             {
-                checkMenuControls(ref padOneState, ref keyboardState,currentTime);
+                checkMenuControls(ref padOneState, ref keyboardState, currentTime);
             }
             base.Update(gameTime);
         }
