@@ -28,6 +28,7 @@ namespace POO_TP1
         private const float TIME_BETWEEN_SHOTS_SEC= 3;
         private bool pauseKeyDown;
         private int menuCounter;
+        private double currentTime;
 
 
         private Factory facto;
@@ -136,6 +137,8 @@ namespace POO_TP1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            currentTime = gameTime.TotalGameTime.TotalMilliseconds;
+
             menuCounter++;
             GamePadState padOneState = GamePad.GetState(PlayerIndex.One);
             KeyboardState keyboardState = Keyboard.GetState(PlayerIndex.One);
@@ -152,7 +155,7 @@ namespace POO_TP1
             }
             else if (gameState == GameState.Menu)
             {
-                checkMenuControls(ref padOneState, ref keyboardState);
+                checkMenuControls(ref padOneState, ref keyboardState, ref gameTime);
             }
             base.Update(gameTime);
         }
@@ -333,7 +336,7 @@ namespace POO_TP1
             spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.White, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
         }
 
-        private void checkMenuControls(ref GamePadState padState, ref KeyboardState keyboardState)
+        private void checkMenuControls(ref GamePadState padState, ref KeyboardState keyboardState, ref GameTime gameTime)
         {
             if (padState.DPad.Down == ButtonState.Pressed || padState.DPad.Up == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Down) || keyboardState.IsKeyDown(Keys.Up))
             {
