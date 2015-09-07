@@ -309,15 +309,18 @@ namespace POO_TP1
             foreach (Bullet bullet in PlayerShip.GetInstance().Bullets)
             {
                 bullet.Update();
-                for (int i = 0; i < Asteroids.Count; i++)
+                if (bullet.IsShooted)
                 {
-                    bullet.CheckCollisionBox(Asteroids[i]);
-                }
-                for (int i = 0; i < DeadAsteroids.Count; i++)
-                {
-                    if (Asteroids.Contains(DeadAsteroids[i]))
+                    for (int i = 0; i < Asteroids.Count; i++)
                     {
-                        Asteroids.Remove(DeadAsteroids[i]);
+                        bullet.CheckCollisionBox(Asteroids[i]);
+                    }
+                    for (int i = 0; i < DeadAsteroids.Count; i++)
+                    {
+                        if (Asteroids.Contains(DeadAsteroids[i]))
+                        {
+                            Asteroids.Remove(DeadAsteroids[i]);
+                        }
                     }
                 }
             }
