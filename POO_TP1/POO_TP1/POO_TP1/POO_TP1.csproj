@@ -72,26 +72,26 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bonus.cs" />
-    <Compile Include="Bullet.cs" />
+    <Compile Include="Subjects\Bonus.cs" />
+    <Compile Include="Subjects\Bullet.cs" />
     <Compile Include="Factory.cs" />
-    <Compile Include="Asteroid.cs" />
-    <Compile Include="GameMenu.cs" />
-    <Compile Include="GameState.cs" />
-    <Compile Include="LevelManager.cs" />
-    <Compile Include="MovableObject.cs" />
-    <Compile Include="Objet2D.cs" />
-    <Compile Include="ObservedSubject.cs" />
-    <Compile Include="Observer.cs" />
+    <Compile Include="Subjects\Asteroid.cs" />
+    <Compile Include="Game\GameMenu.cs" />
+    <Compile Include="Game\GameState.cs" />
+    <Compile Include="Game\LevelManager.cs" />
+    <Compile Include="Subjects\MovableObject.cs" />
+    <Compile Include="Subjects\Objet2D.cs" />
+    <Compile Include="Subjects\ObservedSubject.cs" />
+    <Compile Include="Observers\Observer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Game1.cs" />
-    <Compile Include="Scores.cs" />
-    <Compile Include="Ships\BigShip.cs" />
-    <Compile Include="Ships\EnnemyShip.cs" />
-    <Compile Include="Ships\LittleShip.cs" />
-    <Compile Include="Ships\PlayerShip.cs" />
-    <Compile Include="UI.cs" />
+    <Compile Include="Game\Game1.cs" />
+    <Compile Include="Game\Scores.cs" />
+    <Compile Include="Subjects\Ships\BigShip.cs" />
+    <Compile Include="Subjects\Ships\EnnemyShip.cs" />
+    <Compile Include="Subjects\Ships\LittleShip.cs" />
+    <Compile Include="Observers\PlayerShip.cs" />
+    <Compile Include="Observers\UI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
