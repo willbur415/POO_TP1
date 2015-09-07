@@ -32,7 +32,6 @@ namespace POO_TP1
 
         private Factory facto;
         private Texture2D spacefield;
-        private EnnemyShip eShip;
         private Bonus bonus;
         public static List<Asteroid> Asteroids;
         public static List<Asteroid> DeadAsteroids;
@@ -116,7 +115,6 @@ namespace POO_TP1
             spacefield = Content.Load<Texture2D>("Graphics\\background\\stars");
             PlayerShip.GetInstance().Initialize(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 4, SCREENHEIGHT / 2));
             PlayerShip.GetInstance().InitBullets(Content);
-            eShip = Factory.createEnnemyShip(TypeShip.bigShip);
             bonus = Factory.createBonus(BonusType.slowDown);
             loadAsteroids();
             
@@ -179,8 +177,6 @@ namespace POO_TP1
 
             if (!paused)
             {
-                
-                spriteBatch.Draw(eShip.Image, eShip.Position, Color.White);
 
                 drawAsteroids(spriteBatch);
 
