@@ -12,6 +12,7 @@ namespace POO_TP1
     {
         private static Scores score;
         private string[] savedScores;
+        private SpriteFont font;
 
         public static Scores GetInstance()
         {
@@ -25,12 +26,19 @@ namespace POO_TP1
 
         public void Initialize(SpriteFont font, ref GraphicsDeviceManager graphics)
         {
-
+            this.font = font;
         }
 
-        public void ShowScores()
+        public void ShowScores(Dictionary<string,string> scoreList, ref SpriteBatch spriteBatch )
         {
-
+            foreach (KeyValuePair<string, string> list  in scoreList)
+            {
+                spriteBatch.DrawString(Scores.GetInstance().Font, list.Key, GameMenu.GetInstance().PlayButtonPos,
+                                       Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+                spriteBatch.DrawString(Scores.GetInstance().Font, list.Value, GameMenu.GetInstance().PlayButtonPos,
+                                       Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+            }
+            
         }
 
         public void saveToXML(string score, string name)
@@ -50,6 +58,11 @@ namespace POO_TP1
             entryNode.AppendChild(entryScoreNode);
 
             doc.Save(@"..\..\res\XML\scorelog.xml");
+        }
+
+        public SpriteFont Font
+        {
+            get { return font; }
         }
     }
 }
