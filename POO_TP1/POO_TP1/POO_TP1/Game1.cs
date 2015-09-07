@@ -167,6 +167,10 @@ namespace POO_TP1
                     gameState = GameState.Menu;
                 }
             }
+            else if (gameState == GameState.GameOver)
+            { 
+
+            }
 
             base.Update(gameTime);
         }
@@ -196,7 +200,7 @@ namespace POO_TP1
             }
             else if (gameState == GameState.GameOver)
             {
-                
+                spriteBatch.DrawString(font, "Game Over", new Vector2((SCREENWIDTH / 2) - 100, SCREENHEIGHT / 2), Color.White);
             }
             else if (gameState == GameState.Scores)
             {
@@ -300,6 +304,10 @@ namespace POO_TP1
             else
             {
                 PlayerShip.GetInstance().CheckRespawnTime();
+            }
+            if (PlayerShip.GetInstance().NumberOfLifes <= 0)
+            {
+                gameState = GameState.GameOver;
             }
         }
 
