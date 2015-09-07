@@ -272,7 +272,6 @@ namespace POO_TP1
             {
                 Asteroid ast = new Asteroid(Content.Load<Texture2D>("Graphics\\sprites\\asteroid_big"), Vector2.Zero, i, AsteroidSize.large);
                 LevelManager.GetInstance().Asteroids.Add(ast);
-                ast.AddObserver(UI.GetInstance());
             }
         }
 

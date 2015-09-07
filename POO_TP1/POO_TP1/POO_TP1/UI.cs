@@ -33,7 +33,7 @@ namespace POO_TP1
         public void Initialize()
         {
             this.numberOfLife = 3;
-            this.score = 9999;
+            this.score = 0;
             this.AddObserver(PlayerShip.GetInstance());
             playerLifeImage = Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\PlayerShipLife");
             backGroundUI = Game1.contentManager.Load<Texture2D>("Graphics\\UI\\UI");

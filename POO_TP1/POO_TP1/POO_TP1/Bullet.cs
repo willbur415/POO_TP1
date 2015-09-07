@@ -54,7 +54,7 @@ namespace POO_TP1
                 {
                     if (base.IsAsteroid(theOther))
                     {
-                        (theOther as Asteroid).Split();
+                        (theOther as Asteroid).Split(this.rotationAngle);
                     }
                     resetBullet();
                 }
