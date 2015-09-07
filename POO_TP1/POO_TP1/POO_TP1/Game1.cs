@@ -156,6 +156,7 @@ namespace POO_TP1
             {
                 checkMenuControls(ref padOneState, ref keyboardState, currentTime);
             }
+            
             base.Update(gameTime);
         }
 
@@ -179,9 +180,17 @@ namespace POO_TP1
                 }
                 UI.GetInstance().draw(ref spriteBatch);
             }
-            else
+            else if (gameState == GameState.Menu)
             {
                 GameMenu.GetInstance().DrawMenu(ref spriteBatch);     
+            }
+            else if (gameState == GameState.GameOver)
+            {
+                Scores.GetInstance().ShowScores(scoreList, ref spriteBatch);
+            }
+            else if (gameState == GameState.Scores)
+            {
+                Scores.GetInstance().ShowScores(scoreList, ref spriteBatch);
             }
 
             spriteBatch.End();
@@ -197,7 +206,7 @@ namespace POO_TP1
             }
             if (GameMenu.GetInstance().SelectedItemIndex == 1)
             {
-
+                gameState = GameState.Scores;
             }
             if (GameMenu.GetInstance().SelectedItemIndex == 2)
             {

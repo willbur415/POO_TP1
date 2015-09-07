@@ -2,6 +2,13 @@
 <XnaContent>
   <!-- TODO: replace this Asset with your own XML asset data. -->
   <Asset Type="System.Collections.Generic.Dictionary[System.String, System.String]">
-    
+    <Item>
+      <Key>Eric Boudreau</Key>
+      <Value>10000</Value>
+    </Item>
+    <Item>
+      <Key>Will-I-AM</Key>
+      <Value>1</Value>
+    </Item>
   </Asset>
 </XnaContent>
