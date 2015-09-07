@@ -17,6 +17,7 @@ namespace POO_TP1
         private const int RESPAWN_TIME = 70;
         private const int BULLET_SPAWN_POS = -100;
         private bool alive;
+        private int numberOfLifes = 3;
         private int playerTotalLife = 3;
         private static PlayerShip ship;
         private Bullet[] bullets;
@@ -31,7 +32,6 @@ namespace POO_TP1
             if (ship == null)
             {
                 ship = new PlayerShip();
-                ship.AddObserver(UI.GetInstance());
             }
             return ship;
         }
@@ -45,6 +45,7 @@ namespace POO_TP1
             base.image = image;
             base.position = position;
             bullets = new Bullet[MAX_BULLETS];
+            ship.AddObserver(UI.GetInstance());
             FillObject2DInfo();
         }
 
@@ -105,6 +106,18 @@ namespace POO_TP1
             set
             {
                 cooldown = value;
+            }
+        }
+
+        public int NumberOfLifes
+        {
+            get
+            {
+                return numberOfLifes;
+            }
+            set 
+            {
+                numberOfLifes = value;
             }
         }
 
@@ -170,6 +183,7 @@ namespace POO_TP1
         private void playerDead()
         {
             alive = false;
+            numberOfLifes--;
             respawnTime = RESPAWN_TIME;
         }
 
@@ -231,7 +245,13 @@ namespace POO_TP1
             {
                 //Apply bonus
             }
-
+            if (subject is UI)
+            {
+                if (UI.GetInstance().NumberOfLife != this.numberOfLifes)
+                {
+                    this.numberOfLifes = UI.GetInstance().NumberOfLife;
+                }
+            }
         }
     }
 }
