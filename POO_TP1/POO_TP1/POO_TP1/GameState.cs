@@ -8,6 +8,6 @@ namespace POO_TP1
     
     public enum GameState
     {
-        Menu, InGame, GameOver, Win, Scores
+        Menu, InGame, GameOver, Win, Scores, None
     }
 }
