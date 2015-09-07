@@ -160,7 +160,14 @@ namespace POO_TP1
             {
                 checkMenuControls(ref padOneState, ref keyboardState, currentTime);
             }
-            
+            else if (gameState == GameState.Scores)
+            {
+                if (padOneState.Buttons.B == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Escape))
+                {
+                    gameState = GameState.Menu;
+                }
+            }
+
             base.Update(gameTime);
         }
 
