@@ -11,8 +11,13 @@ namespace POO_TP1
     class Scores
     {
         private static Scores score;
-        private string[] savedScores;
         private SpriteFont font;
+        private Vector2 namePos;
+        private Vector2 scorePos;
+        private Vector2 origin;
+        private GraphicsDeviceManager graphics;
+        private int posCounter;
+        private bool isScoreShowing;
 
         public static Scores GetInstance()
         {
@@ -26,18 +31,33 @@ namespace POO_TP1
 
         public void Initialize(SpriteFont font, ref GraphicsDeviceManager graphics)
         {
+            posCounter = 0;
+            this.graphics = graphics;
             this.font = font;
+            namePos = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
+                     graphics.GraphicsDevice.Viewport.Height / 2);
+            scorePos = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2 + 300,
+                     graphics.GraphicsDevice.Viewport.Height / 2);
+            isScoreShowing = false;
+
         }
 
         public void ShowScores(Dictionary<string,string> scoreList, ref SpriteBatch spriteBatch )
         {
-            foreach (KeyValuePair<string, string> list  in scoreList)
+            
+            origin = font.MeasureString(scoreList.Keys.ElementAt(0));
+
+            foreach (KeyValuePair<string, string> list in scoreList)
             {
-                spriteBatch.DrawString(Scores.GetInstance().Font, list.Key, GameMenu.GetInstance().PlayButtonPos,
-                                       Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
-                spriteBatch.DrawString(Scores.GetInstance().Font, list.Value, GameMenu.GetInstance().PlayButtonPos,
-                                       Color.White, 0, GameMenu.GetInstance().FontOrigin, 1.0f, SpriteEffects.None, 0.5f);
+                spriteBatch.DrawString(Scores.GetInstance().Font, list.Key, new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
+                        graphics.GraphicsDevice.Viewport.Height / 2 + posCounter),
+                                        Color.White, 0, origin, 1.0f, SpriteEffects.None, 0.5f);
+                spriteBatch.DrawString(Scores.GetInstance().Font, list.Value, new Vector2(graphics.GraphicsDevice.Viewport.Width / 2 + 300,
+                        graphics.GraphicsDevice.Viewport.Height / 2 + posCounter),
+                                        Color.White, 0, origin, 1.0f, SpriteEffects.None, 0.5f);
+                posCounter += 75;
             }
+            
             
         }
 

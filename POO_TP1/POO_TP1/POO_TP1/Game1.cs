@@ -116,7 +116,8 @@ namespace POO_TP1
             PlayerShip.GetInstance().Initialize(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 4, SCREENHEIGHT / 2));
             PlayerShip.GetInstance().InitBullets(Content);
             bonus = Factory.createBonus(BonusType.slowDown);
-            loadAsteroids();            
+            loadAsteroids();
+            Scores.GetInstance().Initialize(font,ref graphics);
             scoreList = Content.Load<Dictionary<string, string>>("scorelog");
             // TODO: use this.Content to load your game content here
         }
@@ -174,7 +175,6 @@ namespace POO_TP1
 
             if (gameState == GameState.InGame)
             {
-
                 drawAsteroids(spriteBatch);
 
                 if (PlayerShip.GetInstance().Alive)
@@ -189,7 +189,7 @@ namespace POO_TP1
             }
             else if (gameState == GameState.GameOver)
             {
-                Scores.GetInstance().ShowScores(scoreList, ref spriteBatch);
+                
             }
             else if (gameState == GameState.Scores)
             {
