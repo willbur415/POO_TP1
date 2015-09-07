@@ -29,11 +29,12 @@ namespace POO_TP1
         private bool pauseKeyDown;
         private double currentTime;
         private double recordedTime = 0;
-
-
-        private Factory facto;
-        private Texture2D spacefield;
+        private Dictionary<string, string> scoreList;
         private Bonus bonus;
+        private Factory facto;
+
+        private Texture2D spacefield;
+
         private Random rand;
 
 
@@ -116,7 +117,7 @@ namespace POO_TP1
             PlayerShip.GetInstance().InitBullets(Content);
             bonus = Factory.createBonus(BonusType.slowDown);
             loadAsteroids();
-            
+            scoreList = Content.Load<Dictionary<string, string>>("scorelog");
             // TODO: use this.Content to load your game content here
         }
 
