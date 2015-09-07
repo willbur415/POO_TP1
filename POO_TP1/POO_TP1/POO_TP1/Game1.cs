@@ -34,8 +34,7 @@ namespace POO_TP1
         private Factory facto;
 
         private Texture2D spacefield;
-        public static List<Asteroid> Asteroids;
-        public static List<Asteroid> DeadAsteroids;
+
         private Random rand;
 
 
@@ -111,6 +110,7 @@ namespace POO_TP1
             UI.GetInstance().Initialize();
             spriteBatch = new SpriteBatch(GraphicsDevice);
             gameState = GameState.Menu;
+            LevelManager.GetInstance().Initialize();
             facto = new Factory(Content);
             spacefield = Content.Load<Texture2D>("Graphics\\background\\stars");
             PlayerShip.GetInstance().Initialize(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 4, SCREENHEIGHT / 2));
@@ -150,7 +150,7 @@ namespace POO_TP1
                 updatePlayer(padOneState, keyboardState);
                 updateBullets();
                 updateAsteroids();
-                DeadAsteroids.Clear();
+                LevelManager.GetInstance().DeadAsteroids.Clear();
             }
             else if (gameState == GameState.Menu)
             {
@@ -255,13 +255,11 @@ namespace POO_TP1
 
         private void loadAsteroids()
         {
-            Asteroids = new List<Asteroid>();
-            DeadAsteroids = new List<Asteroid>();
             rand = new Random();
-            for (int i = 0; i < rand.Next(2, 6); i++)
+            for (int i = 0; i < LevelManager.GetInstance().NbAsteroids; i++)
             {
                 Asteroid ast = new Asteroid(Content.Load<Texture2D>("Graphics\\sprites\\asteroid_big"), Vector2.Zero, i, AsteroidSize.large);
-                Asteroids.Add(ast);
+                LevelManager.GetInstance().Asteroids.Add(ast);
                 ast.AddObserver(UI.GetInstance());
             }
         }
@@ -289,10 +287,10 @@ namespace POO_TP1
 
         private void updateAsteroids()
         {
-            for (int i = 0; i < Asteroids.Count; i++)
+            foreach (Asteroid ast in LevelManager.GetInstance().Asteroids)
             {
-                Asteroids[i].Move();
-                PlayerShip.GetInstance().CheckCollisionBox(Asteroids[i]);
+                ast.Move();
+                PlayerShip.GetInstance().CheckCollisionBox(ast);
             }
         }
 
@@ -303,15 +301,17 @@ namespace POO_TP1
                 bullet.Update();
                 if (bullet.IsShooted)
                 {
-                    for (int i = 0; i < Asteroids.Count; i++)
+                    //Pas un foreach parce qu'on modifie un élément de la liste qu'on incrémente
+                    for (int i = 0; i < LevelManager.GetInstance().Asteroids.Count(); i++)
                     {
-                        bullet.CheckCollisionBox(Asteroids[i]);
+                        bullet.CheckCollisionBox(LevelManager.GetInstance().Asteroids[i]);
                     }
-                    for (int i = 0; i < DeadAsteroids.Count; i++)
+
+                    foreach(Asteroid deadAst in LevelManager.GetInstance().DeadAsteroids)
                     {
-                        if (Asteroids.Contains(DeadAsteroids[i]))
+                        if (LevelManager.GetInstance().Asteroids.Contains(deadAst))
                         {
-                            Asteroids.Remove(DeadAsteroids[i]);
+                            LevelManager.GetInstance().Asteroids.Remove(deadAst);
                         }
                     }
                 }
@@ -320,7 +320,7 @@ namespace POO_TP1
 
         private void drawAsteroids(SpriteBatch spriteBatch)
         {
-            foreach (Asteroid ast in Asteroids)
+            foreach (Asteroid ast in LevelManager.GetInstance().Asteroids)
             {
                 spriteBatch.Draw(ast.Image, ast.Position, Color.White);
             }
