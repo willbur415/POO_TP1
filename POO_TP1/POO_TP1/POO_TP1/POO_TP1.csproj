@@ -98,7 +98,6 @@
     <Content Include="GameThumbnail.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </Content>
-    <Content Include="scorelog.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\POO_TP1Content\POO_TP1Content.contentproj">
