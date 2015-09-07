@@ -68,8 +68,19 @@ namespace POO_TP1
 
         public void ChangeLevel()
         {
+            asteroids.Clear();
+            deadAsteroids.Clear();
             currentLevel++;
             ChangeNbAsteroids();
+        }
+
+        public bool LevelFinish()
+        {
+            if (asteroids.Count == 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         private void ChangeNbAsteroids()
