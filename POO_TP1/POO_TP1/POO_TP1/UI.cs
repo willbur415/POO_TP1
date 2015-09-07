@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace POO_TP1
 {
-    class UI : Observer
+    class UI : ObservedSubject, Observer
     {
         private const int LIFE_ORIGIN_POS = 7;
         private const int LIFE_SPACING = 5;
@@ -19,6 +19,7 @@ namespace POO_TP1
         private SpriteFont scoreFont;
         private Vector2 origin;
         private Vector2 textPos;
+        private int nbLifeUP = 1;
 
         public static UI GetInstance()
         {
@@ -32,7 +33,8 @@ namespace POO_TP1
         public void Initialize()
         {
             this.numberOfLife = 3;
-            this.score = 10;
+            this.score = 9999;
+            this.AddObserver(PlayerShip.GetInstance());
             playerLifeImage = Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\PlayerShipLife");
             backGroundUI = Game1.contentManager.Load<Texture2D>("Graphics\\UI\\UI");
             origin = new Vector2(LIFE_ORIGIN_POS, LIFE_ORIGIN_POS);
@@ -58,14 +60,32 @@ namespace POO_TP1
             origin.X = LIFE_ORIGIN_POS;
         }
 
+        public int NumberOfLife
+        {
+            get
+            {
+                return numberOfLife;
+            }
+            set
+            {
+                numberOfLife = value;
+            }
+        }
+
         private void updateScore(int score)
         {
             this.score += score;
+            if (this.score > 10000 * nbLifeUP)
+            {
+                nbLifeUP++;
+                updateLife(PlayerShip.GetInstance().NumberOfLifes + 1);
+            }
         }
 
         private void updateLife(int life)
         {
-            this.numberOfLife += life;
+            this.numberOfLife = life;
+            this.NotifyAllObservers();
         }
 
         public void Notify(ObservedSubject subject)
@@ -91,7 +111,8 @@ namespace POO_TP1
             {
                 if (!(subject as PlayerShip).IsAlive)
                 {
-                    updateLife(-1);
+                    updateLife(PlayerShip.GetInstance().NumberOfLifes);
+                    NotifyAllObservers();
                 }
             }
         }
