@@ -18,6 +18,7 @@ namespace POO_TP1
         private Texture2D backGroundUI;
         private SpriteFont scoreFont;
         private Vector2 origin;
+        private Vector2 textPos;
 
         public static UI GetInstance()
         {
@@ -36,14 +37,18 @@ namespace POO_TP1
             backGroundUI = Game1.contentManager.Load<Texture2D>("Graphics\\UI\\UI");
             origin = new Vector2(LIFE_ORIGIN_POS, LIFE_ORIGIN_POS);
             scoreFont = Game1.contentManager.Load<SpriteFont>("kootenay");
+            textPos = Vector2.Zero;
         }
 
         public void draw(ref SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(backGroundUI, Vector2.Zero, Color.White);
-            string scoreText = Convert.ToString(score);
-            Vector2 pos = new Vector2(650, 0);
-            spriteBatch.DrawString(scoreFont, scoreText, pos, Color.White, 0.0f , Vector2.Zero, 1.0f, SpriteEffects.None, 1.0f);
+
+            textPos.X = 650;
+
+            spriteBatch.DrawString(scoreFont, score.ToString(), textPos, Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 1.0f);
+            textPos.X = 1050;
+            spriteBatch.DrawString(scoreFont, "Level " + LevelManager.GetInstance().CurrentLevel, textPos, Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 1.0f);
 
             for (int i = 0; i < numberOfLife; i++)
             {
