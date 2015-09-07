@@ -5,14 +5,17 @@ using System.Text;
 
 namespace POO_TP1
 {    
-    public class Level
+    public class LevelManager
     {
         private const int NB_MAX_ASTEROIDS = 12;
+        private const int NB_ASTEROIDS_INCR = 3;
         private int nbAsteroids;
+        private int currentLevel;
 
-        public Level()
+        public LevelManager()
         {
-            
+            currentLevel = 1;
+            ChangeNbAsteroids();
         }
 
         public int NbAsteroids
@@ -25,6 +28,17 @@ namespace POO_TP1
             {
                 nbAsteroids = value;
             }
+        }
+
+        public void ChangeLevel()
+        {
+            currentLevel++;
+            ChangeNbAsteroids();
+        }
+
+        private void ChangeNbAsteroids()
+        {
+            nbAsteroids = currentLevel + NB_ASTEROIDS_INCR;
         }
     }
 }
