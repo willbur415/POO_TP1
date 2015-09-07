@@ -78,7 +78,7 @@
     <Compile Include="Asteroid.cs" />
     <Compile Include="GameMenu.cs" />
     <Compile Include="GameState.cs" />
-    <Compile Include="Level.cs" />
+    <Compile Include="LevelManager.cs" />
     <Compile Include="MovableObject.cs" />
     <Compile Include="Objet2D.cs" />
     <Compile Include="ObservedSubject.cs" />

@@ -25,6 +25,7 @@ namespace POO_TP1
         public const int SCREENWIDTH = 1280;
         public const int SCREENHEIGHT = 796;
         private GameState gameState;
+        private LevelManager levelManager;
         private const float TIME_BETWEEN_SHOTS_SEC= 3;
         private bool pauseKeyDown;
         private double currentTime;
@@ -111,6 +112,7 @@ namespace POO_TP1
             UI.GetInstance().Initialize();
             spriteBatch = new SpriteBatch(GraphicsDevice);
             gameState = GameState.Menu;
+            levelManager = new LevelManager();
             facto = new Factory(Content);
             spacefield = Content.Load<Texture2D>("Graphics\\background\\stars");
             PlayerShip.GetInstance().Initialize(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 4, SCREENHEIGHT / 2));
@@ -258,7 +260,7 @@ namespace POO_TP1
             Asteroids = new List<Asteroid>();
             DeadAsteroids = new List<Asteroid>();
             rand = new Random();
-            for (int i = 0; i < rand.Next(2, 6); i++)
+            for (int i = 0; i < levelManager.NbAsteroids; i++)
             {
                 Asteroid ast = new Asteroid(Content.Load<Texture2D>("Graphics\\sprites\\asteroid_big"), Vector2.Zero, i, AsteroidSize.large);
                 Asteroids.Add(ast);
