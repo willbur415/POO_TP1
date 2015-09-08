@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using POO_TP1;
-using POO_TP1.Subjects.BonusType;
 
 
 namespace POO_TP1
@@ -49,6 +48,7 @@ namespace POO_TP1
         {
             base.image = image;
             base.position = position;
+            this.currentBonus = new Bonus(image, Vector2.Zero, BonusType.none);
             bullets = new Bullet[MAX_BULLETS];
             ship.AddObserver(UI.GetInstance());
             FillObject2DInfo();
@@ -188,7 +188,7 @@ namespace POO_TP1
             {
                 shotCooldown--;
             }
-            
+
             //Rappel, le thrust arrière doit être plus lent
             if (newThrust < 0)
                 newThrust /= 2;
@@ -289,9 +289,8 @@ namespace POO_TP1
             }
             else if (subject is Bonus)
             {
-                currentBonus = (subject as Bonus);
-                currentBonus.StartEffect();
                 Game1.bonusList.Remove(subject as Bonus);
+                currentBonus = (subject as Bonus);
             }
         }
     }

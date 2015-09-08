@@ -15,13 +15,14 @@ namespace POO_TP1
 
     public enum BonusType
     {
-        invincible, extraLife, doublePoints, slowDown, extraPoints
+        none, invincible, extraLife, doublePoints, slowDown, extraPoints
     }
 
-    public abstract class Bonus : MovableObject
+    public class Bonus : MovableObject
     {
-        protected int bonusTime;
-        protected bool isFinished;
+        private int bonusTime;
+        private bool isFinished;
+        private BonusType type;
 
         public int BonusTime
         {
@@ -47,10 +48,36 @@ namespace POO_TP1
             }
         }
 
-        public Bonus(Texture2D image, Vector2 position)
+        public BonusType Type
+        {
+            get
+            {
+                return type;
+            }
+            set
+            {
+                type = value;
+            }
+        }
+
+        public Bonus(Texture2D image, Vector2 position, BonusType type)
             : base(image, position)
         {
             this.AddObserver(PlayerShip.GetInstance());
+            this.type = type;
+            bonusTime = 900;
+        }
+
+        public void Update()
+        {
+            if (bonusTime > 0)
+            {
+                bonusTime--;
+            }
+            else
+            {
+                type = BonusType.none;
+            }
         }
 
         public override void CheckCollisionBox(Objet2D theOther)
@@ -60,8 +87,5 @@ namespace POO_TP1
                 this.NotifyAllObservers();
             }
         }
-
-        public abstract void StartEffect();
-        public abstract void Update();
     }
 }
