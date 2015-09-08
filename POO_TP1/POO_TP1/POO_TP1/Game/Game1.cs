@@ -158,11 +158,6 @@ namespace POO_TP1
                 updatePlayer(padOneState, keyboardState);
                 updateBullets();
                 checkPlayerCollision();
-                foreach (EnnemyShip ships in LevelManager.GetInstance().ShipsList)
-                {
-                    ships.Move();
-                    
-                }
 
                 LevelManager.GetInstance().DeadAsteroids.Clear();
             }
@@ -304,7 +299,9 @@ namespace POO_TP1
             foreach (KeyValuePair<string, string> list in scoreList)
             {
                 if (UI.GetInstance().Score > Convert.ToInt32(list.Value))
-                {   //Doit demander le name avant d'enregistrer, sinon erreur de key
+                {   //Doit demander le name avant d'enregistrer, sinon erreur de key a cause du dictionnary
+                    //changement de container pour la sauvegarde de score??
+                    //sinon 2 user ne pourront avoir le meme nom
                     //Scores.GetInstance().saveToXML(UI.GetInstance().Score.ToString(),AskUserName());
                     break;
                 }
@@ -313,7 +310,6 @@ namespace POO_TP1
 
         private string AskUserName()
         {
-       
             string name = "";
 
             return name;
@@ -330,7 +326,7 @@ namespace POO_TP1
 
         private void loadEnemyShips()
         {
-            LevelManager.GetInstance().ShipsList.Add(Factory.createEnnemyShip(TypeShip.bigBossShip, new Vector2(SCREENWIDTH, SCREENHEIGHT)));
+            LevelManager.GetInstance().ShipsList.Add(Factory.CreateEnemyShip(TypeShip.bigBossShip, new Vector2(SCREENWIDTH, SCREENHEIGHT)));
         }
 
         private void playerShoot()
@@ -364,6 +360,12 @@ namespace POO_TP1
             {
                 ast.Move();
                 PlayerShip.GetInstance().CheckCollisionBox(ast);
+            }
+
+            foreach (EnemyShip list in LevelManager.GetInstance().ShipsList)
+            {
+                list.Move();
+                PlayerShip.GetInstance().CheckCollisionBox(list);
             }
             
             for (int i = 0; i < bonusList.Count; i++)
@@ -414,7 +416,7 @@ namespace POO_TP1
 
         private void drawEnemyShips(SpriteBatch spriteBatch)
         {
-            foreach (EnnemyShip ships in LevelManager.GetInstance().ShipsList)
+            foreach (EnemyShip ships in LevelManager.GetInstance().ShipsList)
             {
                 spriteBatch.Draw(ships.Image,ships.Position,Color.White);
             }

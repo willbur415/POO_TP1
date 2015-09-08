@@ -178,7 +178,7 @@ namespace POO_TP1
 
         public override void CheckCollisionBox(Objet2D theOther)
         {
-            if (IsAsteroid(theOther) && currentBonus.Type != BonusType.invincible)
+            if ((IsAsteroid(theOther) && currentBonus.Type != BonusType.invincible) || (IsEnemyShip(theOther) && currentBonus.Type != BonusType.invincible))
             {
                 if (boiteCollision.Intersects(theOther.BoiteCollision) && alive)
                 {
@@ -186,6 +186,7 @@ namespace POO_TP1
                     ship.NotifyAllObservers();
                 }
             }
+            
         }
 
         public void Update(float newThrust)
