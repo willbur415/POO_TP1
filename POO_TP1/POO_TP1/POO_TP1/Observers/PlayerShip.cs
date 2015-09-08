@@ -246,13 +246,22 @@ namespace POO_TP1
             {
                 //Apply bonus
             }
-            if (subject is UI)
+            else if (subject is UI)
             {
                 if (UI.GetInstance().NumberOfLife != this.numberOfLifes)
                 {
                     this.numberOfLifes = UI.GetInstance().NumberOfLife;
                 }
             }
+            else if (subject is Bonus)
+            {
+                if ((subject as Bonus).Type == BonusType.extraLife)
+                {
+                    this.numberOfLifes += 1;
+                    UI.GetInstance().NumberOfLife += 1;
+                }
+            }
+            
         }
     }
 }
