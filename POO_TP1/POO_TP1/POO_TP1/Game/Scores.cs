@@ -45,8 +45,7 @@ namespace POO_TP1
                         graphics.GraphicsDevice.Viewport.Height / 2 + posCounter),
                                         Color.White, 0, origin, 1.0f, SpriteEffects.None, 0.5f);
                 posCounter += 75;
-            }
-                  
+            }          
         }
 
 
