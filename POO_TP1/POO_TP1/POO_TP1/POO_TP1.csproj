@@ -87,6 +87,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game\Game1.cs" />
     <Compile Include="Game\Scores.cs" />
+    <Compile Include="Subjects\Ships\BigBossShip.cs" />
     <Compile Include="Subjects\Ships\BigShip.cs" />
     <Compile Include="Subjects\Ships\EnnemyShip.cs" />
     <Compile Include="Subjects\Ships\LittleShip.cs" />

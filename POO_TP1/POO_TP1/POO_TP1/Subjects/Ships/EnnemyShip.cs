@@ -7,9 +7,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace POO_TP1
 {
-    public enum TypeShip { littleShip, bigShip}
+    public enum TypeShip {littleShip, bigShip, bigBossShip}
 
-    public abstract class EnnemyShip : Objet2D
+    public abstract class EnnemyShip : MovableObject
     {
         protected TypeShip type;
 
@@ -29,6 +29,17 @@ namespace POO_TP1
             : base(image, position)
         {
             Type = type;
+        }
+
+        public override void CheckCollisionBox(Objet2D theOther)
+        {
+
+        }
+
+        public new void Move()
+        {
+            position.X += velocity.X;
+            position.Y += velocity.Y;
         }
     }
 }
