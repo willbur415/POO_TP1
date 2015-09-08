@@ -13,6 +13,7 @@ namespace POO_TP1
     {
         private AsteroidSize size;
         private const float ASTEROIDS_SPEED = 2;
+        private bool isSlow;
 
         public AsteroidSize Size
         {
@@ -32,11 +33,21 @@ namespace POO_TP1
             velocity.X = (float)(Math.Sin((double)rotationAngle) * ASTEROIDS_SPEED);
             velocity.Y = (float)(Math.Cos((double)rotationAngle) * ASTEROIDS_SPEED);
             this.size = size;
+            this.isSlow = false;
             this.AddObserver(UI.GetInstance());
         }
 
         public void Move()
         {
+            if (PlayerShip.GetInstance().CurrentBonus.Type == BonusType.slowDown)
+            {
+                if (!this.isSlow)
+                {
+                    this.isSlow = true;
+                    this.velocity.X /= 2;
+                    this.velocity.Y /= 2;
+                }
+            }
             base.move();
         }
 

@@ -162,6 +162,12 @@ namespace POO_TP1
             }
         }
 
+        public void AddLife()
+        {
+            this.numberOfLifes++;
+            this.NotifyAllObservers();
+        }
+
         public void CheckCollisionSphere(Objet2D theOther)
         {
             if (sphereCollision.Intersects(theOther.SphereCollision))
@@ -188,6 +194,8 @@ namespace POO_TP1
             {
                 shotCooldown--;
             }
+
+            currentBonus.Update();
 
             //Rappel, le thrust arrière doit être plus lent
             if (newThrust < 0)
@@ -227,6 +235,8 @@ namespace POO_TP1
 
         private void respawn()
         {
+            currentBonus.Type = BonusType.invincible;
+            currentBonus.BonusTime = 300;
             this.alive = true;
             this.velocity = Vector2.Zero;
         }
