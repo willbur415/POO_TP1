@@ -79,14 +79,13 @@ namespace POO_TP1
             {
                 return 0.08f;
             }
-            else if (size == AsteroidSize.medium)
+            if (size == AsteroidSize.medium)
             {
                 return 0.1f;
             }
-            else
-            {
-                return 0.3f;
-            }
+  
+            return 0.3f;
+            
         }
 
         private void addSmallerAsteroid(AsteroidSize size, float bulletRotationAngle)
