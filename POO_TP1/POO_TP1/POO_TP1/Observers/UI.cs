@@ -14,6 +14,7 @@ namespace POO_TP1
         private static UI ui;
         private int numberOfLife;
         private int score;
+        private int scoreMultiplier;
         private Texture2D playerLifeImage;
         private Texture2D backGroundUI;
         private SpriteFont scoreFont;
@@ -34,6 +35,7 @@ namespace POO_TP1
         {
             this.numberOfLife = 3;
             this.score = 0;
+            this.scoreMultiplier = 1;
             this.AddObserver(PlayerShip.GetInstance());
             playerLifeImage = Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\PlayerShipLife");
             backGroundUI = Game1.contentManager.Load<Texture2D>("Graphics\\UI\\UI");
@@ -72,9 +74,21 @@ namespace POO_TP1
             }
         }
 
+        public int ScoreMultiplier
+        {
+            get
+            {
+                return scoreMultiplier;
+            }
+            set
+            {
+                scoreMultiplier = value;
+            }
+        }
+
         private void updateScore(int score)
         {
-            this.score += score;
+            this.score += score * scoreMultiplier;
             if (this.score > 10000 * nbLifeUP)
             {
                 nbLifeUP++;
@@ -119,7 +133,14 @@ namespace POO_TP1
 
         public int Score
         {
-            get { return score; }
+            get 
+            {
+                return score; 
+            }
+            set
+            {
+                score = value;
+            }
         }
     }
 }

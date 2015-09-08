@@ -18,20 +18,38 @@ namespace POO_TP1
         invincible, extraLife, doublePoints, slowDown, extraPoints
     }
 
-    public class Bonus : MovableObject
+    public abstract class Bonus : MovableObject
     {
-        private BonusType type;
+        protected int bonusTime;
+        protected bool isFinished;
 
-        public BonusType Type
+        public int BonusTime
         {
-            get { return type; }
-            set { type = value; }
+            get
+            {
+                return bonusTime;
+            }
+            set
+            {
+                bonusTime = value;
+            }
         }
 
-        public Bonus(Texture2D image, Vector2 position, BonusType type)
+        public bool IsFinished
+        {
+            get
+            {
+                return isFinished;
+            }
+            set
+            {
+                isFinished = value;
+            }
+        }
+
+        public Bonus(Texture2D image, Vector2 position)
             : base(image, position)
         {
-            this.type = type;
             this.AddObserver(PlayerShip.GetInstance());
         }
 
@@ -42,5 +60,8 @@ namespace POO_TP1
                 this.NotifyAllObservers();
             }
         }
+
+        public abstract void StartEffect();
+        public abstract void Update();
     }
 }
