@@ -21,17 +21,19 @@ namespace POO_TP1
         {
         }
 
-        public static EnnemyShip createEnnemyShip(TypeShip typeShip)
+        public static EnnemyShip createEnnemyShip(TypeShip typeShip,Vector2 screenSize)
         {
             Random r = new Random();
-            int random = r.Next(0, 500);
+            int random = r.Next(0, (int)screenSize.Y);
+            int startPos = -100;
+
             if (typeShip == TypeShip.littleShip)
             {
-                return new LittleShip(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\LittleShip"), new Vector2(-50,random), TypeShip.littleShip);
+                return new LittleShip(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\LittleShip"), new Vector2(startPos,random), TypeShip.littleShip);
             }
             else
             {
-                return new BigShip(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\BigShip"), new Vector2(-50, random), TypeShip.littleShip);
+                return new BigShip(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\BigShip"), new Vector2(startPos, random), TypeShip.littleShip);
             }
         }
 
