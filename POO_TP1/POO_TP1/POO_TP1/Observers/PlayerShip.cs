@@ -4,12 +4,17 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using POO_TP1;
+using POO_TP1.Subjects.BonusType;
 
 
 namespace POO_TP1
 {
     class PlayerShip : MovableObject, Observer
     {
+        private static PlayerShip ship;
+        private Bullet[] bullets;
+        private Bonus currentBonus;
+
         private const double MAXSPEED = 5.0;
         private const float SLOWFACTOR = 20.0f;
         private const int MAX_BULLETS = 5;
@@ -17,12 +22,12 @@ namespace POO_TP1
         private const int RESPAWN_TIME = 70;
         private const int BULLET_SPAWN_POS = -100;
         private bool alive;
+        private bool isInvincible;
         private int numberOfLifes = 3;
         private int playerTotalLife = 3;
-        private static PlayerShip ship;
-        private Bullet[] bullets;
+        
         private bool firstShot = false;
-        private int cooldown;
+        private int shotCooldown;
         private int respawnTime;
 
         public const int TIME_BETWEEN_SHOTS_MILI = 3000;
@@ -68,6 +73,18 @@ namespace POO_TP1
             }
         }
 
+        public Bonus CurrentBonus
+        {
+            get
+            {
+                return currentBonus;
+            }
+            set
+            {
+                currentBonus = value;
+            }
+        }
+
         public bool IsAlive
         {
             get
@@ -96,16 +113,28 @@ namespace POO_TP1
             }
         }
 
+        public bool IsInvincible
+        {
+            get
+            {
+                return isInvincible;
+            }
+            set
+            {
+                isInvincible = value;
+            }
+        }
+
 
         public int Cooldown
         {
             get
             {
-                return cooldown;
+                return shotCooldown;
             }
             set
             {
-                cooldown = value;
+                shotCooldown = value;
             }
         }
 
@@ -123,8 +152,14 @@ namespace POO_TP1
 
         public int PlayerTotalLife
         {
-            get { return playerTotalLife; }
-            set { playerTotalLife = value; }
+            get 
+            {
+                return playerTotalLife; 
+            }
+            set 
+            {
+                playerTotalLife = value; 
+            }
         }
 
         public void CheckCollisionSphere(Objet2D theOther)
@@ -149,9 +184,9 @@ namespace POO_TP1
 
         public void Update(float newThrust)
         {
-            if (cooldown > 0)
+            if (shotCooldown > 0)
             {
-                cooldown--;
+                shotCooldown--;
             }
             
             //Rappel, le thrust arrière doit être plus lent
@@ -228,7 +263,7 @@ namespace POO_TP1
                     bullet.RotationAngle = this.rotationAngle;
                     bullet.Velocity = new Vector2((float)Math.Sin((double)rotationAngle) * 10, -(float)Math.Cos((double)rotationAngle) * 10);
                     bullet.IsShooted = true;
-                    cooldown = COOLDOWN_TIME;
+                    shotCooldown = COOLDOWN_TIME;
                     return true;
                 }
             }
@@ -245,11 +280,7 @@ namespace POO_TP1
 
         public void Notify(ObservedSubject subject)
         {
-            if (subject is Bonus)
-            {
-                //Apply bonus
-            }
-            else if (subject is UI)
+            if (subject is UI)
             {
                 if (UI.GetInstance().NumberOfLife != this.numberOfLifes)
                 {
@@ -258,13 +289,10 @@ namespace POO_TP1
             }
             else if (subject is Bonus)
             {
-                if ((subject as Bonus).Type == BonusType.extraLife)
-                {
-                    this.numberOfLifes += 1;
-                    UI.GetInstance().NumberOfLife += 1;
-                }
+                currentBonus = (subject as Bonus);
+                currentBonus.StartEffect();
+                Game1.bonusList.Remove(subject as Bonus);
             }
-            
         }
     }
 }

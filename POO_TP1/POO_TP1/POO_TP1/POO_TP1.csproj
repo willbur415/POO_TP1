@@ -72,7 +72,12 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Subjects\Bonus.cs" />
+    <Compile Include="Subjects\BonusType\Bonus.cs" />
+    <Compile Include="Subjects\BonusType\ExtraPoints.cs" />
+    <Compile Include="Subjects\BonusType\SlowDown.cs" />
+    <Compile Include="Subjects\BonusType\DoublePoints.cs" />
+    <Compile Include="Subjects\BonusType\Invincible.cs" />
+    <Compile Include="Subjects\BonusType\ExtraLife.cs" />
     <Compile Include="Subjects\Bullet.cs" />
     <Compile Include="Factory.cs" />
     <Compile Include="Subjects\Asteroid.cs" />
