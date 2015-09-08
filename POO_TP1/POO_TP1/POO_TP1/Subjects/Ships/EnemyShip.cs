@@ -10,7 +10,7 @@ namespace POO_TP1
 {
     public enum TypeShip {littleShip, bigShip, bigBossShip}
 
-    public abstract class EnnemyShip : MovableObject
+    public abstract class EnemyShip : MovableObject
     {
         protected TypeShip type;
         private const double ENEMY_SPEED = 0.7;
@@ -27,7 +27,7 @@ namespace POO_TP1
             }
         }
 
-        public EnnemyShip(Texture2D image, Vector2 position, TypeShip type)
+        public EnemyShip(Texture2D image, Vector2 position, TypeShip type)
             : base(image, position)
         {
             double angle = 1.6;
@@ -35,6 +35,7 @@ namespace POO_TP1
             velocity.X = (float)(Math.Sin((double)rotationAngle) * ENEMY_SPEED);
             velocity.Y = (float)(Math.Cos((double)rotationAngle) * ENEMY_SPEED);
             Type = type;
+            AddObserver(UI.GetInstance());
         }
 
         public override void CheckCollisionBox(Objet2D theOther)
@@ -46,6 +47,7 @@ namespace POO_TP1
         {
             position.X += velocity.X;
             position.Y += velocity.Y;
+            UpdateCollision();
         }
     }
 }

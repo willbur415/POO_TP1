@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using POO_TP1;
+using POO_TP1.Subjects.Ships;
 
 
 namespace POO_TP1
@@ -21,20 +22,22 @@ namespace POO_TP1
         {
         }
 
-        public static EnnemyShip createEnnemyShip(TypeShip typeShip,Vector2 screenSize)
+        public static EnemyShip CreateEnemyShip(TypeShip typeShip,Vector2 screenSize)
         {
             Random r = new Random();
             int random = r.Next(0, (int)screenSize.Y);
-            int startPos = -100;
+            int startPosInX = -100;
 
             if (typeShip == TypeShip.littleShip)
             {
-                return new LittleShip(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\LittleShip"), new Vector2(startPos,random), TypeShip.littleShip);
+                return new LittleShip(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\LittleShip"), new Vector2(startPosInX,random), TypeShip.littleShip);
             }
-            else
+            if (typeShip == TypeShip.bigShip)
             {
-                return new BigShip(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\BigShip"), new Vector2(startPos, random), TypeShip.littleShip);
+                return new BigShip(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\BigShip"), new Vector2(startPosInX, random), TypeShip.littleShip);
             }
+
+            return new BigBossShip(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\BigBossShip"), new Vector2(startPosInX, random), TypeShip.bigBossShip);
         }
 
         public static Bonus createBonus(BonusType bonusType)

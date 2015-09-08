@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using POO_TP1.Subjects.Ships;
 
 namespace POO_TP1
 {
@@ -36,10 +37,18 @@ namespace POO_TP1
             }
             return false;
         }
+        protected bool IsEnemyShip(Objet2D objet)
+        {
+            if (objet.GetType() == typeof(LittleShip) || objet.GetType() == typeof(BigShip) || objet.GetType() == typeof(BigBossShip))
+            {
+                return true;
+            }
+            return false;
+        }
 
         public abstract void CheckCollisionBox(Objet2D theOther);
 
-        private void UpdateCollision()
+        protected void UpdateCollision()
         {
             this.boiteCollision.Min.X = position.X;
             this.boiteCollision.Min.Y = position.Y;

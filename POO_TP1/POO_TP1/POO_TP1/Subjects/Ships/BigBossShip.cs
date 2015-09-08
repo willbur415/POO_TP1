@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace POO_TP1.Subjects.Ships
 {
-    class BigBossShip : EnnemyShip
+    class BigBossShip : EnemyShip
     {
          public BigBossShip(Texture2D image, Vector2 position, TypeShip type)
             : base (image, position, type)
