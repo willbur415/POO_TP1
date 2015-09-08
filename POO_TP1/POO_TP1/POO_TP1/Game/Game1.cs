@@ -329,7 +329,7 @@ namespace POO_TP1
 
         private void loadEnemyShips()
         {
-            LevelManager.GetInstance().ShipsList.Add(Factory.createEnnemyShip(TypeShip.bigBossShip));
+            LevelManager.GetInstance().ShipsList.Add(Factory.createEnnemyShip(TypeShip.bigBossShip, new Vector2(SCREENWIDTH, SCREENHEIGHT)));
         }
 
         private void playerShoot()
