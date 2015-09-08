@@ -17,7 +17,7 @@ namespace POO_TP1
         {
         }
 
-        protected void move()
+        protected void Move()
         {
             this.position.X += this.velocity.X;
             this.position.Y += this.velocity.Y;
