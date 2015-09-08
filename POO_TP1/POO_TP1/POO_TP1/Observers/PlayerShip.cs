@@ -162,6 +162,12 @@ namespace POO_TP1
             }
         }
 
+        public void AddLife()
+        {
+            this.numberOfLifes++;
+            this.NotifyAllObservers();
+        }
+
         public void CheckCollisionSphere(Objet2D theOther)
         {
             if (sphereCollision.Intersects(theOther.SphereCollision))

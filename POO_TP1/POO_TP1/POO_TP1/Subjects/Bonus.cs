@@ -64,6 +64,7 @@ namespace POO_TP1
             : base(image, position)
         {
             this.AddObserver(PlayerShip.GetInstance());
+            this.AddObserver(UI.GetInstance());
             this.type = type;
             bonusTime = 900;
         }
@@ -72,14 +73,16 @@ namespace POO_TP1
         {
             if (this.type != BonusType.none)
             {
-                if (bonusTime > 0)
+                if (this.type == BonusType.doublePoints)
                 {
-                    bonusTime--;
+                    this.NotifyAllObservers();
                 }
-                else
+                else if (this.type == BonusType.extraLife)
                 {
-                    type = BonusType.none;
+                    PlayerShip.GetInstance().AddLife();
+                    this.type = BonusType.none;
                 }
+                updateTimer();
             }
         }
 
@@ -87,6 +90,19 @@ namespace POO_TP1
         {
             if (this.boiteCollision.Intersects(theOther.BoiteCollision))
             {
+                this.NotifyAllObservers();
+            }
+        }
+
+        private void updateTimer()
+        {
+            if (bonusTime > 0)
+            {
+                bonusTime--;
+            }
+            else
+            {
+                type = BonusType.none;
                 this.NotifyAllObservers();
             }
         }
