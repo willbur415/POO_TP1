@@ -189,6 +189,8 @@ namespace POO_TP1
                 shotCooldown--;
             }
 
+            currentBonus.Update();
+
             //Rappel, le thrust arrière doit être plus lent
             if (newThrust < 0)
                 newThrust /= 2;
@@ -227,6 +229,8 @@ namespace POO_TP1
 
         private void respawn()
         {
+            currentBonus.Type = BonusType.invincible;
+            currentBonus.BonusTime = 300;
             this.alive = true;
             this.velocity = Vector2.Zero;
         }

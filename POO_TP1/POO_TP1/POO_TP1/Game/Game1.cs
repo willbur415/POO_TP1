@@ -400,7 +400,15 @@ namespace POO_TP1
             {
                 spriteBatch.Draw(bullet.Image, bullet.Position, Color.White);
             }
-            spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.White, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
+            if (PlayerShip.GetInstance().CurrentBonus.Type != BonusType.invincible)
+            {
+                spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.White, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
+            }
+            else
+            {
+                spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.Green, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
+            }
+            
         }
 
         private void checkMenuControls(ref GamePadState padState, ref KeyboardState keyboardState, double currentTime)

@@ -70,13 +70,16 @@ namespace POO_TP1
 
         public void Update()
         {
-            if (bonusTime > 0)
+            if (this.type != BonusType.none)
             {
-                bonusTime--;
-            }
-            else
-            {
-                type = BonusType.none;
+                if (bonusTime > 0)
+                {
+                    bonusTime--;
+                }
+                else
+                {
+                    type = BonusType.none;
+                }
             }
         }
 
