@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -33,7 +34,7 @@ namespace POO_TP1
         private double recordedTime = 0;
         private Dictionary<string, string> scoreList;
         private Texture2D spacefield;
-
+        private bool userScoreChecked;
         
     
 
@@ -168,8 +169,13 @@ namespace POO_TP1
                 }
             }
             else if (gameState == GameState.GameOver)
-            { 
-
+            {
+                if (!userScoreChecked)
+                {
+                    CheckUserScore();
+                    userScoreChecked = true;
+                }         
+                
             }
 
             base.Update(gameTime);
@@ -276,6 +282,28 @@ namespace POO_TP1
             {
                 playerShoot();
             }
+        }
+
+        /// <summary>
+        /// Checks the user score.
+        /// </summary>
+        private void CheckUserScore()
+        {
+            foreach (KeyValuePair<string, string> list in scoreList)
+            {
+                if (UI.GetInstance().Score > Convert.ToInt32(list.Value))
+                {
+                    Scores.GetInstance().saveToXML(UI.GetInstance().Score.ToString(),AskUserName());
+                    break;
+                }
+            }
+        }
+
+        private string AskUserName()
+        {
+            string name = "";
+
+            return name;
         }
 
         private void loadAsteroids()
