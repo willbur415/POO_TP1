@@ -116,5 +116,10 @@ namespace POO_TP1
                 }
             }
         }
+
+        public int Score
+        {
+            get { return score; }
+        }
     }
 }
