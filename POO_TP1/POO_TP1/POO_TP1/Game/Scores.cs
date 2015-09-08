@@ -34,7 +34,7 @@ namespace POO_TP1
 
         public void ShowScores(Dictionary<string,string> scoreList, ref SpriteBatch spriteBatch )
         {
-            
+
             origin = font.MeasureString(scoreList.Keys.ElementAt(0));
             posCounter = 0;
             foreach (KeyValuePair<string, string> list in scoreList)

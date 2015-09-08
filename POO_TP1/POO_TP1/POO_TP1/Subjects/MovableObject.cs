@@ -37,7 +37,6 @@ namespace POO_TP1
             return false;
         }
 
-
         public abstract void CheckCollisionBox(Objet2D theOther);
 
         private void UpdateCollision()
