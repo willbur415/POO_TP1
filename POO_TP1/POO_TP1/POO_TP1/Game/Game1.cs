@@ -226,6 +226,9 @@ namespace POO_TP1
             
         }
 
+        /// <summary>
+        /// Checks the game menu choice.
+        /// </summary>
         private void CheckGameMenuChoice()
         {
             if (GameMenu.GetInstance().SelectedItemIndex == 0 && !isGameOver)
@@ -242,6 +245,11 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Checks the pause key.
+        /// </summary>
+        /// <param name="gamePadState">State of the game pad.</param>
+        /// <param name="keyboardState">State of the keyboard.</param>
         private void CheckPauseKey(GamePadState gamePadState, KeyboardState keyboardState)
         {
             bool pauseKeyDownThisFrame = (gamePadState.Buttons.Start == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Escape));
@@ -257,6 +265,10 @@ namespace POO_TP1
             pauseKeyDown = pauseKeyDownThisFrame;
         }
 
+        /// <summary>
+        /// Checks the pad inputs.
+        /// </summary>
+        /// <param name="padState">State of the pad.</param>
         private void CheckPadInputs(GamePadState padState)
         {
             PlayerShip.GetInstance().RotationAngle += padState.ThumbSticks.Right.X / 16.0f;
@@ -264,6 +276,10 @@ namespace POO_TP1
             if (padState.IsButtonDown(Buttons.RightTrigger)) playerShoot();
         }
 
+        /// <summary>
+        /// Checks the keyboard keys.
+        /// </summary>
+        /// <param name="keyboardState">State of the keyboard.</param>
         private void CheckKeyboardKeys(KeyboardState keyboardState)
         {
             if (keyboardState.IsKeyDown(Keys.W))
@@ -307,6 +323,10 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Asks the name of the user.
+        /// </summary>
+        /// <returns></returns>
         private string AskUserName()
         {
             string name = "";
@@ -314,6 +334,9 @@ namespace POO_TP1
             return name;
         }
 
+        /// <summary>
+        /// Loads the asteroids.
+        /// </summary>
         private void loadAsteroids()
         {
             for (int i = 0; i < LevelManager.GetInstance().NbAsteroids; i++)
@@ -323,11 +346,17 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Loads the enemy ships.
+        /// </summary>
         private void loadEnemyShips()
         {
             LevelManager.GetInstance().ShipsList.Add(Factory.CreateEnemyShip(TypeShip.bigBossShip, new Vector2(SCREENWIDTH, SCREENHEIGHT)));
         }
 
+        /// <summary>
+        /// make player shoot.
+        /// </summary>
         private void playerShoot()
         {
             if (PlayerShip.GetInstance().Cooldown == 0)
@@ -336,6 +365,11 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Updates the player.
+        /// </summary>
+        /// <param name="padState">State of the pad.</param>
+        /// <param name="keyboardState">State of the keyboard.</param>
         private void updatePlayer(GamePadState padState, KeyboardState keyboardState)
         {
             if (PlayerShip.GetInstance().IsAlive)
@@ -353,6 +387,9 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Checks the player collision.
+        /// </summary>
         private void checkPlayerCollision()
         {
             foreach (Asteroid ast in LevelManager.GetInstance().Asteroids)
@@ -373,6 +410,9 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Updates the bullets.
+        /// </summary>
         private void updateBullets()
         {
             foreach (Bullet bullet in PlayerShip.GetInstance().Bullets)
@@ -397,6 +437,10 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Draws the asteroids.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         private void drawAsteroids(SpriteBatch spriteBatch)
         {
             foreach (Asteroid ast in LevelManager.GetInstance().Asteroids)
@@ -405,6 +449,10 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Draws the bonuses.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         private void drawBonuses(SpriteBatch spriteBatch)
         {
             for (int i = 0; i < bonusList.Count; i++)
@@ -413,6 +461,10 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Draws the enemy ships.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         private void drawEnemyShips(SpriteBatch spriteBatch)
         {
             foreach (EnemyShip ships in LevelManager.GetInstance().ShipsList)
@@ -421,6 +473,10 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Draws the player.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         private void drawPlayer(SpriteBatch spriteBatch)
         {
             foreach (Bullet bullet in PlayerShip.GetInstance().Bullets)
@@ -438,6 +494,12 @@ namespace POO_TP1
             
         }
 
+        /// <summary>
+        /// Checks the menu controls.
+        /// </summary>
+        /// <param name="padState">State of the pad.</param>
+        /// <param name="keyboardState">State of the keyboard.</param>
+        /// <param name="currentTime">The current time.</param>
         private void checkMenuControls(ref GamePadState padState, ref KeyboardState keyboardState, double currentTime)
         {
            
@@ -455,6 +517,9 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Changes the level.
+        /// </summary>
         private void changeLevel()
         {
             LevelManager.GetInstance().ChangeLevel();

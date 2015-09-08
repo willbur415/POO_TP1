@@ -62,6 +62,10 @@ namespace POO_TP1
             // override if needed
         }
 
+        /// <summary>
+        /// Splits the asteroid based on bullet angle.
+        /// </summary>
+        /// <param name="bulletRotationAngle">The bullet rotation angle.</param>
         public void Split(float bulletRotationAngle)
         {
             if (size == AsteroidSize.large)
@@ -94,6 +98,11 @@ namespace POO_TP1
             
         }
 
+        /// <summary>
+        /// transforms bigger asteroids into smaller asteroids
+        /// </summary>
+        /// <param name="size">The size.</param>
+        /// <param name="bulletRotationAngle">The bullet rotation angle.</param>
         private void addSmallerAsteroid(AsteroidSize size, float bulletRotationAngle)
         {
             float newRotationAngle = (float)((Math.PI * 2) / 3);

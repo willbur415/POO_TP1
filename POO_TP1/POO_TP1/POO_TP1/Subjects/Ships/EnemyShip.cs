@@ -14,6 +14,7 @@ namespace POO_TP1
     {
         protected TypeShip type;
         private const double ENEMY_SPEED = 0.7;
+        private const int ENEMY_HP = 5;
 
         public TypeShip Type
         {
@@ -43,6 +44,9 @@ namespace POO_TP1
 
         }
 
+        /// <summary>
+        /// Moves this instance.
+        /// </summary>
         public new void Move()
         {
             position.X += velocity.X;

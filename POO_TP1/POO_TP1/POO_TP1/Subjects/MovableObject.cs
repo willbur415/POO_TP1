@@ -59,6 +59,15 @@ namespace POO_TP1
             this.sphereCollision.Center.Y = position.Y;
         }
 
+        /// <summary>
+        /// Allows the object to appear on the other side of the screen
+        /// </summary>
+        /// <param name="position">The position.</param>
+        /// <param name="minBox">The minimum box.</param>
+        /// <param name="maxBox">The maximum box.</param>
+        /// <param name="sphere">The sphere.</param>
+        /// <param name="screenSize">Size of the screen.</param>
+        /// <param name="imageSize">Size of the image.</param>
         private void OtherSide(ref float position, ref float minBox, ref float maxBox, ref float sphere, int screenSize, int imageSize)
         {
             if (position > screenSize + imageSize / 2)
