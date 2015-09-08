@@ -32,6 +32,11 @@ namespace POO_TP1
             this.font = font;
         }
 
+        /// <summary>
+        /// Shows the scores.
+        /// </summary>
+        /// <param name="scoreList">The score list.</param>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public void ShowScores(Dictionary<string,string> scoreList, ref SpriteBatch spriteBatch )
         {     
             origin = font.MeasureString(scoreList.Keys.ElementAt(0));
@@ -49,6 +54,11 @@ namespace POO_TP1
         }
 
 
+        /// <summary>
+        /// Saves to XML.
+        /// </summary>
+        /// <param name="score">The score.</param>
+        /// <param name="name">The name.</param>
         public void saveToXML(string score, string name)
         {
             XmlDocument doc = new XmlDocument();

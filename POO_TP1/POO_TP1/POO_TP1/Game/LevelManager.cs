@@ -86,6 +86,9 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Changes the level.
+        /// </summary>
         public void ChangeLevel()
         {
             asteroids.Clear();
@@ -94,6 +97,10 @@ namespace POO_TP1
             ChangeNbAsteroids();
         }
 
+        /// <summary>
+        /// Checks if level is finished.
+        /// </summary>
+        /// <returns></returns>
         public bool LevelFinish()
         {
             if (asteroids.Count == 0)
@@ -103,6 +110,9 @@ namespace POO_TP1
             return false;
         }
 
+        /// <summary>
+        /// Changes the number of asteroids.
+        /// </summary>
         private void ChangeNbAsteroids()
         {
             nbAsteroids = currentLevel + NB_ASTEROIDS_INCR;

@@ -23,6 +23,10 @@ namespace POO_TP1
         private Vector2 fontOrigin;
         private Vector2 cursorPosition;
 
+        /// <summary>
+        /// Gets the instance.
+        /// </summary>
+        /// <returns></returns>
         public static GameMenu GetInstance()
         {
             if (menu == null)
@@ -33,6 +37,11 @@ namespace POO_TP1
             return menu;
         }
 
+        /// <summary>
+        /// Initializes the specified attributes.
+        /// </summary>
+        /// <param name="font">The font.</param>
+        /// <param name="graphics">The graphics.</param>
         public void Initialize(SpriteFont font,ref GraphicsDeviceManager graphics)
         {
             menuItems[0] = "Play";
@@ -52,6 +61,10 @@ namespace POO_TP1
             
         }
 
+        /// <summary>
+        /// Draws the menu.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public void DrawMenu(ref SpriteBatch spriteBatch)
         {
             if (selectedItemIndex == 0)
@@ -83,6 +96,11 @@ namespace POO_TP1
             }         
         }
 
+        /// <summary>
+        /// Updates the menu.
+        /// </summary>
+        /// <param name="gamePad">The game pad.</param>
+        /// <param name="keyboard">The keyboard.</param>
         public void UpdateMenu(ref GamePadState gamePad, ref KeyboardState keyboard)
         {
             if (gamePad.DPad.Down == ButtonState.Pressed || keyboard.IsKeyDown(Keys.Down))
@@ -105,6 +123,9 @@ namespace POO_TP1
             
         }
 
+        /// <summary>
+        /// Checks the index.
+        /// </summary>
         private void CheckIndex()
         {
             if (selectedItemIndex < 0)
