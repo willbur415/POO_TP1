@@ -172,7 +172,7 @@ namespace POO_TP1
 
         public override void CheckCollisionBox(Objet2D theOther)
         {
-            if (IsAsteroid(theOther))
+            if (IsAsteroid(theOther) && currentBonus.Type != BonusType.invincible)
             {
                 if (boiteCollision.Intersects(theOther.BoiteCollision) && alive)
                 {
