@@ -154,7 +154,7 @@ namespace POO_TP1
                 }
                 updatePlayer(padOneState, keyboardState);
                 updateBullets();
-                updateAsteroids();
+                checkPlayerCollision();
                 LevelManager.GetInstance().DeadAsteroids.Clear();
             }
             else if (gameState == GameState.Menu)
@@ -340,12 +340,17 @@ namespace POO_TP1
             }
         }
 
-        private void updateAsteroids()
+        private void checkPlayerCollision()
         {
             foreach (Asteroid ast in LevelManager.GetInstance().Asteroids)
             {
                 ast.Move();
                 PlayerShip.GetInstance().CheckCollisionBox(ast);
+            }
+
+            for (int i = 0; i < bonusList.Count; i++)
+            {
+                bonusList[i].CheckCollisionBox(PlayerShip.GetInstance());
             }
         }
 
