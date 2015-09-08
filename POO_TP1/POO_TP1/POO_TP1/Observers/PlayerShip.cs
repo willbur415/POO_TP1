@@ -210,7 +210,7 @@ namespace POO_TP1
             MaxThrust();
 
             //Il faut aussi déplacer les poly de collision
-            move();
+            Move();
             bulletsFollow();
         }
 

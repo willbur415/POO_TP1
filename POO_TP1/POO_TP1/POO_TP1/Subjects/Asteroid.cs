@@ -54,7 +54,7 @@ namespace POO_TP1
                     this.velocity.Y *= 2;
                 }
             }
-            base.move();
+            base.Move();
         }
 
         public override void CheckCollisionBox(Objet2D theOther)
@@ -85,14 +85,13 @@ namespace POO_TP1
             {
                 return 0.08f;
             }
-            else if (size == AsteroidSize.medium)
+            if (size == AsteroidSize.medium)
             {
                 return 0.1f;
             }
-            else
-            {
-                return 0.3f;
-            }
+  
+            return 0.3f;
+            
         }
 
         private void addSmallerAsteroid(AsteroidSize size, float bulletRotationAngle)
