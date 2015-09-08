@@ -160,7 +160,6 @@ namespace POO_TP1
                 foreach (EnnemyShip ships in LevelManager.GetInstance().ShipsList)
                 {
                     ships.Move();
-                    
                 }
 
                 LevelManager.GetInstance().DeadAsteroids.Clear();
@@ -183,7 +182,6 @@ namespace POO_TP1
                     CheckUserScore();
                     userScoreChecked = true;
                 }         
-                
             }
 
             base.Update(gameTime);
@@ -197,6 +195,15 @@ namespace POO_TP1
         {
             spriteBatch.Begin();
             spriteBatch.Draw(spacefield, Vector2.Zero, Color.White);
+
+            //Debug
+
+            RasterizerState state = new RasterizerState();
+            state.FillMode = FillMode.WireFrame;
+            spriteBatch.GraphicsDevice.RasterizerState = state;
+
+
+            // /Debug
 
             if (gameState == GameState.InGame)
             {
@@ -399,6 +406,7 @@ namespace POO_TP1
         {
             foreach (Asteroid ast in LevelManager.GetInstance().Asteroids)
             {
+                spriteBatch.Draw(ast.Image, ast.Boundings, Color.Red);
                 spriteBatch.Draw(ast.Image, ast.Position, Color.White);
             }
         }
@@ -425,15 +433,8 @@ namespace POO_TP1
             {
                 spriteBatch.Draw(bullet.Image, bullet.Position, Color.White);
             }
-            if (PlayerShip.GetInstance().CurrentBonus.Type != BonusType.invincible)
-            {
-                spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.White, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
-            }
-            else
-            {
-                spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.Green, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
-            }
-            
+
+            PlayerShip.GetInstance().Draw(ref spriteBatch);
         }
 
         private void checkMenuControls(ref GamePadState padState, ref KeyboardState keyboardState, double currentTime)

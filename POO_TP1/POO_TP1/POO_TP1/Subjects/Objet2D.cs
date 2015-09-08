@@ -34,7 +34,6 @@ namespace POO_TP1
             this.offset = new Vector2(image.Width / 2, image.Height / 2);
             this.posCenter = new Vector2(position.X + offset.X, position.Y + offset.Y);
             setBoundings();
-            this.sphereCollision = new BoundingSphere(new Vector3(position.X - offset.X, position.Y - offset.Y, 0), offset.X);
         }
 
         public Texture2D Image
@@ -55,6 +54,17 @@ namespace POO_TP1
                 position = value;
             }
         }
+        public Vector2 PosCenter
+        {
+            get
+            {
+                return posCenter;
+            }
+            set
+            {
+                posCenter = value;
+            }
+        }
         public Vector2 Velocity
         {
             get
@@ -71,6 +81,13 @@ namespace POO_TP1
             get
             {
                 return offset;
+            }
+        }
+        public Rectangle Boundings
+        {
+            get
+            {
+                return new Rectangle((int)this.position.X, (int)this.position.Y, this.image.Width, this.image.Height);
             }
         }
         public BoundingBox BoiteCollision
@@ -105,6 +122,8 @@ namespace POO_TP1
             this.boiteCollision.Min.Y = this.position.Y;
             this.boiteCollision.Max.X = this.position.X + image.Width;
             this.boiteCollision.Max.Y = this.position.Y + image.Height;
+
+            //this.sphereCollision = new BoundingSphere(new Vector3(position.X - offset.X, position.Y - offset.Y, 0), offset.X);
         }
     }
 }
