@@ -13,6 +13,7 @@ namespace POO_TP1
         private int currentLevel;
         private List<Asteroid> asteroids;
         private List<Asteroid> deadAsteroids;
+        private List<EnnemyShip> shipsList; 
 
         private static LevelManager levelManager;
 
@@ -34,6 +35,7 @@ namespace POO_TP1
         {
             asteroids = new List<Asteroid>();
             deadAsteroids = new List<Asteroid>();
+            shipsList = new List<EnnemyShip>();
             currentLevel = 1;
             ChangeNbAsteroids();
         }
@@ -52,6 +54,12 @@ namespace POO_TP1
             {
                 return deadAsteroids;
             }
+        }
+
+        public List<EnnemyShip> ShipsList
+        {
+            get { return shipsList;}
+            
         }
 
         public int NbAsteroids

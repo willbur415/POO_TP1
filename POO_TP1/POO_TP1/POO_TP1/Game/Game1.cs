@@ -28,6 +28,7 @@ namespace POO_TP1
 
         private SpriteFont font;
         private GameState gameState;
+        private List<TypeShip> shipList; 
         private const float TIME_BETWEEN_SHOTS_SEC= 3;
         private bool pauseKeyDown;
         private double currentTime;
@@ -118,6 +119,7 @@ namespace POO_TP1
             bonusList = new List<Bonus>();
             bonusList.Add(Factory.createBonus(BonusType.doublePoints));
             loadAsteroids();
+            loadEnemyShips();
             Scores.GetInstance().Initialize(font,ref graphics);
             scoreList = Content.Load<Dictionary<string, string>>("scorelog");
             // TODO: use this.Content to load your game content here
@@ -156,6 +158,12 @@ namespace POO_TP1
                 updatePlayer(padOneState, keyboardState);
                 updateBullets();
                 checkPlayerCollision();
+                foreach (EnnemyShip ships in LevelManager.GetInstance().ShipsList)
+                {
+                    ships.Move();
+                    
+                }
+
                 LevelManager.GetInstance().DeadAsteroids.Clear();
             }
             else if (gameState == GameState.Menu)
@@ -196,12 +204,15 @@ namespace POO_TP1
                 drawAsteroids(spriteBatch);
 
                 drawBonuses(spriteBatch);
+                
+                drawEnemyShips(spriteBatch);
 
                 if (PlayerShip.GetInstance().Alive)
                 {
                     drawPlayer(spriteBatch);
                 }
                 UI.GetInstance().draw(ref spriteBatch);
+                
             }
             else if (gameState == GameState.Menu)
             {
@@ -317,6 +328,11 @@ namespace POO_TP1
             }
         }
 
+        private void loadEnemyShips()
+        {
+            LevelManager.GetInstance().ShipsList.Add(Factory.createEnnemyShip(TypeShip.bigBossShip));
+        }
+
         private void playerShoot()
         {
             if (PlayerShip.GetInstance().Cooldown == 0)
@@ -393,6 +409,14 @@ namespace POO_TP1
             for (int i = 0; i < bonusList.Count; i++)
             {
                 spriteBatch.Draw(bonusList[i].Image, bonusList[i].Position, Color.White);
+            }
+        }
+
+        private void drawEnemyShips(SpriteBatch spriteBatch)
+        {
+            foreach (EnnemyShip ships in LevelManager.GetInstance().ShipsList)
+            {
+                spriteBatch.Draw(ships.Image,ships.Position,Color.White);
             }
         }
 

@@ -30,7 +30,7 @@ namespace POO_TP1
 
         public void Update()
         {
-            base.move();
+            base.Move();
 
             if (isShooted)
             {

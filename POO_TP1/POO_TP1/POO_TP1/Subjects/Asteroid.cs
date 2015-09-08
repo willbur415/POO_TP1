@@ -48,7 +48,7 @@ namespace POO_TP1
                     this.velocity.Y /= 2;
                 }
             }
-            base.move();
+            base.Move();
         }
 
         public override void CheckCollisionBox(Objet2D theOther)
