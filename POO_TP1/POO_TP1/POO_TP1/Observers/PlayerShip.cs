@@ -245,11 +245,7 @@ namespace POO_TP1
 
         public void Notify(ObservedSubject subject)
         {
-            if (subject is Bonus)
-            {
-                //Apply bonus
-            }
-            else if (subject is UI)
+            if (subject is UI)
             {
                 if (UI.GetInstance().NumberOfLife != this.numberOfLifes)
                 {
@@ -262,6 +258,7 @@ namespace POO_TP1
                 {
                     this.numberOfLifes += 1;
                     UI.GetInstance().NumberOfLife += 1;
+                    Game1.bonusList.Remove(subject as Bonus);
                 }
             }
             
