@@ -239,6 +239,8 @@ namespace POO_TP1
             currentBonus.BonusTime = 300;
             this.alive = true;
             this.velocity = Vector2.Zero;
+            this.position.X = Game1.SCREENWIDTH / 2;
+            this.position.Y = Game1.SCREENHEIGHT / 2;
         }
 
         private void bulletsFollow()
@@ -299,8 +301,15 @@ namespace POO_TP1
             }
             else if (subject is Bonus)
             {
-                Game1.bonusList.Remove(subject as Bonus);
-                currentBonus = (subject as Bonus);
+                if ((subject as Bonus).Type != BonusType.none)
+                {
+                    if ((subject as Bonus).BonusTime > 0)
+                    {
+                        Game1.bonusList.Remove(subject as Bonus);
+                        currentBonus = (subject as Bonus);
+                    }
+
+                }
             }
         }
     }

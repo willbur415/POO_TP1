@@ -73,11 +73,7 @@ namespace POO_TP1
         {
             if (this.type != BonusType.none)
             {
-                if (this.type == BonusType.doublePoints)
-                {
-                    this.NotifyAllObservers();
-                }
-                else if (this.type == BonusType.extraLife)
+                if (this.type == BonusType.extraLife)
                 {
                     PlayerShip.GetInstance().AddLife();
                     this.type = BonusType.none;
@@ -102,8 +98,11 @@ namespace POO_TP1
             }
             else
             {
+                if (type == BonusType.doublePoints)
+                {
+                    this.NotifyAllObservers();
+                }
                 type = BonusType.none;
-                this.NotifyAllObservers();
             }
         }
     }
