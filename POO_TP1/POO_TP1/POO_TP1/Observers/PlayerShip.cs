@@ -137,10 +137,13 @@ namespace POO_TP1
 
         public override void CheckCollisionBox(Objet2D theOther)
         {
-            if (boiteCollision.Intersects(theOther.BoiteCollision) && alive)
+            if (IsAsteroid(theOther))
             {
-                playerDead();
-                ship.NotifyAllObservers();
+                if (boiteCollision.Intersects(theOther.BoiteCollision) && alive)
+                {
+                    playerDead();
+                    ship.NotifyAllObservers();
+                }
             }
         }
 

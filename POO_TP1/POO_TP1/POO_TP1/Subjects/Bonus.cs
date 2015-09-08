@@ -18,7 +18,7 @@ namespace POO_TP1
         invincible, extraLife, doublePoints, slowDown, extraPoints
     }
 
-    public class Bonus : Objet2D
+    public class Bonus : MovableObject
     {
         private BonusType type;
 
@@ -32,6 +32,15 @@ namespace POO_TP1
             : base(image, position)
         {
             this.type = type;
+            this.AddObserver(PlayerShip.GetInstance());
+        }
+
+        public override void CheckCollisionBox(Objet2D theOther)
+        {
+            if (this.boiteCollision.Intersects(theOther.BoiteCollision))
+            {
+                this.NotifyAllObservers();
+            }
         }
     }
 }
