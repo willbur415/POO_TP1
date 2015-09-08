@@ -20,6 +20,7 @@ namespace POO_TP1
 
     public class Bonus : MovableObject
     {
+        private const int BONUS_15_SECONDS = 900;
         private int bonusTime;
         private bool isFinished;
         private BonusType type;
@@ -66,7 +67,7 @@ namespace POO_TP1
             this.AddObserver(PlayerShip.GetInstance());
             this.AddObserver(UI.GetInstance());
             this.type = type;
-            bonusTime = 900;
+            bonusTime = BONUS_15_SECONDS;
         }
 
         public void Update()
@@ -76,6 +77,12 @@ namespace POO_TP1
                 if (this.type == BonusType.extraLife)
                 {
                     PlayerShip.GetInstance().AddLife();
+                    this.type = BonusType.none;
+                }
+                if (this.type == BonusType.extraPoints)
+                {
+                    bonusTime = 0;
+                    this.NotifyAllObservers();
                     this.type = BonusType.none;
                 }
                 updateTimer();
@@ -98,11 +105,12 @@ namespace POO_TP1
             }
             else
             {
-                if (type == BonusType.doublePoints)
+                if (type != BonusType.none)
                 {
                     this.NotifyAllObservers();
                 }
                 type = BonusType.none;
+                bonusTime = BONUS_15_SECONDS;
             }
         }
     }

@@ -47,6 +47,12 @@ namespace POO_TP1
                     this.velocity.X /= 2;
                     this.velocity.Y /= 2;
                 }
+                if (PlayerShip.GetInstance().CurrentBonus.BonusTime < 0)
+                {
+                    this.isSlow = false;
+                    this.velocity.X *= 2;
+                    this.velocity.Y *= 2;
+                }
             }
             base.Move();
         }

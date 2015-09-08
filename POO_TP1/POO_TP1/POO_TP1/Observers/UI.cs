@@ -155,7 +155,36 @@ namespace POO_TP1
                     {
                         bonusMessage = "";
                         scoreMultiplier = 1;
-                    }                    
+                    }      
+                }
+                else if ((subject as Bonus).Type == BonusType.invincible)
+                {
+                    if ((subject as Bonus).BonusTime > 0)
+                    {
+                        bonusMessage = "Invincible";
+                    }
+                    else
+                    {
+                        bonusMessage = "";
+                    }
+                }
+                else if ((subject as Bonus).Type == BonusType.extraPoints)
+                {
+                    if ((subject as Bonus).BonusTime > 0)
+                    {
+                        score += 1000;
+                    }
+                }
+                else if ((subject as Bonus).Type == BonusType.slowDown)
+                {
+                    if ((subject as Bonus).BonusTime > 0)
+                    {
+                        bonusMessage = "SlowMotio";
+                    }
+                    else
+                    {
+                        bonusMessage = "";
+                    }
                 }
             }
         }
