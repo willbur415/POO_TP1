@@ -304,8 +304,8 @@ namespace POO_TP1
             foreach (KeyValuePair<string, string> list in scoreList)
             {
                 if (UI.GetInstance().Score > Convert.ToInt32(list.Value))
-                {
-                    Scores.GetInstance().saveToXML(UI.GetInstance().Score.ToString(),AskUserName());
+                {   //Doit demander le name avant d'enregistrer, sinon erreur de key
+                    //Scores.GetInstance().saveToXML(UI.GetInstance().Score.ToString(),AskUserName());
                     break;
                 }
             }
