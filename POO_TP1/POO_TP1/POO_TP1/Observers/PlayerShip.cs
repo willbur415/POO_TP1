@@ -308,7 +308,6 @@ namespace POO_TP1
                         Game1.bonusList.Remove(subject as Bonus);
                         currentBonus = (subject as Bonus);
                     }
-
                 }
             }
         }
