@@ -36,10 +36,9 @@ namespace POO_TP1
         private Dictionary<string, string> scoreList;
         private Texture2D spacefield;
         private bool userScoreChecked;
+        private bool isGameOver;
         
     
-
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -178,8 +177,8 @@ namespace POO_TP1
                 {
                     CheckUserScore();
                     userScoreChecked = true;
-                }         
-                
+                }
+                isGameOver = true;
             }
 
             base.Update(gameTime);
@@ -229,7 +228,7 @@ namespace POO_TP1
 
         private void CheckGameMenuChoice()
         {
-            if (GameMenu.GetInstance().SelectedItemIndex == 0)
+            if (GameMenu.GetInstance().SelectedItemIndex == 0 && !isGameOver)
             {
                 gameState = GameState.InGame;
             }
@@ -461,6 +460,7 @@ namespace POO_TP1
             LevelManager.GetInstance().ChangeLevel();
             PlayerShip.GetInstance().ResetPosition();
             loadAsteroids();
+            loadEnemyShips();
         }
     }
 }
