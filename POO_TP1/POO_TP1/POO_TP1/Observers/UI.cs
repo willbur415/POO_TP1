@@ -21,6 +21,7 @@ namespace POO_TP1
         private Vector2 origin;
         private Vector2 textPos;
         private int nbLifeUP = 1;
+        private string bonusMessage;
 
         public static UI GetInstance()
         {
@@ -42,6 +43,7 @@ namespace POO_TP1
             origin = new Vector2(LIFE_ORIGIN_POS, LIFE_ORIGIN_POS);
             scoreFont = Game1.contentManager.Load<SpriteFont>("kootenay");
             textPos = Vector2.Zero;
+            this.bonusMessage = "";
         }
 
         public void draw(ref SpriteBatch spriteBatch)
@@ -53,6 +55,12 @@ namespace POO_TP1
             spriteBatch.DrawString(scoreFont, score.ToString(), textPos, Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 1.0f);
             textPos.X = 1050;
             spriteBatch.DrawString(scoreFont, "Level " + LevelManager.GetInstance().CurrentLevel, textPos, Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 1.0f);
+            textPos.X = 1000;
+            textPos.Y = 700;
+            if (bonusMessage != "")
+            {
+                spriteBatch.DrawString(scoreFont, bonusMessage, textPos, Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 1.0f);
+            }
 
             for (int i = 0; i < numberOfLife; i++)
             {
@@ -60,6 +68,7 @@ namespace POO_TP1
                     origin.X += playerLifeImage.Width + LIFE_SPACING;
             }
             origin.X = LIFE_ORIGIN_POS;
+            textPos = Vector2.Zero;
         }
 
         public int NumberOfLife
@@ -137,14 +146,16 @@ namespace POO_TP1
             {
                 if ((subject as Bonus).Type == BonusType.doublePoints)
                 {
-                    if (this.scoreMultiplier == 1)
+                    if ((subject as Bonus).BonusTime > 0)
                     {
-                        this.scoreMultiplier = 2;
+                        bonusMessage = "Double Points";
+                        scoreMultiplier = 2;
                     }
                     else
                     {
-                        this.scoreMultiplier = 1;
-                    }
+                        bonusMessage = "";
+                        scoreMultiplier = 1;
+                    }                    
                 }
             }
         }
