@@ -31,6 +31,10 @@ namespace POO_TP1
 
         public const int TIME_BETWEEN_SHOTS_MILI = 3000;
 
+        /// <summary>
+        /// Gets the instance.
+        /// </summary>
+        /// <returns></returns>
         public static PlayerShip GetInstance()
         {
             if (ship == null)
@@ -39,11 +43,19 @@ namespace POO_TP1
             }
             return ship;
         }
+        /// <summary>
+        /// Prevents a default instance of the <see cref="PlayerShip"/> class from being created.
+        /// </summary>
         private PlayerShip()     
         {
             alive = true;
         }
 
+        /// <summary>
+        /// Initializes the specified image.
+        /// </summary>
+        /// <param name="image">The image.</param>
+        /// <param name="position">The position.</param>
         public void Initialize(Texture2D image, Vector2 position)
         {
             this.image = image;
@@ -55,6 +67,9 @@ namespace POO_TP1
             ship.AddObserver(UI.GetInstance());
         }
 
+        /// <summary>
+        /// Resets the position.
+        /// </summary>
         public void ResetPosition()
         {
             base.position.X = Game1.SCREENWIDTH / 2;
@@ -62,6 +77,12 @@ namespace POO_TP1
             base.velocity = Vector2.Zero;
         }
 
+        /// <summary>
+        /// Gets or sets the bullets.
+        /// </summary>
+        /// <value>
+        /// The bullets.
+        /// </value>
         public Bullet[] Bullets
         {
             get
@@ -74,6 +95,12 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Gets or sets the current bonus.
+        /// </summary>
+        /// <value>
+        /// The current bonus.
+        /// </value>
         public Bonus CurrentBonus
         {
             get
@@ -86,6 +113,12 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is alive.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is alive; otherwise, <c>false</c>.
+        /// </value>
         public bool IsAlive
         {
             get
@@ -94,6 +127,12 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [first shot].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [first shot]; otherwise, <c>false</c>.
+        /// </value>
         public bool FirstShot
         {
             get
@@ -106,6 +145,12 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="PlayerShip"/> is alive.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if alive; otherwise, <c>false</c>.
+        /// </value>
         public bool Alive
         {
             get
@@ -114,6 +159,12 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is invincible.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance is invincible; otherwise, <c>false</c>.
+        /// </value>
         public bool IsInvincible
         {
             get
@@ -127,6 +178,12 @@ namespace POO_TP1
         }
 
 
+        /// <summary>
+        /// Gets or sets the cooldown.
+        /// </summary>
+        /// <value>
+        /// The cooldown.
+        /// </value>
         public int Cooldown
         {
             get
@@ -139,6 +196,12 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Gets or sets the number of lifes.
+        /// </summary>
+        /// <value>
+        /// The number of lifes.
+        /// </value>
         public int NumberOfLifes
         {
             get
@@ -151,6 +214,12 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Gets or sets the player total life.
+        /// </summary>
+        /// <value>
+        /// The player total life.
+        /// </value>
         public int PlayerTotalLife
         {
             get 
@@ -163,12 +232,19 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Adds the life.
+        /// </summary>
         public void AddLife()
         {
             this.numberOfLifes++;
             this.NotifyAllObservers();
         }
 
+        /// <summary>
+        /// Checks the collision sphere.
+        /// </summary>
+        /// <param name="theOther">The other.</param>
         public void CheckCollisionSphere(Objet2D theOther)
         {
             if (sphereCollision.Intersects(theOther.SphereCollision))
@@ -177,9 +253,13 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Checks the collision box.
+        /// </summary>
+        /// <param name="theOther">The other.</param>
         public override void CheckCollisionBox(Objet2D theOther)
         {
-            if (IsAsteroid(theOther) && currentBonus.Type != BonusType.invincible)
+            if ((IsAsteroid(theOther) && currentBonus.Type != BonusType.invincible) || (IsEnemyShip(theOther) && currentBonus.Type != BonusType.invincible))
             {
                 if (boiteCollision.Intersects(theOther.BoiteCollision) && alive)
                 {
@@ -215,6 +295,10 @@ namespace POO_TP1
 
         }
 
+        /// <summary>
+        /// Updates the specified new thrust.
+        /// </summary>
+        /// <param name="newThrust">The new thrust.</param>
         public void Update(float newThrust)
         {
             if (shotCooldown > 0)
@@ -241,6 +325,9 @@ namespace POO_TP1
             bulletsFollow();
         }
 
+        /// <summary>
+        /// Checks the respawn time.
+        /// </summary>
         public void CheckRespawnTime()
         {
             if (respawnTime > 0)
@@ -253,6 +340,9 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Players the dead.
+        /// </summary>
         private void playerDead()
         {
             alive = false;
@@ -260,6 +350,9 @@ namespace POO_TP1
             respawnTime = RESPAWN_TIME;
         }
 
+        /// <summary>
+        /// Respawns this instance.
+        /// </summary>
         private void respawn()
         {
             currentBonus.Type = BonusType.invincible;
@@ -270,6 +363,9 @@ namespace POO_TP1
             this.position.Y = Game1.SCREENHEIGHT / 2;
         }
 
+        /// <summary>
+        /// Bulletses the follow.
+        /// </summary>
         private void bulletsFollow()
         {
             foreach (Bullet bullet in bullets)
@@ -279,6 +375,9 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Maximums the thrust.
+        /// </summary>
         private void MaxThrust()
         {
             //Calcul de la vitesse maximum actuelle (pythagore)
@@ -293,6 +392,10 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Shoots this instance.
+        /// </summary>
+        /// <returns></returns>
         public bool Shoot()
         {
             foreach (Bullet bullet in bullets)
@@ -309,6 +412,10 @@ namespace POO_TP1
             return false;
         }
 
+        /// <summary>
+        /// Initializes the bullets.
+        /// </summary>
+        /// <param name="content">The content.</param>
         public void InitBullets(ContentManager content)
         {
             for (int i = 0; i < bullets.Length; i++)
@@ -317,6 +424,10 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Notifies the specified subject.
+        /// </summary>
+        /// <param name="subject">The subject.</param>
         public void Notify(ObservedSubject subject)
         {
             if (subject is UI)

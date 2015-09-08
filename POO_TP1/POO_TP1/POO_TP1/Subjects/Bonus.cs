@@ -97,6 +97,9 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Updates the timer for the bonus.
+        /// </summary>
         private void updateTimer()
         {
             if (bonusTime > 0)

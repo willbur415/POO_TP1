@@ -116,6 +116,9 @@ namespace POO_TP1
                 rotationAngle = value;
             }
         }
+        /// <summary>
+        /// Sets the boundings of the object for the collision.
+        /// </summary>
         private void setBoundings()
         {
             this.boiteCollision.Min.X = this.position.X;
