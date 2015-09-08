@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,6 +13,7 @@ namespace POO_TP1
     public abstract class EnnemyShip : MovableObject
     {
         protected TypeShip type;
+        private const double ENEMY_SPEED = 0.7;
 
         public TypeShip Type
         {
@@ -28,6 +30,10 @@ namespace POO_TP1
         public EnnemyShip(Texture2D image, Vector2 position, TypeShip type)
             : base(image, position)
         {
+            double angle = 1.6;
+            rotationAngle = (float) angle ;
+            velocity.X = (float)(Math.Sin((double)rotationAngle) * ENEMY_SPEED);
+            velocity.Y = (float)(Math.Cos((double)rotationAngle) * ENEMY_SPEED);
             Type = type;
         }
 
