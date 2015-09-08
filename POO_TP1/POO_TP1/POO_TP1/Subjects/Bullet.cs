@@ -56,6 +56,10 @@ namespace POO_TP1
                     {
                         (theOther as Asteroid).Split(this.rotationAngle);
                     }
+                    if (IsEnemyShip(theOther))
+                    {
+                        (theOther as EnemyShip).loseLife();
+                    }
                     resetBullet();
                 }
             }

@@ -438,6 +438,14 @@ namespace POO_TP1
                     {
                         bullet.CheckCollisionBox(LevelManager.GetInstance().Asteroids[i]);
                     }
+                    for (int i = 0; i < LevelManager.GetInstance().ShipsList.Count(); i++)
+                    {
+                        bullet.CheckCollisionBox(LevelManager.GetInstance().ShipsList[i]);
+                        if (LevelManager.GetInstance().ShipsList[i].EnemyHP <= 0)
+                        {
+                            LevelManager.GetInstance().ShipsList.Remove(LevelManager.GetInstance().ShipsList[i]);
+                        }
+                    }
 
                     foreach(Asteroid deadAst in LevelManager.GetInstance().DeadAsteroids)
                     {
