@@ -114,7 +114,7 @@ namespace POO_TP1
             gameState = GameState.Menu;
             LevelManager.GetInstance().Initialize();
             spacefield = Content.Load<Texture2D>("Graphics\\background\\stars");
-            PlayerShip.GetInstance().Initialize(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 4, SCREENHEIGHT / 2));
+            PlayerShip.GetInstance().Initialize(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 2, SCREENHEIGHT / 2));
             PlayerShip.GetInstance().InitBullets(Content);
             bonusList = new List<Bonus>();
             bonusList.Add(Factory.createBonus(BonusType.invincible));
@@ -153,7 +153,6 @@ namespace POO_TP1
                 if (LevelManager.GetInstance().LevelFinish())
                 {
                     changeLevel();    
-                
                 }
                 updatePlayer(padOneState, keyboardState);
                 updateBullets();
