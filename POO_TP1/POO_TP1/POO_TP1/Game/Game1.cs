@@ -116,7 +116,7 @@ namespace POO_TP1
             PlayerShip.GetInstance().Initialize(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 2, SCREENHEIGHT / 2));
             PlayerShip.GetInstance().InitBullets(Content);
             bonusList = new List<Bonus>();
-            bonusList.Add(Factory.createBonus(BonusType.invincible));
+            bonusList.Add(Factory.createBonus());
             loadAsteroids();
             loadEnemyShips();
             Scores.GetInstance().Initialize(font,ref graphics);
@@ -151,12 +151,13 @@ namespace POO_TP1
             {
                 if (LevelManager.GetInstance().LevelFinish())
                 {
-                    changeLevel();    
+                    changeLevel();
                 }
+
                 updatePlayer(padOneState, keyboardState);
                 updateBullets();
                 checkPlayerCollision();
-                foreach (EnnemyShip ships in LevelManager.GetInstance().ShipsList)
+                foreach (EnemyShip ships in LevelManager.GetInstance().ShipsList)
                 {
                     ships.Move();
                 }

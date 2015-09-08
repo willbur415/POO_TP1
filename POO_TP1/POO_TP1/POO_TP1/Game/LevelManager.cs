@@ -13,7 +13,7 @@ namespace POO_TP1
         private int currentLevel;
         private List<Asteroid> asteroids;
         private List<Asteroid> deadAsteroids;
-        private List<EnemyShip> shipsList; 
+        private List<EnemyShip> shipsList;
 
         private static LevelManager levelManager;
 
