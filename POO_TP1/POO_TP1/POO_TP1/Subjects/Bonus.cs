@@ -33,6 +33,7 @@ namespace POO_TP1
         {
             this.type = type;
             this.AddObserver(PlayerShip.GetInstance());
+            this.AddObserver(UI.GetInstance());
         }
 
         public override void CheckCollisionBox(Objet2D theOther)

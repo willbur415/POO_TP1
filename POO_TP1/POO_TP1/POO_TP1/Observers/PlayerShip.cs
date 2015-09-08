@@ -17,6 +17,7 @@ namespace POO_TP1
         private const int RESPAWN_TIME = 70;
         private const int BULLET_SPAWN_POS = -100;
         private bool alive;
+        private bool invincible;
         private int numberOfLifes = 3;
         private int playerTotalLife = 3;
         private static PlayerShip ship;
@@ -73,6 +74,18 @@ namespace POO_TP1
             get
             {
                 return alive;
+            }
+        }
+
+        public bool IsInvincible
+        {
+            get
+            {
+                return invincible;
+            }
+            set
+            {
+                invincible = value;
             }
         }
 
@@ -257,11 +270,14 @@ namespace POO_TP1
                 if ((subject as Bonus).Type == BonusType.extraLife)
                 {
                     this.numberOfLifes += 1;
-                    UI.GetInstance().NumberOfLife += 1;
-                    Game1.bonusList.Remove(subject as Bonus);
+                    UI.GetInstance().NumberOfLife += 1; 
                 }
+                if ((subject as Bonus).Type == BonusType.invincible)
+                {
+                    this.invincible = true;
+                }
+                Game1.bonusList.Remove(subject as Bonus);
             }
-            
         }
     }
 }

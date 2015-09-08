@@ -14,6 +14,7 @@ namespace POO_TP1
         private static UI ui;
         private int numberOfLife;
         private int score;
+        private string bonusMessage;
         private Texture2D playerLifeImage;
         private Texture2D backGroundUI;
         private SpriteFont scoreFont;
@@ -40,6 +41,7 @@ namespace POO_TP1
             origin = new Vector2(LIFE_ORIGIN_POS, LIFE_ORIGIN_POS);
             scoreFont = Game1.contentManager.Load<SpriteFont>("kootenay");
             textPos = Vector2.Zero;
+            bonusMessage = "";
         }
 
         public void draw(ref SpriteBatch spriteBatch)
@@ -47,11 +49,17 @@ namespace POO_TP1
             spriteBatch.Draw(backGroundUI, Vector2.Zero, Color.White);
 
             textPos.X = 650;
+            textPos.Y = 0;
 
             spriteBatch.DrawString(scoreFont, score.ToString(), textPos, Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 1.0f);
             textPos.X = 1050;
             spriteBatch.DrawString(scoreFont, "Level " + LevelManager.GetInstance().CurrentLevel, textPos, Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 1.0f);
-
+            if (bonusMessage != "")
+            {
+                textPos.Y = 700;
+                spriteBatch.DrawString(scoreFont, bonusMessage, textPos, Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 1.0f);
+            }
+            
             for (int i = 0; i < numberOfLife; i++)
             {
                 spriteBatch.Draw(playerLifeImage, origin, Color.White);
@@ -113,6 +121,13 @@ namespace POO_TP1
                 {
                     updateLife(PlayerShip.GetInstance().NumberOfLifes);
                     NotifyAllObservers();
+                }
+            }
+            else if (subject is Bonus)
+            {
+                if ((subject as Bonus).Type == BonusType.invincible)
+                {
+                    bonusMessage = "Invincible";
                 }
             }
         }

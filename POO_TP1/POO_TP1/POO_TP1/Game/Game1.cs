@@ -115,7 +115,7 @@ namespace POO_TP1
             PlayerShip.GetInstance().Initialize(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 4, SCREENHEIGHT / 2));
             PlayerShip.GetInstance().InitBullets(Content);
             bonusList = new List<Bonus>();
-            bonusList.Add(Factory.createBonus(BonusType.extraLife));
+            bonusList.Add(Factory.createBonus(BonusType.invincible));
             loadAsteroids();
             Scores.GetInstance().Initialize(font,ref graphics);
             scoreList = Content.Load<Dictionary<string, string>>("scorelog");
@@ -317,7 +317,10 @@ namespace POO_TP1
             foreach (Asteroid ast in LevelManager.GetInstance().Asteroids)
             {
                 ast.Move();
-                PlayerShip.GetInstance().CheckCollisionBox(ast);
+                if (!PlayerShip.GetInstance().IsInvincible)
+                {
+                    PlayerShip.GetInstance().CheckCollisionBox(ast);
+                }
             }
 
             for (int i = 0; i < bonusList.Count; i++)
