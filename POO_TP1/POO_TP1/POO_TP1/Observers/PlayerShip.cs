@@ -137,10 +137,13 @@ namespace POO_TP1
 
         public override void CheckCollisionBox(Objet2D theOther)
         {
-            if (boiteCollision.Intersects(theOther.BoiteCollision) && alive)
+            if (IsAsteroid(theOther))
             {
-                playerDead();
-                ship.NotifyAllObservers();
+                if (boiteCollision.Intersects(theOther.BoiteCollision) && alive)
+                {
+                    playerDead();
+                    ship.NotifyAllObservers();
+                }
             }
         }
 
@@ -242,10 +245,6 @@ namespace POO_TP1
 
         public void Notify(ObservedSubject subject)
         {
-            if (subject is Bonus)
-            {
-                //Apply bonus
-            }
             if (subject is UI)
             {
                 if (UI.GetInstance().NumberOfLife != this.numberOfLifes)
@@ -253,6 +252,16 @@ namespace POO_TP1
                     this.numberOfLifes = UI.GetInstance().NumberOfLife;
                 }
             }
+            else if (subject is Bonus)
+            {
+                if ((subject as Bonus).Type == BonusType.extraLife)
+                {
+                    this.numberOfLifes += 1;
+                    UI.GetInstance().NumberOfLife += 1;
+                    Game1.bonusList.Remove(subject as Bonus);
+                }
+            }
+            
         }
     }
 }

@@ -16,48 +16,47 @@ namespace POO_TP1
 {
     class Factory
     {
-        private static ContentManager content;
 
-        public Factory(ContentManager content)
+        public Factory()
         {
-            Factory.content = content;
         }
 
         public static EnnemyShip createEnnemyShip(TypeShip typeShip)
         {
             if (typeShip == TypeShip.littleShip)
             {
-                return new LittleShip(content.Load<Texture2D>("Graphics\\sprites\\LittleShip"), new Vector2(150, 150), TypeShip.littleShip);
+                return new LittleShip(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\LittleShip"), new Vector2(150, 150), TypeShip.littleShip);
             }
             else
             {
-                return new BigShip(content.Load<Texture2D>("Graphics\\sprites\\BigShip"), new Vector2(150, 150), TypeShip.littleShip);
+                return new BigShip(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\BigShip"), new Vector2(150, 150), TypeShip.littleShip);
             }
         }
 
         public static Bonus createBonus(BonusType bonusType)
         {
+            Bonus bonus;
             if (bonusType == BonusType.invincible)
             {
-                return new Bonus(content.Load<Texture2D>("Graphics\\sprites\\Bonus\\invincible"), new Vector2(150, 150), BonusType.invincible);
+                bonus = new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\invincible"), new Vector2(150, 150), BonusType.invincible);
             }
-            if (bonusType == BonusType.doublePoints)
+            else if (bonusType == BonusType.doublePoints)
             {
-                return new Bonus(content.Load<Texture2D>("Graphics\\sprites\\Bonus\\doublePoints"), new Vector2(150, 150), BonusType.doublePoints);
+                bonus = new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\doublePoints"), new Vector2(150, 150), BonusType.doublePoints);
             }
-            if (bonusType == BonusType.extraLife)
+            else if (bonusType == BonusType.extraLife)
             {
-                return new Bonus(content.Load<Texture2D>("Graphics\\sprites\\Bonus\\extraLife"), new Vector2(150, 150), BonusType.extraLife);
+                bonus = new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\extraLife"), new Vector2(150, 150), BonusType.extraLife);
             }
-            if (bonusType == BonusType.extraPoints)
+            else if (bonusType == BonusType.extraPoints)
             {
-                return new Bonus(content.Load<Texture2D>("Graphics\\sprites\\Bonus\\extraPoints"), new Vector2(150, 150), BonusType.extraPoints);
+                bonus = new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\extraPoints"), new Vector2(150, 150), BonusType.extraPoints);
             }
-            if (bonusType == BonusType.slowDown)
+            else
             {
-                return new Bonus(content.Load<Texture2D>("Graphics\\sprites\\Bonus\\slowDown"), new Vector2(150, 150), BonusType.slowDown);
+                bonus = new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\slowDown"), new Vector2(150, 150), BonusType.slowDown);
             }
-            return null;
+            return bonus;
         }
     }
 }
