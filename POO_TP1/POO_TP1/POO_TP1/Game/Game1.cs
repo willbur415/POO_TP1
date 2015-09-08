@@ -301,8 +301,9 @@ namespace POO_TP1
 
         private string AskUserName()
         {
-       
-            string name = "";
+            //TO DO ASK USER INPUT FOR NAME
+            Random rand = new Random();
+            string name = rand.ToString();
 
             return name;
         }
