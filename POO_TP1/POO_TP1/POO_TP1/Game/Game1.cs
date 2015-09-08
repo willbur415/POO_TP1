@@ -36,10 +36,9 @@ namespace POO_TP1
         private Dictionary<string, string> scoreList;
         private Texture2D spacefield;
         private bool userScoreChecked;
+        private bool isGameOver;
         
     
-
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -182,6 +181,7 @@ namespace POO_TP1
                     CheckUserScore();
                     userScoreChecked = true;
                 }         
+                isGameOver = true;
             }
 
             base.Update(gameTime);
@@ -238,9 +238,12 @@ namespace POO_TP1
             
         }
 
+        /// <summary>
+        /// Checks the game menu choice.
+        /// </summary>
         private void CheckGameMenuChoice()
         {
-            if (GameMenu.GetInstance().SelectedItemIndex == 0)
+            if (GameMenu.GetInstance().SelectedItemIndex == 0 && !isGameOver)
             {
                 gameState = GameState.InGame;
             }
@@ -254,6 +257,11 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Checks the pause key.
+        /// </summary>
+        /// <param name="gamePadState">State of the game pad.</param>
+        /// <param name="keyboardState">State of the keyboard.</param>
         private void CheckPauseKey(GamePadState gamePadState, KeyboardState keyboardState)
         {
             bool pauseKeyDownThisFrame = (gamePadState.Buttons.Start == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Escape));
@@ -269,6 +277,10 @@ namespace POO_TP1
             pauseKeyDown = pauseKeyDownThisFrame;
         }
 
+        /// <summary>
+        /// Checks the pad inputs.
+        /// </summary>
+        /// <param name="padState">State of the pad.</param>
         private void CheckPadInputs(GamePadState padState)
         {
             PlayerShip.GetInstance().RotationAngle += padState.ThumbSticks.Right.X / 16.0f;
@@ -276,6 +288,10 @@ namespace POO_TP1
             if (padState.IsButtonDown(Buttons.RightTrigger)) playerShoot();
         }
 
+        /// <summary>
+        /// Checks the keyboard keys.
+        /// </summary>
+        /// <param name="keyboardState">State of the keyboard.</param>
         private void CheckKeyboardKeys(KeyboardState keyboardState)
         {
             if (keyboardState.IsKeyDown(Keys.W))
@@ -310,21 +326,29 @@ namespace POO_TP1
             foreach (KeyValuePair<string, string> list in scoreList)
             {
                 if (UI.GetInstance().Score > Convert.ToInt32(list.Value))
-                {   //Doit demander le name avant d'enregistrer, sinon erreur de key
+                {   //Doit demander le name avant d'enregistrer, sinon erreur de key a cause du dictionnary
+                    //changement de container pour la sauvegarde de score??
+                    //sinon 2 user ne pourront avoir le meme nom
                     //Scores.GetInstance().saveToXML(UI.GetInstance().Score.ToString(),AskUserName());
                     break;
                 }
             }
         }
 
+        /// <summary>
+        /// Asks the name of the user.
+        /// </summary>
+        /// <returns></returns>
         private string AskUserName()
         {
-       
             string name = "";
 
             return name;
         }
 
+        /// <summary>
+        /// Loads the asteroids.
+        /// </summary>
         private void loadAsteroids()
         {
             for (int i = 0; i < LevelManager.GetInstance().NbAsteroids; i++)
@@ -334,11 +358,17 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Loads the enemy ships.
+        /// </summary>
         private void loadEnemyShips()
         {
-            LevelManager.GetInstance().ShipsList.Add(Factory.createEnnemyShip(TypeShip.bigBossShip, new Vector2(SCREENWIDTH, SCREENHEIGHT)));
+            LevelManager.GetInstance().ShipsList.Add(Factory.CreateEnemyShip(TypeShip.bigBossShip, new Vector2(SCREENWIDTH, SCREENHEIGHT)));
         }
 
+        /// <summary>
+        /// make player shoot.
+        /// </summary>
         private void playerShoot()
         {
             if (PlayerShip.GetInstance().Cooldown == 0)
@@ -347,6 +377,11 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Updates the player.
+        /// </summary>
+        /// <param name="padState">State of the pad.</param>
+        /// <param name="keyboardState">State of the keyboard.</param>
         private void updatePlayer(GamePadState padState, KeyboardState keyboardState)
         {
             if (PlayerShip.GetInstance().IsAlive)
@@ -364,6 +399,9 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Checks the player collision.
+        /// </summary>
         private void checkPlayerCollision()
         {
             foreach (Asteroid ast in LevelManager.GetInstance().Asteroids)
@@ -372,12 +410,21 @@ namespace POO_TP1
                 PlayerShip.GetInstance().CheckCollisionBox(ast);
             }
             
+            foreach (EnemyShip list in LevelManager.GetInstance().ShipsList)
+            {
+                list.Move();
+                PlayerShip.GetInstance().CheckCollisionBox(list);
+            }
+            
             for (int i = 0; i < bonusList.Count; i++)
             {
                 bonusList[i].CheckCollisionBox(PlayerShip.GetInstance());
             }
         }
 
+        /// <summary>
+        /// Updates the bullets.
+        /// </summary>
         private void updateBullets()
         {
             foreach (Bullet bullet in PlayerShip.GetInstance().Bullets)
@@ -402,6 +449,10 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Draws the asteroids.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         private void drawAsteroids(SpriteBatch spriteBatch)
         {
             foreach (Asteroid ast in LevelManager.GetInstance().Asteroids)
@@ -411,6 +462,10 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Draws the bonuses.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         private void drawBonuses(SpriteBatch spriteBatch)
         {
             for (int i = 0; i < bonusList.Count; i++)
@@ -419,24 +474,38 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Draws the enemy ships.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         private void drawEnemyShips(SpriteBatch spriteBatch)
         {
-            foreach (EnnemyShip ships in LevelManager.GetInstance().ShipsList)
+            foreach (EnemyShip ships in LevelManager.GetInstance().ShipsList)
             {
                 spriteBatch.Draw(ships.Image,ships.Position,Color.White);
             }
         }
 
+        /// <summary>
+        /// Draws the player.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         private void drawPlayer(SpriteBatch spriteBatch)
         {
             foreach (Bullet bullet in PlayerShip.GetInstance().Bullets)
             {
                 spriteBatch.Draw(bullet.Image, bullet.Position, Color.White);
             }
-
+            
             PlayerShip.GetInstance().Draw(ref spriteBatch);
         }
 
+        /// <summary>
+        /// Checks the menu controls.
+        /// </summary>
+        /// <param name="padState">State of the pad.</param>
+        /// <param name="keyboardState">State of the keyboard.</param>
+        /// <param name="currentTime">The current time.</param>
         private void checkMenuControls(ref GamePadState padState, ref KeyboardState keyboardState, double currentTime)
         {
            
@@ -454,11 +523,15 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Changes the level.
+        /// </summary>
         private void changeLevel()
         {
             LevelManager.GetInstance().ChangeLevel();
             PlayerShip.GetInstance().ResetPosition();
             loadAsteroids();
+            loadEnemyShips();
         }
     }
 }
