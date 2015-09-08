@@ -116,7 +116,7 @@ namespace POO_TP1
             PlayerShip.GetInstance().Initialize(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 4, SCREENHEIGHT / 2));
             PlayerShip.GetInstance().InitBullets(Content);
             bonusList = new List<Bonus>();
-            bonusList.Add(Factory.createBonus(BonusType.invincible));
+            bonusList.Add(Factory.createBonus(BonusType.slowDown));
             loadAsteroids();
             Scores.GetInstance().Initialize(font,ref graphics);
             scoreList = Content.Load<Dictionary<string, string>>("scorelog");
@@ -401,7 +401,15 @@ namespace POO_TP1
             {
                 spriteBatch.Draw(bullet.Image, bullet.Position, Color.White);
             }
-            spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.White, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
+            if (PlayerShip.GetInstance().CurrentBonus.Type != BonusType.invincible)
+            {
+                spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.White, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
+            }
+            else
+            {
+                spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.Green, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 0f);
+            }
+            
         }
 
         private void checkMenuControls(ref GamePadState padState, ref KeyboardState keyboardState, double currentTime)

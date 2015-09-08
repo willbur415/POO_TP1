@@ -128,6 +128,24 @@ namespace POO_TP1
                     updateLife(PlayerShip.GetInstance().NumberOfLifes);
                     NotifyAllObservers();
                 }
+                else if ((subject as PlayerShip).NumberOfLifes != this.numberOfLife)
+                {
+                    this.numberOfLife = PlayerShip.GetInstance().NumberOfLifes;
+                }
+            }
+            else if (subject is Bonus)
+            {
+                if ((subject as Bonus).Type == BonusType.doublePoints)
+                {
+                    if (this.scoreMultiplier == 1)
+                    {
+                        this.scoreMultiplier = 2;
+                    }
+                    else
+                    {
+                        this.scoreMultiplier = 1;
+                    }
+                }
             }
         }
 
