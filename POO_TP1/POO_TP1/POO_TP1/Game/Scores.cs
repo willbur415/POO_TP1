@@ -33,8 +33,7 @@ namespace POO_TP1
         }
 
         public void ShowScores(Dictionary<string,string> scoreList, ref SpriteBatch spriteBatch )
-        {
-
+        {     
             origin = font.MeasureString(scoreList.Keys.ElementAt(0));
             posCounter = 0;
             foreach (KeyValuePair<string, string> list in scoreList)
@@ -49,6 +48,7 @@ namespace POO_TP1
             }
                   
         }
+
 
         public void saveToXML(string score, string name)
         {
@@ -68,6 +68,7 @@ namespace POO_TP1
             entryNode.AppendChild(entryScoreNode);
 
             doc.Save(@"..\..\..\..\POO_TP1Content\scorelog.xml");
+            
         }
 
         public SpriteFont Font
