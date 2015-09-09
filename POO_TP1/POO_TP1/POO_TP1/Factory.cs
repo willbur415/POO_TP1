@@ -15,9 +15,8 @@ using POO_TP1.Subjects.Ships;
 
 namespace POO_TP1
 {
-    class Factory
+    public class Factory
     {
-
         public Factory()
         {
         }
@@ -40,29 +39,33 @@ namespace POO_TP1
             return new BigBossShip(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\BigBossShip"), new Vector2(startPosInX, random), TypeShip.bigBossShip);
         }
 
-        public static Bonus createBonus(BonusType bonusType)
+        public static Bonus createBonus()
         {
-            Bonus bonus;
-            if (bonusType == BonusType.invincible)
+            Random rand = new Random();
+            int bonusNumber = rand.Next(5);
+            int posX = rand.Next(0, Game1.SCREENWIDTH);
+            int posY = rand.Next(0, Game1.SCREENHEIGHT);
+
+            Bonus bonus = null;
+            switch (bonusNumber)
             {
-                bonus = new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\invincible"), new Vector2(150, 150), BonusType.invincible);
+                case 1:
+                    bonus = new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\invincible"), new Vector2(posX, posY), BonusType.invincible);
+                    break;
+                case 2:
+                    bonus = new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\invincible"), new Vector2(posX, posY), BonusType.doublePoints);
+                    break;
+                case 3:
+                    bonus = new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\invincible"), new Vector2(posX, posY), BonusType.extraLife);
+                    break;
+                case 4:
+                    bonus = new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\invincible"), new Vector2(posX, posY), BonusType.extraPoints);
+                    break;
+                case 5:
+                    bonus = new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\invincible"), new Vector2(posX, posY), BonusType.slowDown);
+                    break;                    
             }
-            else if (bonusType == BonusType.doublePoints)
-            {
-                bonus = new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\doublePoints"), new Vector2(150, 150), BonusType.doublePoints);
-            }
-            else if (bonusType == BonusType.extraLife)
-            {
-                bonus = new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\extraLife"), new Vector2(150, 150), BonusType.extraLife);
-            }
-            else if (bonusType == BonusType.extraPoints)
-            {
-                bonus = new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\extraPoints"), new Vector2(150, 150), BonusType.extraPoints);
-            }
-            else
-            {
-                bonus = new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\slowDown"), new Vector2(150, 150), BonusType.slowDown);
-            }
+            
             return bonus;
         }
     }

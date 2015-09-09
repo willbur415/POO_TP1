@@ -58,12 +58,13 @@ namespace POO_TP1
         /// <param name="position">The position.</param>
         public void Initialize(Texture2D image, Vector2 position)
         {
-            base.image = image;
-            base.position = position;
+            this.image = image;
+            this.position = position;
+            FillObject2DInfo();
+            
             this.currentBonus = new Bonus(image, Vector2.Zero, BonusType.none);
             bullets = new Bullet[MAX_BULLETS];
             ship.AddObserver(UI.GetInstance());
-            FillObject2DInfo();
         }
 
         /// <summary>
@@ -266,7 +267,32 @@ namespace POO_TP1
                     ship.NotifyAllObservers();
                 }
             }
+        }
+
+        public void Draw(ref SpriteBatch spriteBatch)
+        {
+            Vector2 drawPos = this.position + this.offset;
+
+            if (this.currentBonus.Type != BonusType.invincible)
+            {
+                spriteBatch.Draw(this.image, drawPos, null, Color.White, this.rotationAngle, this.offset, 1.0f, SpriteEffects.None, 1);
+            }
+            else
+            {
+                spriteBatch.Draw(this.image, drawPos, null, Color.Green, this.rotationAngle, this.offset, 1.0f, SpriteEffects.None, 1);
+            }
             
+
+            //if (PlayerShip.GetInstance().CurrentBonus.Type != BonusType.invincible)
+            //{
+            //    PlayerShip.GetInstance().Draw(ref spriteBatch);
+            //}
+            //else
+            //{
+            //    spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.Green, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 1);
+            //}
+
+
         }
 
         /// <summary>
