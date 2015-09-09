@@ -58,7 +58,7 @@ namespace POO_TP1
                     }
                     if (IsEnemyShip(theOther))
                     {
-                        (theOther as EnemyShip).loseLife();
+                        (theOther as EnemyShip).LoseLife();
                     }
                     resetBullet();
                 }

@@ -55,7 +55,7 @@ namespace POO_TP1
             UpdateCollision();
         }
 
-        public void loseLife()
+        public void LoseLife()
         {
             enemyHP--;
             if (enemyHP <= 0)
