@@ -43,8 +43,8 @@ namespace POO_TP1
         {
             Random rand = new Random();
             int bonusNumber = rand.Next(4);
-            int posX = rand.Next(0, Game1.SCREENWIDTH);
-            int posY = rand.Next(0, Game1.SCREENHEIGHT);
+            int posX = rand.Next(0, Game1.SCREENWIDTH - 100);
+            int posY = rand.Next(0, Game1.SCREENHEIGHT - 100);
 
             
             switch (bonusNumber)
@@ -52,13 +52,13 @@ namespace POO_TP1
                 case 1:
                     return new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\invincible"), new Vector2(posX, posY), BonusType.invincible);
                 case 2:
-                    return new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\invincible"), new Vector2(posX, posY), BonusType.doublePoints);
+                    return new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\doublePoints"), new Vector2(posX, posY), BonusType.doublePoints);
                 case 3:
-                    return new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\invincible"), new Vector2(posX, posY), BonusType.extraLife);
+                    return new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\extraLife"), new Vector2(posX, posY), BonusType.extraLife);
                 case 4:
-                    return new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\invincible"), new Vector2(posX, posY), BonusType.extraPoints);
+                    return new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\extraPoints"), new Vector2(posX, posY), BonusType.extraPoints);
                 case 5:
-                    return new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\invincible"), new Vector2(posX, posY), BonusType.slowDown);
+                    return new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\slowDown"), new Vector2(posX, posY), BonusType.slowDown);
             }
             return new Bonus(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\Bonus\\invincible"), new Vector2(posX, posY), BonusType.none);
         }
