@@ -254,7 +254,7 @@ namespace POO_TP1
         /// <param name="theOther">The other.</param>
         public override void CheckCollisionBox(Objet2D theOther)
         {
-            if ((IsAsteroid(theOther) && currentBonus.Type != BonusType.invincible) || (IsEnemyShip(theOther) && currentBonus.Type != BonusType.invincible))
+            if ((IsAsteroid(theOther) && currentBonus.Type != BonusType.invincible) || (IsEnemyShip(theOther) && currentBonus.Type != BonusType.invincible) || (IsEnemyBullet(theOther) && currentBonus.Type != BonusType.invincible))
             {
                 if (boiteCollision.Intersects(theOther.BoiteCollision) && alive)
                 {
@@ -436,6 +436,11 @@ namespace POO_TP1
                     this.numberOfLifes = UI.GetInstance().NumberOfLife;
                 }
             }
+            else if (subject is Bullet)
+            {
+                numberOfLifes -= 1;
+                UI.GetInstance().NumberOfLife -= 1;
+            }
             else if (subject is Bonus)
             {
                 if ((subject as Bonus).Type != BonusType.none)
@@ -443,7 +448,7 @@ namespace POO_TP1
                     if ((subject as Bonus).Type == BonusType.extraLife)
                     {
                         this.numberOfLifes += 1;
-                        UI.GetInstance().NumberOfLife += 1; 
+                        UI.GetInstance().NumberOfLife += 1;
                     }
                     if ((subject as Bonus).Type == BonusType.invincible)
                     {

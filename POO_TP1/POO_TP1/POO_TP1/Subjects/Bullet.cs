@@ -13,6 +13,7 @@ namespace POO_TP1
         private const int BULLET_SPAWN_POS = -100;
         private const int BULLET_LIFE_TIME = 100;
         private int lifeTime = BULLET_LIFE_TIME;
+        private bool isEnemyBullet;
 
         public Bullet(Texture2D image, Vector2 position)
             : base(image, position)
@@ -67,6 +68,10 @@ namespace POO_TP1
                     {
                         (theOther as EnemyShip).LoseLife();
                     }
+                    if (isEnemyBullet && IsPlayer(theOther))
+                    {
+                        (theOther as PlayerShip).PlayerTotalLife -= 1;
+                    }
                     resetBullet();
                 }
             }
@@ -94,6 +99,12 @@ namespace POO_TP1
             {
                 lifeTime = value;
             }
+        }
+
+        public bool IsEnemyBullet
+        {
+            get { return isEnemyBullet;}
+            set { isEnemyBullet = value; }
         }
 
         /// <summary>

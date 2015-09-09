@@ -350,6 +350,11 @@ namespace POO_TP1
         private void LoadEnemyShips()
         {
             LevelManager.GetInstance().ShipsList.Add(Factory.CreateEnemyShip(TypeShip.bigBossShip, new Vector2(SCREENWIDTH, SCREENHEIGHT)));
+
+            for (int i = 0; i < LevelManager.GetInstance().ShipsList.Count; i++)
+            {
+                LevelManager.GetInstance().ShipsList[i].InitBullets(contentManager);
+            }
         }
 
         /// <summary>
