@@ -440,19 +440,26 @@ namespace POO_TP1
             {
                 if ((subject as Bonus).Type != BonusType.none)
                 {
-                    if ((subject as Bonus).BonusTime > 0)
-                {
-                    this.numberOfLifes += 1;
-                    UI.GetInstance().NumberOfLife += 1; 
-                }
-                if ((subject as Bonus).Type == BonusType.invincible)
-                {
-                    this.invincible = true;
-                }
-                    Game1.bonusList.Remove(subject as Bonus);
-                        currentBonus = (subject as Bonus);
+                    if ((subject as Bonus).Type == BonusType.extraLife)
+                    {
+                        this.numberOfLifes += 1;
+                        UI.GetInstance().NumberOfLife += 1; 
                     }
+                    if ((subject as Bonus).Type == BonusType.invincible)
+                    {
+                        if ((subject as Bonus).BonusTime > 0)
+                        {
+                            this.invincible = true;
+                        }
+                        else
+                        {
+                            this.invincible = false;
+                        }
+                    }
+                    Game1.bonusList.Remove(subject as Bonus);
+                    currentBonus = (subject as Bonus);
                 }
+            }
         }
     }
 }

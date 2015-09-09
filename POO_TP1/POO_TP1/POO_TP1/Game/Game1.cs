@@ -197,8 +197,6 @@ namespace POO_TP1
             {
                 DrawAsteroids(spriteBatch);
 
-                DrawBonuses(spriteBatch);
-                
                 DrawEnemyShips(spriteBatch);
 
                 if (PlayerShip.GetInstance().Alive)
@@ -206,7 +204,7 @@ namespace POO_TP1
                     DrawPlayer(spriteBatch);
                 }
                 UI.GetInstance().draw(ref spriteBatch);
-                
+                DrawBonuses(spriteBatch);
             }
             else if (gameState == GameState.Menu)
             {
