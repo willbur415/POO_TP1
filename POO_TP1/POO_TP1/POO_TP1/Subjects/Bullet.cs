@@ -30,7 +30,7 @@ namespace POO_TP1
 
         public void Update()
         {
-            base.move();
+            base.Move();
 
             if (isShooted)
             {
@@ -55,6 +55,10 @@ namespace POO_TP1
                     if (base.IsAsteroid(theOther))
                     {
                         (theOther as Asteroid).Split(this.rotationAngle);
+                    }
+                    if (IsEnemyShip(theOther))
+                    {
+                        (theOther as EnemyShip).loseLife();
                     }
                     resetBullet();
                 }

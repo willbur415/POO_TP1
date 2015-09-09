@@ -5,11 +5,11 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace POO_TP1
+namespace POO_TP1.Subjects.Ships
 {
-    public class BigShip : EnemyShip
+    class BigBossShip : EnemyShip
     {
-        public BigShip(Texture2D image, Vector2 position, TypeShip type)
+         public BigBossShip(Texture2D image, Vector2 position, TypeShip type)
             : base (image, position, type)
         {
             

@@ -32,6 +32,11 @@ namespace POO_TP1
             this.font = font;
         }
 
+        /// <summary>
+        /// Shows the scores.
+        /// </summary>
+        /// <param name="scoreList">The score list.</param>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public void ShowScores(Dictionary<string,string> scoreList, ref SpriteBatch spriteBatch )
         {     
             origin = font.MeasureString(scoreList.Keys.ElementAt(0));
@@ -45,11 +50,15 @@ namespace POO_TP1
                         graphics.GraphicsDevice.Viewport.Height / 2 + posCounter),
                                         Color.White, 0, origin, 1.0f, SpriteEffects.None, 0.5f);
                 posCounter += 75;
-            }
-                  
+            }          
         }
 
 
+        /// <summary>
+        /// Saves to XML.
+        /// </summary>
+        /// <param name="score">The score.</param>
+        /// <param name="name">The name.</param>
         public void saveToXML(string score, string name)
         {
             XmlDocument doc = new XmlDocument();

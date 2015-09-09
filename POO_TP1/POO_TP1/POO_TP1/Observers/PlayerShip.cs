@@ -10,6 +10,10 @@ namespace POO_TP1
 {
     class PlayerShip : MovableObject, Observer
     {
+        private static PlayerShip ship;
+        private Bullet[] bullets;
+        private Bonus currentBonus;
+
         private const double MAXSPEED = 5.0;
         private const float SLOWFACTOR = 20.0f;
         private const int MAX_BULLETS = 5;
@@ -20,14 +24,17 @@ namespace POO_TP1
         private bool invincible;
         private int numberOfLifes = 3;
         private int playerTotalLife = 3;
-        private static PlayerShip ship;
-        private Bullet[] bullets;
+        
         private bool firstShot = false;
-        private int cooldown;
+        private int shotCooldown;
         private int respawnTime;
 
         public const int TIME_BETWEEN_SHOTS_MILI = 3000;
 
+        /// <summary>
+        /// Gets the instance.
+        /// </summary>
+        /// <returns></returns>
         public static PlayerShip GetInstance()
         {
             if (ship == null)
@@ -36,20 +43,33 @@ namespace POO_TP1
             }
             return ship;
         }
+        /// <summary>
+        /// Prevents a default instance of the <see cref="PlayerShip"/> class from being created.
+        /// </summary>
         private PlayerShip()     
         {
             alive = true;
         }
 
+        /// <summary>
+        /// Initializes the specified image.
+        /// </summary>
+        /// <param name="image">The image.</param>
+        /// <param name="position">The position.</param>
         public void Initialize(Texture2D image, Vector2 position)
         {
-            base.image = image;
-            base.position = position;
+            this.image = image;
+            this.position = position;
+            FillObject2DInfo();
+            
+            this.currentBonus = new Bonus(image, Vector2.Zero, BonusType.none);
             bullets = new Bullet[MAX_BULLETS];
             ship.AddObserver(UI.GetInstance());
-            FillObject2DInfo();
         }
 
+        /// <summary>
+        /// Resets the position.
+        /// </summary>
         public void ResetPosition()
         {
             base.position.X = Game1.SCREENWIDTH / 2;
@@ -57,6 +77,12 @@ namespace POO_TP1
             base.velocity = Vector2.Zero;
         }
 
+        /// <summary>
+        /// Gets or sets the bullets.
+        /// </summary>
+        /// <value>
+        /// The bullets.
+        /// </value>
         public Bullet[] Bullets
         {
             get
@@ -69,6 +95,30 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Gets or sets the current bonus.
+        /// </summary>
+        /// <value>
+        /// The current bonus.
+        /// </value>
+        public Bonus CurrentBonus
+        {
+            get
+            {
+                return currentBonus;
+            }
+            set
+            {
+                currentBonus = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is alive.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is alive; otherwise, <c>false</c>.
+        /// </value>
         public bool IsAlive
         {
             get
@@ -77,6 +127,12 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [first shot].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [first shot]; otherwise, <c>false</c>.
+        /// </value>
         public bool IsInvincible
         {
             get
@@ -101,6 +157,12 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="PlayerShip"/> is alive.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if alive; otherwise, <c>false</c>.
+        /// </value>
         public bool Alive
         {
             get
@@ -109,19 +171,49 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is invincible.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance is invincible; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsInvincible
+        {
+            get
+            {
+                return isInvincible;
+            }
+            set
+            {
+                isInvincible = value;
+            }
+        }
 
+
+        /// <summary>
+        /// Gets or sets the cooldown.
+        /// </summary>
+        /// <value>
+        /// The cooldown.
+        /// </value>
         public int Cooldown
         {
             get
             {
-                return cooldown;
+                return shotCooldown;
             }
             set
             {
-                cooldown = value;
+                shotCooldown = value;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the number of lifes.
+        /// </summary>
+        /// <value>
+        /// The number of lifes.
+        /// </value>
         public int NumberOfLifes
         {
             get
@@ -134,12 +226,37 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Gets or sets the player total life.
+        /// </summary>
+        /// <value>
+        /// The player total life.
+        /// </value>
         public int PlayerTotalLife
         {
-            get { return playerTotalLife; }
-            set { playerTotalLife = value; }
+            get 
+            {
+                return playerTotalLife; 
+            }
+            set 
+            {
+                playerTotalLife = value; 
+            }
         }
 
+        /// <summary>
+        /// Adds the life.
+        /// </summary>
+        public void AddLife()
+        {
+            this.numberOfLifes++;
+            this.NotifyAllObservers();
+        }
+
+        /// <summary>
+        /// Checks the collision sphere.
+        /// </summary>
+        /// <param name="theOther">The other.</param>
         public void CheckCollisionSphere(Objet2D theOther)
         {
             if (sphereCollision.Intersects(theOther.SphereCollision))
@@ -148,9 +265,13 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Checks the collision box.
+        /// </summary>
+        /// <param name="theOther">The other.</param>
         public override void CheckCollisionBox(Objet2D theOther)
         {
-            if (IsAsteroid(theOther))
+            if ((IsAsteroid(theOther) && currentBonus.Type != BonusType.invincible) || (IsEnemyShip(theOther) && currentBonus.Type != BonusType.invincible))
             {
                 if (boiteCollision.Intersects(theOther.BoiteCollision) && alive)
                 {
@@ -160,13 +281,45 @@ namespace POO_TP1
             }
         }
 
-        public void Update(float newThrust)
+        public void Draw(ref SpriteBatch spriteBatch)
         {
-            if (cooldown > 0)
+            Vector2 drawPos = this.position + this.offset;
+
+            if (this.currentBonus.Type != BonusType.invincible)
             {
-                cooldown--;
+                spriteBatch.Draw(this.image, drawPos, null, Color.White, this.rotationAngle, this.offset, 1.0f, SpriteEffects.None, 1);
+            }
+            else
+            {
+                spriteBatch.Draw(this.image, drawPos, null, Color.Green, this.rotationAngle, this.offset, 1.0f, SpriteEffects.None, 1);
             }
             
+
+            //if (PlayerShip.GetInstance().CurrentBonus.Type != BonusType.invincible)
+            //{
+            //    PlayerShip.GetInstance().Draw(ref spriteBatch);
+            //}
+            //else
+            //{
+            //    spriteBatch.Draw(PlayerShip.GetInstance().Image, PlayerShip.GetInstance().Position, null, Color.Green, PlayerShip.GetInstance().RotationAngle, PlayerShip.GetInstance().Offset, 1.0f, SpriteEffects.None, 1);
+            //}
+
+
+        }
+
+        /// <summary>
+        /// Updates the specified new thrust.
+        /// </summary>
+        /// <param name="newThrust">The new thrust.</param>
+        public void Update(float newThrust)
+        {
+            if (shotCooldown > 0)
+            {
+                shotCooldown--;
+            }
+            
+            currentBonus.Update();
+
             //Rappel, le thrust arrière doit être plus lent
             if (newThrust < 0)
                 newThrust /= 2;
@@ -180,10 +333,13 @@ namespace POO_TP1
             MaxThrust();
 
             //Il faut aussi déplacer les poly de collision
-            move();
+            Move();
             bulletsFollow();
         }
 
+        /// <summary>
+        /// Checks the respawn time.
+        /// </summary>
         public void CheckRespawnTime()
         {
             if (respawnTime > 0)
@@ -196,6 +352,9 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Players the dead.
+        /// </summary>
         private void playerDead()
         {
             alive = false;
@@ -203,12 +362,22 @@ namespace POO_TP1
             respawnTime = RESPAWN_TIME;
         }
 
+        /// <summary>
+        /// Respawns this instance.
+        /// </summary>
         private void respawn()
         {
+            currentBonus.Type = BonusType.invincible;
+            currentBonus.BonusTime = 300;
             this.alive = true;
             this.velocity = Vector2.Zero;
+            this.position.X = Game1.SCREENWIDTH / 2;
+            this.position.Y = Game1.SCREENHEIGHT / 2;
         }
 
+        /// <summary>
+        /// Bulletses the follow.
+        /// </summary>
         private void bulletsFollow()
         {
             foreach (Bullet bullet in bullets)
@@ -218,6 +387,9 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Maximums the thrust.
+        /// </summary>
         private void MaxThrust()
         {
             //Calcul de la vitesse maximum actuelle (pythagore)
@@ -232,6 +404,10 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Shoots this instance.
+        /// </summary>
+        /// <returns></returns>
         public bool Shoot()
         {
             foreach (Bullet bullet in bullets)
@@ -241,13 +417,17 @@ namespace POO_TP1
                     bullet.RotationAngle = this.rotationAngle;
                     bullet.Velocity = new Vector2((float)Math.Sin((double)rotationAngle) * 10, -(float)Math.Cos((double)rotationAngle) * 10);
                     bullet.IsShooted = true;
-                    cooldown = COOLDOWN_TIME;
+                    shotCooldown = COOLDOWN_TIME;
                     return true;
                 }
             }
             return false;
         }
 
+        /// <summary>
+        /// Initializes the bullets.
+        /// </summary>
+        /// <param name="content">The content.</param>
         public void InitBullets(ContentManager content)
         {
             for (int i = 0; i < bullets.Length; i++)
@@ -256,6 +436,10 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Notifies the specified subject.
+        /// </summary>
+        /// <param name="subject">The subject.</param>
         public void Notify(ObservedSubject subject)
         {
             if (subject is UI)
@@ -267,7 +451,9 @@ namespace POO_TP1
             }
             else if (subject is Bonus)
             {
-                if ((subject as Bonus).Type == BonusType.extraLife)
+                if ((subject as Bonus).Type != BonusType.none)
+                {
+                    if ((subject as Bonus).BonusTime > 0)
                 {
                     this.numberOfLifes += 1;
                     UI.GetInstance().NumberOfLife += 1; 
@@ -276,8 +462,10 @@ namespace POO_TP1
                 {
                     this.invincible = true;
                 }
-                Game1.bonusList.Remove(subject as Bonus);
-            }
+                    Game1.bonusList.Remove(subject as Bonus);
+                        currentBonus = (subject as Bonus);
+                    }
+                }
         }
     }
 }

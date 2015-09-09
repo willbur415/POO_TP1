@@ -13,6 +13,7 @@ namespace POO_TP1
     {
         private AsteroidSize size;
         private const float ASTEROIDS_SPEED = 2;
+        private bool isSlow;
 
         public AsteroidSize Size
         {
@@ -32,12 +33,28 @@ namespace POO_TP1
             velocity.X = (float)(Math.Sin((double)rotationAngle) * ASTEROIDS_SPEED);
             velocity.Y = (float)(Math.Cos((double)rotationAngle) * ASTEROIDS_SPEED);
             this.size = size;
+            this.isSlow = false;
             this.AddObserver(UI.GetInstance());
         }
 
         public void Move()
         {
-            base.move();
+            if (PlayerShip.GetInstance().CurrentBonus.Type == BonusType.slowDown)
+            {
+                if (!this.isSlow)
+                {
+                    this.isSlow = true;
+                    this.velocity.X /= 2;
+                    this.velocity.Y /= 2;
+                }
+                if (PlayerShip.GetInstance().CurrentBonus.BonusTime < 0)
+                {
+                    this.isSlow = false;
+                    this.velocity.X *= 2;
+                    this.velocity.Y *= 2;
+                }
+            }
+            base.Move();
         }
 
         public override void CheckCollisionBox(Objet2D theOther)
@@ -45,6 +62,10 @@ namespace POO_TP1
             // override if needed
         }
 
+        /// <summary>
+        /// Splits the asteroid based on bullet angle.
+        /// </summary>
+        /// <param name="bulletRotationAngle">The bullet rotation angle.</param>
         public void Split(float bulletRotationAngle)
         {
             if (size == AsteroidSize.large)
@@ -68,16 +89,20 @@ namespace POO_TP1
             {
                 return 0.08f;
             }
-            else if (size == AsteroidSize.medium)
+            if (size == AsteroidSize.medium)
             {
                 return 0.1f;
             }
-            else
-            {
-                return 0.3f;
-            }
+  
+            return 0.3f;
+            
         }
 
+        /// <summary>
+        /// transforms bigger asteroids into smaller asteroids
+        /// </summary>
+        /// <param name="size">The size.</param>
+        /// <param name="bulletRotationAngle">The bullet rotation angle.</param>
         private void addSmallerAsteroid(AsteroidSize size, float bulletRotationAngle)
         {
             float newRotationAngle = (float)((Math.PI * 2) / 3);

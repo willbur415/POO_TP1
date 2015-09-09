@@ -14,6 +14,7 @@ namespace POO_TP1
         private static UI ui;
         private int numberOfLife;
         private int score;
+        private int scoreMultiplier;
         private string bonusMessage;
         private Texture2D playerLifeImage;
         private Texture2D backGroundUI;
@@ -21,6 +22,7 @@ namespace POO_TP1
         private Vector2 origin;
         private Vector2 textPos;
         private int nbLifeUP = 1;
+        private string bonusMessage;
 
         public static UI GetInstance()
         {
@@ -35,13 +37,14 @@ namespace POO_TP1
         {
             this.numberOfLife = 3;
             this.score = 0;
+            this.scoreMultiplier = 1;
             this.AddObserver(PlayerShip.GetInstance());
             playerLifeImage = Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\PlayerShipLife");
             backGroundUI = Game1.contentManager.Load<Texture2D>("Graphics\\UI\\UI");
             origin = new Vector2(LIFE_ORIGIN_POS, LIFE_ORIGIN_POS);
             scoreFont = Game1.contentManager.Load<SpriteFont>("kootenay");
             textPos = Vector2.Zero;
-            bonusMessage = "";
+            this.bonusMessage = "";
         }
 
         public void draw(ref SpriteBatch spriteBatch)
@@ -54,18 +57,20 @@ namespace POO_TP1
             spriteBatch.DrawString(scoreFont, score.ToString(), textPos, Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 1.0f);
             textPos.X = 1050;
             spriteBatch.DrawString(scoreFont, "Level " + LevelManager.GetInstance().CurrentLevel, textPos, Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 1.0f);
+            textPos.X = 1000;
+            textPos.Y = 700;
             if (bonusMessage != "")
             {
-                textPos.Y = 700;
                 spriteBatch.DrawString(scoreFont, bonusMessage, textPos, Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 1.0f);
             }
-            
+
             for (int i = 0; i < numberOfLife; i++)
             {
                 spriteBatch.Draw(playerLifeImage, origin, Color.White);
                     origin.X += playerLifeImage.Width + LIFE_SPACING;
             }
             origin.X = LIFE_ORIGIN_POS;
+            textPos = Vector2.Zero;
         }
 
         public int NumberOfLife
@@ -80,9 +85,21 @@ namespace POO_TP1
             }
         }
 
+        public int ScoreMultiplier
+        {
+            get
+            {
+                return scoreMultiplier;
+            }
+            set
+            {
+                scoreMultiplier = value;
+            }
+        }
+
         private void updateScore(int score)
         {
-            this.score += score;
+            this.score += score * scoreMultiplier;
             if (this.score > 10000 * nbLifeUP)
             {
                 nbLifeUP++;
@@ -122,6 +139,9 @@ namespace POO_TP1
                     updateLife(PlayerShip.GetInstance().NumberOfLifes);
                     NotifyAllObservers();
                 }
+                else if ((subject as PlayerShip).NumberOfLifes != this.numberOfLife)
+                {
+                    this.numberOfLife = PlayerShip.GetInstance().NumberOfLifes;
             }
             else if (subject is Bonus)
             {
@@ -131,10 +151,63 @@ namespace POO_TP1
                 }
             }
         }
+            else if (subject is Bonus)
+            {
+                if ((subject as Bonus).Type == BonusType.doublePoints)
+                {
+                    if ((subject as Bonus).BonusTime > 0)
+                    {
+                        bonusMessage = "Double Points";
+                        scoreMultiplier = 2;
+                    }
+                    else
+                    {
+                        bonusMessage = "";
+                        scoreMultiplier = 1;
+                    }      
+                }
+                else if ((subject as Bonus).Type == BonusType.invincible)
+                {
+                    if ((subject as Bonus).BonusTime > 0)
+                    {
+                        bonusMessage = "Invincible";
+                    }
+                    else
+                    {
+                        bonusMessage = "";
+                    }
+                }
+                else if ((subject as Bonus).Type == BonusType.extraPoints)
+                {
+                    if ((subject as Bonus).BonusTime > 0)
+                    {
+                        score += 1000;
+                    }
+                }
+                else if ((subject as Bonus).Type == BonusType.slowDown)
+                {
+                    if ((subject as Bonus).BonusTime > 0)
+                    {
+                        bonusMessage = "SlowMotio";
+                    }
+                    else
+                    {
+                        bonusMessage = "";
+                    }
+                }
+            }
+        }
 
         public int Score
         {
-            get { return score; }
+            get 
+            {
+                return score; 
+            }
+            set
+            {
+                score = value;
+            }
         }
     }
 }

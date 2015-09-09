@@ -15,25 +15,78 @@ namespace POO_TP1
 
     public enum BonusType
     {
-        invincible, extraLife, doublePoints, slowDown, extraPoints
+        none, invincible, extraLife, doublePoints, slowDown, extraPoints
     }
 
     public class Bonus : MovableObject
     {
+        private const int BONUS_15_SECONDS = 900;
+        private int bonusTime;
+        private bool isFinished;
         private BonusType type;
+
+        public int BonusTime
+        {
+            get
+            {
+                return bonusTime;
+            }
+            set
+            {
+                bonusTime = value;
+            }
+        }
+
+        public bool IsFinished
+        {
+            get
+            {
+                return isFinished;
+            }
+            set
+            {
+                isFinished = value;
+            }
+        }
 
         public BonusType Type
         {
-            get { return type; }
-            set { type = value; }
+            get
+            {
+                return type;
+        }
+            set
+            {
+                type = value;
+            }
         }
 
         public Bonus(Texture2D image, Vector2 position, BonusType type)
             : base(image, position)
         {
-            this.type = type;
             this.AddObserver(PlayerShip.GetInstance());
             this.AddObserver(UI.GetInstance());
+            this.type = type;
+            bonusTime = BONUS_15_SECONDS;
+        }
+
+        public void Update()
+        {
+            if (this.type != BonusType.none)
+            {
+                if (this.type == BonusType.extraLife)
+                {
+                    PlayerShip.GetInstance().AddLife();
+                    this.type = BonusType.none;
+                }
+                if (this.type == BonusType.extraPoints)
+                {
+                    bonusTime = 0;
+                    this.NotifyAllObservers();
+                    this.type = BonusType.none;
+                }
+                updateTimer();
+            }
         }
 
         public override void CheckCollisionBox(Objet2D theOther)
@@ -41,6 +94,26 @@ namespace POO_TP1
             if (this.boiteCollision.Intersects(theOther.BoiteCollision))
             {
                 this.NotifyAllObservers();
+            }
+        }
+
+        /// <summary>
+        /// Updates the timer for the bonus.
+        /// </summary>
+        private void updateTimer()
+        {
+            if (bonusTime > 0)
+            {
+                bonusTime--;
+            }
+            else
+            {
+                if (type != BonusType.none)
+                {
+                    this.NotifyAllObservers();
+            }
+                type = BonusType.none;
+                bonusTime = BONUS_15_SECONDS;
             }
         }
     }

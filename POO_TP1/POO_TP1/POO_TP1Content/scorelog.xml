@@ -10,5 +10,10 @@
       <Key>Will-i-am</Key>
       <Value>1</Value>
     </Item>
+    <Item>
+      <Key>
+      </Key>
+      <Value>310</Value>
+    </Item>
   </Asset>
 </XnaContent>
