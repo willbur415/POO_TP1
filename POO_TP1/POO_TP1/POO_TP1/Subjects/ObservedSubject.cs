@@ -13,6 +13,10 @@ namespace POO_TP1
             observers = new List<Observer>();
         }
 
+        /// <summary>
+        /// Adds the observer.
+        /// </summary>
+        /// <param name="observer">The observer.</param>
         public void AddObserver(Observer observer)
         {
             if (!observers.Contains(observer))
@@ -20,6 +24,10 @@ namespace POO_TP1
                 observers.Add(observer);
             }
         }
+        /// <summary>
+        /// Removes the observer.
+        /// </summary>
+        /// <param name="observer">The observer.</param>
         public void RemoveObserver(Observer observer)
         {
             if (observers.Contains(observer))
@@ -28,6 +36,9 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Notifies all observers.
+        /// </summary>
         protected void NotifyAllObservers()
         {
             foreach (Observer o in observers)

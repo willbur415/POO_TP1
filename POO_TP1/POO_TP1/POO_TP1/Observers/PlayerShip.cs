@@ -269,6 +269,10 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Draws the specified sprite batch.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public void Draw(ref SpriteBatch spriteBatch)
         {
             Vector2 drawPos = this.position + this.offset;

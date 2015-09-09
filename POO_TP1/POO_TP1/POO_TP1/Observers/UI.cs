@@ -32,6 +32,9 @@ namespace POO_TP1
             return ui;
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
         public void Initialize()
         {
             this.numberOfLife = 3;
@@ -46,6 +49,10 @@ namespace POO_TP1
             this.bonusMessage = "";
         }
 
+        /// <summary>
+        /// Draws the specified sprite batch.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public void draw(ref SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(backGroundUI, Vector2.Zero, Color.White);
@@ -95,6 +102,10 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Updates the score.
+        /// </summary>
+        /// <param name="score">The score.</param>
         private void UpdateScore(int score)
         {
             this.score += score * scoreMultiplier;
@@ -105,12 +116,20 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Updates the life.
+        /// </summary>
+        /// <param name="life">The life.</param>
         private void UpdateLife(int life)
         {
             this.numberOfLife = life;
             this.NotifyAllObservers();
         }
 
+        /// <summary>
+        /// Notifies the specified subject.
+        /// </summary>
+        /// <param name="subject">The subject.</param>
         public void Notify(ObservedSubject subject)
         {
             if (subject is Asteroid)

@@ -37,6 +37,9 @@ namespace POO_TP1
             this.AddObserver(UI.GetInstance());
         }
 
+        /// <summary>
+        /// Moves this instance.
+        /// </summary>
         public void Move()
         {
             if (PlayerShip.GetInstance().CurrentBonus.Type == BonusType.slowDown)
@@ -83,6 +86,10 @@ namespace POO_TP1
             NotifyAllObservers();
         }
 
+        /// <summary>
+        /// Checks the size of the asteroid.
+        /// </summary>
+        /// <returns></returns>
         public float CheckAsteroidSize()
         {
             if (size == AsteroidSize.small)

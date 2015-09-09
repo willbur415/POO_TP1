@@ -31,6 +31,9 @@ namespace POO_TP1
             
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
         public void Initialize()
         {
             asteroids = new List<Asteroid>();
