@@ -118,7 +118,7 @@ namespace POO_TP1
                 if (type != BonusType.none)
                 {
                     this.NotifyAllObservers();
-            }
+                }
                 type = BonusType.none;
                 bonusTime = BONUS_15_SECONDS;
             }
