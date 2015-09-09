@@ -15,13 +15,13 @@ namespace POO_TP1
         private int numberOfLife;
         private int score;
         private int scoreMultiplier;
+        private string bonusMessage;
         private Texture2D playerLifeImage;
         private Texture2D backGroundUI;
         private SpriteFont scoreFont;
         private Vector2 origin;
         private Vector2 textPos;
         private int nbLifeUP = 1;
-        private string bonusMessage;
 
         public static UI GetInstance()
         {
@@ -51,6 +51,7 @@ namespace POO_TP1
             spriteBatch.Draw(backGroundUI, Vector2.Zero, Color.White);
 
             textPos.X = 650;
+            textPos.Y = 0;
 
             spriteBatch.DrawString(scoreFont, score.ToString(), textPos, Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 1.0f);
             textPos.X = 1050;
@@ -148,8 +149,15 @@ namespace POO_TP1
                 else if ((subject as PlayerShip).NumberOfLifes != this.numberOfLife)
                 {
                     this.numberOfLife = PlayerShip.GetInstance().NumberOfLifes;
+            }
+            else if (subject is Bonus)
+            {
+                if ((subject as Bonus).Type == BonusType.invincible)
+                {
+                    bonusMessage = "Invincible";
                 }
             }
+        }
             else if (subject is Bonus)
             {
                 if ((subject as Bonus).Type == BonusType.doublePoints)
