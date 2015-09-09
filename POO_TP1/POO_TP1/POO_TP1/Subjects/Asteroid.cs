@@ -114,9 +114,7 @@ namespace POO_TP1
             {
                 return 0.1f;
             }
-  
-            return 0.3f;
-            
+            return 0.3f;   
         }
 
         /// <summary>
