@@ -197,15 +197,6 @@ namespace POO_TP1
             spriteBatch.Begin();
             spriteBatch.Draw(spacefield, Vector2.Zero, Color.White);
 
-            //Debug
-
-            RasterizerState state = new RasterizerState();
-            state.FillMode = FillMode.WireFrame;
-            spriteBatch.GraphicsDevice.RasterizerState = state;
-
-
-            // /Debug
-
             if (gameState == GameState.InGame)
             {
                 drawAsteroids(spriteBatch);
@@ -541,6 +532,7 @@ namespace POO_TP1
             PlayerShip.GetInstance().ResetPosition();
             loadAsteroids();
             loadEnemyShips();
+            bonusList.Add(Factory.createBonus());
         }
     }
 }

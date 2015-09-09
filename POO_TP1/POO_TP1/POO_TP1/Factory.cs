@@ -42,7 +42,7 @@ namespace POO_TP1
         public static Bonus createBonus()
         {
             Random rand = new Random();
-            int bonusNumber = rand.Next(5);
+            int bonusNumber = rand.Next(4);
             int posX = rand.Next(0, Game1.SCREENWIDTH);
             int posY = rand.Next(0, Game1.SCREENHEIGHT);
 
