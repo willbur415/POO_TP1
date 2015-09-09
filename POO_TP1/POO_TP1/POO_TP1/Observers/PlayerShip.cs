@@ -354,6 +354,10 @@ namespace POO_TP1
         /// </summary>
         private void respawn()
         {
+            if (currentBonus.Type != BonusType.none)
+            {
+                currentBonus.StopBonus();
+            }
             currentBonus.Type = BonusType.invincible;
             currentBonus.BonusTime = 300;
             this.alive = true;
@@ -445,11 +449,6 @@ namespace POO_TP1
             {
                 if ((subject as Bonus).Type != BonusType.none)
                 {
-                    if ((subject as Bonus).Type == BonusType.extraLife)
-                    {
-                        this.numberOfLifes += 1;
-                        UI.GetInstance().NumberOfLife += 1;
-                    }
                     if ((subject as Bonus).Type == BonusType.invincible)
                     {
                         if ((subject as Bonus).BonusTime > 0)
