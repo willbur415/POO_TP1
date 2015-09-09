@@ -157,10 +157,6 @@ namespace POO_TP1
                 UpdatePlayer(padOneState, keyboardState);
                 UpdateBullets();
                 CheckPlayerCollision();
-                foreach (EnemyShip ships in LevelManager.GetInstance().ShipsList)
-                {
-                    ships.Move();
-                }
 
                 LevelManager.GetInstance().DeadAsteroids.Clear();
             }
