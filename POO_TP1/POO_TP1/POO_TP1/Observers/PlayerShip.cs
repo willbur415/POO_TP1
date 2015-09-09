@@ -21,7 +21,7 @@ namespace POO_TP1
         private const int RESPAWN_TIME = 70;
         private const int BULLET_SPAWN_POS = -100;
         private bool alive;
-        private bool isInvincible;
+        private bool invincible;
         private int numberOfLifes = 3;
         private int playerTotalLife = 3;
         
@@ -133,6 +133,18 @@ namespace POO_TP1
         /// <value>
         ///   <c>true</c> if [first shot]; otherwise, <c>false</c>.
         /// </value>
+        public bool IsInvincible
+        {
+            get
+            {
+                return invincible;
+            }
+            set
+            {
+                invincible = value;
+            }
+        }
+
         public bool FirstShot
         {
             get
@@ -159,23 +171,6 @@ namespace POO_TP1
             }
         }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is invincible.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance is invincible; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsInvincible
-        {
-            get
-            {
-                return isInvincible;
-            }
-            set
-            {
-                isInvincible = value;
-            }
-        }
 
 
         /// <summary>
@@ -309,7 +304,7 @@ namespace POO_TP1
             {
                 shotCooldown--;
             }
-
+            
             currentBonus.Update();
 
             //Rappel, le thrust arrière doit être plus lent
@@ -446,12 +441,18 @@ namespace POO_TP1
                 if ((subject as Bonus).Type != BonusType.none)
                 {
                     if ((subject as Bonus).BonusTime > 0)
-                    {
-                        Game1.bonusList.Remove(subject as Bonus);
+                {
+                    this.numberOfLifes += 1;
+                    UI.GetInstance().NumberOfLife += 1; 
+                }
+                if ((subject as Bonus).Type == BonusType.invincible)
+                {
+                    this.invincible = true;
+                }
+                    Game1.bonusList.Remove(subject as Bonus);
                         currentBonus = (subject as Bonus);
                     }
                 }
-            }
         }
     }
 }
