@@ -469,7 +469,10 @@ namespace POO_TP1
         {
             for (int i = 0; i < bonusList.Count; i++)
             {
-                spriteBatch.Draw(bonusList[i].Image, bonusList[i].Position, Color.White);
+                if (bonusList[i].Type != BonusType.none)
+                {
+                    spriteBatch.Draw(bonusList[i].Image, bonusList[i].Position, Color.White);
+                }
             }
         }
 
