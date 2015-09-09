@@ -22,7 +22,6 @@ namespace POO_TP1
         private Vector2 origin;
         private Vector2 textPos;
         private int nbLifeUP = 1;
-        private string bonusMessage;
 
         public static UI GetInstance()
         {

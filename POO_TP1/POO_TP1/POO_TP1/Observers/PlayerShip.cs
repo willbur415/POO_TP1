@@ -171,23 +171,6 @@ namespace POO_TP1
             }
         }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is invincible.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance is invincible; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsInvincible
-        {
-            get
-            {
-                return isInvincible;
-            }
-            set
-            {
-                isInvincible = value;
-            }
-        }
 
 
         /// <summary>
