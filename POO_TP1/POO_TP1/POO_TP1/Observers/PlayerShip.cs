@@ -64,7 +64,6 @@ namespace POO_TP1
             
             this.currentBonus = new Bonus(image, Vector2.Zero, BonusType.none);
             bullets = new Bullet[MAX_BULLETS];
-            ship.AddObserver(UI.GetInstance());
         }
 
         /// <summary>
@@ -435,15 +434,15 @@ namespace POO_TP1
         {
             if (subject is UI)
             {
-                if (UI.GetInstance().NumberOfLife != this.numberOfLifes)
+                if ((subject as UI).NumberOfLife != this.numberOfLifes)
                 {
-                    this.numberOfLifes = UI.GetInstance().NumberOfLife;
+                    this.numberOfLifes = (subject as UI).NumberOfLife;
                 }
             }
             else if (subject is Bullet)
             {
                 numberOfLifes -= 1;
-                UI.GetInstance().NumberOfLife -= 1;
+                this.NotifyAllObservers();
             }
             else if (subject is Bonus)
             {

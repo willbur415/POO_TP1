@@ -11,7 +11,6 @@ namespace POO_TP1
     {
         private const int LIFE_ORIGIN_POS = 7;
         private const int LIFE_SPACING = 5;
-        private static UI ui;
         private int numberOfLife;
         private int score;
         private int scoreMultiplier;
@@ -23,19 +22,7 @@ namespace POO_TP1
         private Vector2 textPos;
         private int nbLifeUP = 1;
 
-        public static UI GetInstance()
-        {
-            if (ui == null)
-            {
-                ui = new UI();
-            }
-            return ui;
-        }
-
-        /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        public void Initialize()
+        public UI()
         {
             this.numberOfLife = 3;
             this.score = 0;
@@ -47,6 +34,14 @@ namespace POO_TP1
             scoreFont = Game1.contentManager.Load<SpriteFont>("kootenay");
             textPos = Vector2.Zero;
             this.bonusMessage = "";
+        }
+
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        public void Initialize()
+        {
+           
         }
 
         /// <summary>
@@ -163,7 +158,6 @@ namespace POO_TP1
                 if (!(subject as PlayerShip).IsAlive)
                 {
                     UpdateLife(PlayerShip.GetInstance().NumberOfLifes);
-                    NotifyAllObservers();
                 }
                 else if ((subject as PlayerShip).NumberOfLifes != this.numberOfLife)
                 {

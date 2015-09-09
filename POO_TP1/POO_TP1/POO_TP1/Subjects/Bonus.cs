@@ -65,7 +65,6 @@ namespace POO_TP1
             : base(image, position)
         {
             this.AddObserver(PlayerShip.GetInstance());
-            this.AddObserver(UI.GetInstance());
             this.type = type;
             bonusTime = BONUS_15_SECONDS;
         }

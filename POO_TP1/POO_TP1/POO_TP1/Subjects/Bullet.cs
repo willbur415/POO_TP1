@@ -101,7 +101,7 @@ namespace POO_TP1
             }
         }
 
-        public bool IsEnemyBullet
+        public new bool IsEnemyBullet
         {
             get { return isEnemyBullet;}
             set { isEnemyBullet = value; }
