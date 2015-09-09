@@ -92,6 +92,13 @@ namespace POO_TP1
             }
         }
 
+        public void StopBonus()
+        {
+            this.type = BonusType.none;
+            this.bonusTime = -1;
+            this.NotifyAllObservers();
+        }
+
         /// <summary>
         /// Checks the collision box.
         /// </summary>

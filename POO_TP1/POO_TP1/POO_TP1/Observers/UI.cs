@@ -73,7 +73,7 @@ namespace POO_TP1
             for (int i = 0; i < numberOfLife; i++)
             {
                 spriteBatch.Draw(playerLifeImage, origin, Color.White);
-                    origin.X += playerLifeImage.Width + LIFE_SPACING;
+                origin.X += playerLifeImage.Width + LIFE_SPACING;
             }
             origin.X = LIFE_ORIGIN_POS;
             textPos = Vector2.Zero;
@@ -218,6 +218,14 @@ namespace POO_TP1
                     }
                     else
                     {
+                        bonusMessage = "";
+                    }
+                }
+                else if ((subject as Bonus).Type == BonusType.none)
+                {
+                    if ((subject as Bonus).BonusTime == -1)
+                    {
+                        scoreMultiplier = 1;
                         bonusMessage = "";
                     }
                 }
