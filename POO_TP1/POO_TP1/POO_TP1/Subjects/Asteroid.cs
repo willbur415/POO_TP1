@@ -54,7 +54,7 @@ namespace POO_TP1
         /// <summary>
         /// Moves this instance.
         /// </summary>
-        public void Move()
+        public new void Move()
         {
             if (PlayerShip.GetInstance().CurrentBonus.Type == BonusType.slowDown)
             {

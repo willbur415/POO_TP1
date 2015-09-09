@@ -11,6 +11,7 @@ namespace POO_TP1
     {
         private const int LIFE_ORIGIN_POS = 7;
         private const int LIFE_SPACING = 5;
+        private const int STARTING_LIFE = 3;
         private int numberOfLife;
         private int score;
         private int scoreMultiplier;
@@ -24,7 +25,7 @@ namespace POO_TP1
 
         public UI()
         {
-            this.numberOfLife = 3;
+            this.numberOfLife = STARTING_LIFE;
             this.score = 0;
             this.scoreMultiplier = 1;
             this.AddObserver(PlayerShip.GetInstance());
