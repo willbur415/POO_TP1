@@ -130,6 +130,14 @@ namespace POO_TP1
                 }
 
             }
+            else if (subject is EnemyShip && (subject as EnemyShip).IsAlive == false)
+            {
+                EnemyShip ship = subject as EnemyShip;
+                if (ship.Type == TypeShip.bigBossShip)
+                {
+                    updateScore(200);
+                }
+            }
             else if (subject is PlayerShip)
             {
                 if (!(subject as PlayerShip).IsAlive)
@@ -155,7 +163,7 @@ namespace POO_TP1
                     {
                         bonusMessage = "";
                         scoreMultiplier = 1;
-                    }      
+                    }
                 }
                 else if ((subject as Bonus).Type == BonusType.invincible)
                 {
