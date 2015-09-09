@@ -157,7 +157,7 @@ namespace POO_TP1
                 UpdatePlayer(padOneState, keyboardState);
                 UpdateBullets();
                 CheckPlayerCollision();
-
+                EnemyShoot();
                 LevelManager.GetInstance().DeadAsteroids.Clear();
             }
             else if (gameState == GameState.Menu)
@@ -367,6 +367,19 @@ namespace POO_TP1
                 PlayerShip.GetInstance().Shoot();
             }
         }
+        /// <summary>
+        /// make enemy shoot.
+        /// </summary>
+        private void EnemyShoot()
+        {
+
+            for (int i = 0; i < LevelManager.GetInstance().ShipsList.Count; i++)
+            {
+                LevelManager.GetInstance().ShipsList[i].Shoot();
+            }
+
+        }
+        
 
         /// <summary>
         /// Updates the player.
@@ -491,6 +504,10 @@ namespace POO_TP1
             foreach (EnemyShip ships in LevelManager.GetInstance().ShipsList)
             {
                 spriteBatch.Draw(ships.Image,ships.Position,Color.White);
+            }
+            for (int i = 0; i < LevelManager.GetInstance().ShipsList.Count; i++)
+            {
+                spriteBatch.Draw(LevelManager.GetInstance().ShipsList[i].Image, LevelManager.GetInstance().ShipsList[i].Position, Color.White);
             }
         }
 
