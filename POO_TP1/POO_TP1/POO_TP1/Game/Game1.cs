@@ -197,15 +197,6 @@ namespace POO_TP1
             spriteBatch.Begin();
             spriteBatch.Draw(spacefield, Vector2.Zero, Color.White);
 
-            //Debug
-
-            RasterizerState state = new RasterizerState();
-            state.FillMode = FillMode.WireFrame;
-            spriteBatch.GraphicsDevice.RasterizerState = state;
-
-
-            // /Debug
-
             if (gameState == GameState.InGame)
             {
                 drawAsteroids(spriteBatch);
@@ -438,6 +429,14 @@ namespace POO_TP1
                     {
                         bullet.CheckCollisionBox(LevelManager.GetInstance().Asteroids[i]);
                     }
+                    for (int i = 0; i < LevelManager.GetInstance().ShipsList.Count(); i++)
+                    {
+                        bullet.CheckCollisionBox(LevelManager.GetInstance().ShipsList[i]);
+                        if (LevelManager.GetInstance().ShipsList[i].EnemyHP <= 0)
+                        {
+                            LevelManager.GetInstance().ShipsList.Remove(LevelManager.GetInstance().ShipsList[i]);
+                        }
+                    }
 
                     foreach(Asteroid deadAst in LevelManager.GetInstance().DeadAsteroids)
                     {
@@ -533,6 +532,7 @@ namespace POO_TP1
             PlayerShip.GetInstance().ResetPosition();
             loadAsteroids();
             loadEnemyShips();
+            bonusList.Add(Factory.createBonus());
         }
     }
 }

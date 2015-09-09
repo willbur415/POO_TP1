@@ -14,7 +14,7 @@ namespace POO_TP1
     {
         protected TypeShip type;
         private const double ENEMY_SPEED = 0.7;
-        private const int ENEMY_HP = 5;
+        private  int enemyHP = 5;
 
         public TypeShip Type
         {
@@ -41,7 +41,7 @@ namespace POO_TP1
 
         public override void CheckCollisionBox(Objet2D theOther)
         {
-
+            
         }
 
         /// <summary>
@@ -53,5 +53,17 @@ namespace POO_TP1
             position.Y += velocity.Y;
             UpdateCollision();
         }
+
+        public void loseLife()
+        {
+            enemyHP--;
+            NotifyAllObservers();
+        }
+
+        public int EnemyHP
+        {
+            get { return enemyHP;}
+        }
+
     }
 }
