@@ -70,11 +70,11 @@ namespace POO_TP1
         {
             if (size == AsteroidSize.large)
             {
-                addSmallerAsteroid(AsteroidSize.medium, bulletRotationAngle);
+                AddSmallerAsteroid(AsteroidSize.medium, bulletRotationAngle);
             }
             else if (size == AsteroidSize.medium)
             {
-                addSmallerAsteroid(AsteroidSize.small, bulletRotationAngle);
+                AddSmallerAsteroid(AsteroidSize.small, bulletRotationAngle);
             }
             else
             {
@@ -103,7 +103,7 @@ namespace POO_TP1
         /// </summary>
         /// <param name="size">The size.</param>
         /// <param name="bulletRotationAngle">The bullet rotation angle.</param>
-        private void addSmallerAsteroid(AsteroidSize size, float bulletRotationAngle)
+        private void AddSmallerAsteroid(AsteroidSize size, float bulletRotationAngle)
         {
             float newRotationAngle = (float)((Math.PI * 2) / 3);
             Asteroid newAst1;

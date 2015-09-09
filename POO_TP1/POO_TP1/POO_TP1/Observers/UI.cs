@@ -95,17 +95,17 @@ namespace POO_TP1
             }
         }
 
-        private void updateScore(int score)
+        private void UpdateScore(int score)
         {
             this.score += score * scoreMultiplier;
             if (this.score > 10000 * nbLifeUP)
             {
                 nbLifeUP++;
-                updateLife(PlayerShip.GetInstance().NumberOfLifes + 1);
+                UpdateLife(PlayerShip.GetInstance().NumberOfLifes + 1);
             }
         }
 
-        private void updateLife(int life)
+        private void UpdateLife(int life)
         {
             this.numberOfLife = life;
             this.NotifyAllObservers();
@@ -118,15 +118,15 @@ namespace POO_TP1
                 Asteroid ast = subject as Asteroid;
                 if (ast.Size == AsteroidSize.large)
                 {
-                    updateScore(20);
+                    UpdateScore(20);
                 }
                 else if (ast.Size == AsteroidSize.medium)
                 {
-                    updateScore(50);
+                    UpdateScore(50);
                 }
                 else
                 {
-                    updateScore(100);
+                    UpdateScore(100);
                 }
 
             }
@@ -135,14 +135,14 @@ namespace POO_TP1
                 EnemyShip ship = subject as EnemyShip;
                 if (ship.Type == TypeShip.bigBossShip)
                 {
-                    updateScore(200);
+                    UpdateScore(200);
                 }
             }
             else if (subject is PlayerShip)
             {
                 if (!(subject as PlayerShip).IsAlive)
                 {
-                    updateLife(PlayerShip.GetInstance().NumberOfLifes);
+                    UpdateLife(PlayerShip.GetInstance().NumberOfLifes);
                     NotifyAllObservers();
                 }
                 else if ((subject as PlayerShip).NumberOfLifes != this.numberOfLife)
