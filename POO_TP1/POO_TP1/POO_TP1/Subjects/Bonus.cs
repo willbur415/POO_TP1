@@ -85,7 +85,7 @@ namespace POO_TP1
                     this.NotifyAllObservers();
                     this.type = BonusType.none;
                 }
-                updateTimer();
+                UpdateTimer();
             }
         }
 
@@ -100,7 +100,7 @@ namespace POO_TP1
         /// <summary>
         /// Updates the timer for the bonus.
         /// </summary>
-        private void updateTimer()
+        private void UpdateTimer()
         {
             if (bonusTime > 0)
             {

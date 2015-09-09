@@ -15,6 +15,7 @@ namespace POO_TP1
         protected TypeShip type;
         private const double ENEMY_SPEED = 0.7;
         private  int enemyHP = 5;
+        private bool isAlive = true;
 
         public TypeShip Type
         {
@@ -54,9 +55,13 @@ namespace POO_TP1
             UpdateCollision();
         }
 
-        public void loseLife()
+        public void LoseLife()
         {
             enemyHP--;
+            if (enemyHP <= 0)
+            {
+                isAlive = false;
+            }
             NotifyAllObservers();
         }
 
@@ -65,5 +70,9 @@ namespace POO_TP1
             get { return enemyHP;}
         }
 
+        public bool IsAlive
+        {
+            get { return isAlive;}
+        }
     }
 }
