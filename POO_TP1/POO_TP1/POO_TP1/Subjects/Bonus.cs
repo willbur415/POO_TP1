@@ -70,6 +70,9 @@ namespace POO_TP1
             bonusTime = BONUS_15_SECONDS;
         }
 
+        /// <summary>
+        /// Updates this instance.
+        /// </summary>
         public void Update()
         {
             if (this.type != BonusType.none)
@@ -89,6 +92,10 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Checks the collision box.
+        /// </summary>
+        /// <param name="theOther">The other.</param>
         public override void CheckCollisionBox(Objet2D theOther)
         {
             if (this.boiteCollision.Intersects(theOther.BoiteCollision))

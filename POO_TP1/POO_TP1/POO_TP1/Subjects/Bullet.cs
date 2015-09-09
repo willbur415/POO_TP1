@@ -28,6 +28,9 @@ namespace POO_TP1
             FillObject2DInfo();
         }
 
+        /// <summary>
+        /// Updates this instance.
+        /// </summary>
         public void Update()
         {
             base.Move();
@@ -46,6 +49,10 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Checks the collision box that is hit by the bullet.
+        /// </summary>
+        /// <param name="theOther">The other.</param>
         public override void CheckCollisionBox(Objet2D theOther)
         {
             if (this.isShooted)
@@ -89,6 +96,9 @@ namespace POO_TP1
             }
         }
 
+        /// <summary>
+        /// Resets the bullet.
+        /// </summary>
         private void resetBullet()
         {
             this.velocity = Vector2.Zero;

@@ -29,6 +29,9 @@ namespace POO_TP1
         {
         }
 
+        /// <summary>
+        /// Fills the objects information when called.
+        /// </summary>
         protected void FillObject2DInfo()
         {
             this.offset = new Vector2(image.Width / 2, image.Height / 2);

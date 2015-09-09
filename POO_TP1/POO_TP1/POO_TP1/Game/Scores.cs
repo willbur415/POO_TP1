@@ -26,6 +26,11 @@ namespace POO_TP1
             return score;
         }
 
+        /// <summary>
+        /// Initializes the specified font.
+        /// </summary>
+        /// <param name="font">The font.</param>
+        /// <param name="graphics">The graphics.</param>
         public void Initialize(SpriteFont font, ref GraphicsDeviceManager graphics)
         {
             this.graphics = graphics;

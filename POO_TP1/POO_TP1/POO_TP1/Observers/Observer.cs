@@ -14,6 +14,10 @@ namespace POO_TP1
 {
     public interface Observer
     {
+        /// <summary>
+        /// Notifies the specified subject.
+        /// </summary>
+        /// <param name="subject">The subject.</param>
         void Notify(ObservedSubject subject);
     }
 }
