@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -53,6 +54,23 @@ namespace POO_TP1
         protected bool IsEnemyShip(Objet2D objet)
         {
             if (objet.GetType() == typeof(LittleShip) || objet.GetType() == typeof(BigShip) || objet.GetType() == typeof(BigBossShip))
+            {
+                return true;
+            }
+            return false;
+        }
+        protected bool IsPlayer(Objet2D objet)
+        {
+            if (objet.GetType() == typeof(PlayerShip))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        protected bool IsEnemyBullet(Objet2D objet)
+        {
+            if (objet.GetType() == typeof (Bullet))
             {
                 return true;
             }
