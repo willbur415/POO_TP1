@@ -401,13 +401,16 @@ namespace POO_TP1
                 if (!PlayerShip.GetInstance().IsInvincible)
                 {
                 PlayerShip.GetInstance().CheckCollisionBox(ast);
-            }
+                }
             }
             
             foreach (EnemyShip list in LevelManager.GetInstance().ShipsList)
             {
                 list.Move();
-                PlayerShip.GetInstance().CheckCollisionBox(list);
+                if (!PlayerShip.GetInstance().IsInvincible)
+                {
+                    PlayerShip.GetInstance().CheckCollisionBox(list);
+                }
             }
             
             for (int i = 0; i < bonusList.Count; i++)
