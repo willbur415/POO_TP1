@@ -43,7 +43,6 @@ namespace POO_TP1
             velocity.Y = (float)(Math.Cos((double)rotationAngle) * ENEMY_SPEED);
             Type = type;
             bullets = new Bullet[MAX_BULLETS];
-            AddObserver(UI.GetInstance());
         }
 
         public override void CheckCollisionBox(Objet2D theOther)

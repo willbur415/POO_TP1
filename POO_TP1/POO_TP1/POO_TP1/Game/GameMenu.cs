@@ -21,7 +21,6 @@ namespace POO_TP1
         private Vector2 scoresButtonPos;
         private Vector2 exitButtonsPos;
         private Vector2 fontOrigin;
-        private Vector2 cursorPosition;
 
         /// <summary>
         /// Gets the instance.

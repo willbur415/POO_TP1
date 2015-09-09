@@ -14,6 +14,7 @@ namespace POO_TP1
         private AsteroidSize size;
         private const float ASTEROIDS_SPEED = 2;
         private bool isSlow;
+        private bool isUIObserved;
 
         public AsteroidSize Size
         {
@@ -27,6 +28,19 @@ namespace POO_TP1
             }
         }
 
+        public bool IsUIObserver
+        {
+            get
+            {
+                return isUIObserved;
+            }
+            set
+            {
+                isUIObserved = value;
+            }
+        }
+
+
         public Asteroid(Texture2D image, Vector2 position, float rotationAngle, AsteroidSize size) : base(image, position)
         {
             this.rotationAngle = rotationAngle;
@@ -34,7 +48,7 @@ namespace POO_TP1
             velocity.Y = (float)(Math.Cos((double)rotationAngle) * ASTEROIDS_SPEED);
             this.size = size;
             this.isSlow = false;
-            this.AddObserver(UI.GetInstance());
+            IsUIObserver = false;
         }
 
         /// <summary>
@@ -129,7 +143,6 @@ namespace POO_TP1
             }
             LevelManager.GetInstance().Asteroids.Add(newAst1);
             LevelManager.GetInstance().Asteroids.Add(newAst2);
-            
         }
     }
 }

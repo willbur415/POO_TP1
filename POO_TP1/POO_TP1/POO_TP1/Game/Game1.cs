@@ -28,7 +28,7 @@ namespace POO_TP1
 
         private SpriteFont font;
         private GameState gameState;
-        private List<TypeShip> shipList; 
+        private UI ui;
         private const float TIME_BETWEEN_SHOTS_SEC= 3;
         private bool pauseKeyDown;
         private double currentTime;
@@ -108,15 +108,18 @@ namespace POO_TP1
         {
             font = Content.Load<SpriteFont>("Kootenay");
             GameMenu.GetInstance().Initialize(font, ref graphics);
-            UI.GetInstance().Initialize();
+            ui = new UI();
             spriteBatch = new SpriteBatch(GraphicsDevice);
             gameState = GameState.Menu;
             LevelManager.GetInstance().Initialize();
             spacefield = Content.Load<Texture2D>("Graphics\\background\\stars");
             PlayerShip.GetInstance().Initialize(Content.Load<Texture2D>("Graphics\\sprites\\PlayerShip"), new Vector2(SCREENWIDTH / 2, SCREENHEIGHT / 2));
             PlayerShip.GetInstance().InitBullets(Content);
+            PlayerShip.GetInstance().AddObserver(ui);
             bonusList = new List<Bonus>();
-            bonusList.Add(Factory.createBonus());
+            Bonus firstBonus = Factory.createBonus();
+            firstBonus.AddObserver(ui);
+            bonusList.Add(firstBonus);
             LoadAsteroids();
             LoadEnemyShips();
             Scores.GetInstance().Initialize(font,ref graphics);
@@ -157,7 +160,7 @@ namespace POO_TP1
                 UpdatePlayer(padOneState, keyboardState);
                 UpdateBullets();
                 CheckPlayerCollision();
-
+                CheckAsteroidsObserved();
                 LevelManager.GetInstance().DeadAsteroids.Clear();
             }
             else if (gameState == GameState.Menu)
@@ -203,7 +206,7 @@ namespace POO_TP1
                 {
                     DrawPlayer(spriteBatch);
                 }
-                UI.GetInstance().draw(ref spriteBatch);
+                ui.draw(ref spriteBatch);
                 DrawBonuses(spriteBatch);
             }
             else if (gameState == GameState.Menu)
@@ -311,11 +314,11 @@ namespace POO_TP1
         {
             foreach (KeyValuePair<string, string> list in scoreList)
             {
-                if (UI.GetInstance().Score > Convert.ToInt32(list.Value))
+                if (ui.Score > Convert.ToInt32(list.Value))
                 {   //Doit demander le name avant d'enregistrer, sinon erreur de key a cause du dictionnary
                     //changement de container pour la sauvegarde de score??
                     //sinon 2 user ne pourront avoir le meme nom
-                    //Scores.GetInstance().saveToXML(UI.GetInstance().Score.ToString(),AskUserName());
+                    //Scores.GetInstance().saveToXML(ui.Score.ToString(),AskUserName());
                     break;
                 }
             }
@@ -340,7 +343,20 @@ namespace POO_TP1
             for (int i = 0; i < LevelManager.GetInstance().NbAsteroids; i++)
             {
                 Asteroid ast = new Asteroid(Content.Load<Texture2D>("Graphics\\sprites\\asteroid_big"), Vector2.Zero, i, AsteroidSize.large);
+                ast.AddObserver(ui);
                 LevelManager.GetInstance().Asteroids.Add(ast);
+            }
+        }
+
+        private void CheckAsteroidsObserved()
+        {
+            foreach (Asteroid ast in LevelManager.GetInstance().Asteroids)
+            {
+                if (!ast.IsUIObserver)
+                {
+                    ast.AddObserver(ui);
+                    ast.IsUIObserver = true;
+                }
             }
         }
 
@@ -349,7 +365,9 @@ namespace POO_TP1
         /// </summary>
         private void LoadEnemyShips()
         {
-            LevelManager.GetInstance().ShipsList.Add(Factory.CreateEnemyShip(TypeShip.bigBossShip, new Vector2(SCREENWIDTH, SCREENHEIGHT)));
+            EnemyShip newEnemyShip = Factory.CreateEnemyShip(TypeShip.bigBossShip, new Vector2(SCREENWIDTH, SCREENHEIGHT));
+            newEnemyShip.AddObserver(ui);
+            LevelManager.GetInstance().ShipsList.Add(newEnemyShip);
 
             for (int i = 0; i < LevelManager.GetInstance().ShipsList.Count; i++)
             {
@@ -540,7 +558,9 @@ namespace POO_TP1
             PlayerShip.GetInstance().ResetPosition();
             LoadAsteroids();
             LoadEnemyShips();
-            bonusList.Add(Factory.createBonus());
+            Bonus newBonus = Factory.createBonus();
+            newBonus.AddObserver(ui);
+            bonusList.Add(newBonus);
         }
     }
 }
