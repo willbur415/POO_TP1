@@ -18,6 +18,9 @@ namespace POO_TP1
         {
         }
 
+        /// <summary>
+        /// Moves this instance.
+        /// </summary>
         protected void Move()
         {
             this.position.X += this.velocity.X;
@@ -29,6 +32,11 @@ namespace POO_TP1
             OtherSide(ref position.Y, ref boiteCollision.Min.Y, ref boiteCollision.Max.Y, ref sphereCollision.Center.Y, Game1.SCREENHEIGHT, image.Height);
         }
 
+        /// <summary>
+        /// Determines whether the specified objet is asteroid.
+        /// </summary>
+        /// <param name="objet">The objet.</param>
+        /// <returns></returns>
         protected bool IsAsteroid(Objet2D objet)
         {
             if (objet.GetType() == typeof(Asteroid))
@@ -37,6 +45,11 @@ namespace POO_TP1
             }
             return false;
         }
+        /// <summary>
+        /// Determines whether the object is an enemy ship.
+        /// </summary>
+        /// <param name="objet">The objet.</param>
+        /// <returns></returns>
         protected bool IsEnemyShip(Objet2D objet)
         {
             if (objet.GetType() == typeof(LittleShip) || objet.GetType() == typeof(BigShip) || objet.GetType() == typeof(BigBossShip))
@@ -48,6 +61,9 @@ namespace POO_TP1
 
         public abstract void CheckCollisionBox(Objet2D theOther);
 
+        /// <summary>
+        /// Updates the collision.
+        /// </summary>
         protected void UpdateCollision()
         {
             this.boiteCollision.Min.X = position.X;

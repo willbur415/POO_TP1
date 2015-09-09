@@ -21,6 +21,12 @@ namespace POO_TP1
         {
         }
 
+        /// <summary>
+        /// Creates the enemy ship.
+        /// </summary>
+        /// <param name="typeShip">The type ship.</param>
+        /// <param name="screenSize">Size of the screen.</param>
+        /// <returns></returns>
         public static EnemyShip CreateEnemyShip(TypeShip typeShip,Vector2 screenSize)
         {
             Random r = new Random();
@@ -39,6 +45,10 @@ namespace POO_TP1
             return new BigBossShip(Game1.contentManager.Load<Texture2D>("Graphics\\sprites\\BigBossShip"), new Vector2(startPosInX, random), TypeShip.bigBossShip);
         }
 
+        /// <summary>
+        /// Creates the bonus.
+        /// </summary>
+        /// <returns></returns>
         public static Bonus createBonus()
         {
             Random rand = new Random();
