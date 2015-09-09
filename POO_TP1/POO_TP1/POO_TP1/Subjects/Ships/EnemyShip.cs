@@ -15,8 +15,10 @@ namespace POO_TP1
     {
         private const int MAX_BULLETS = 3;
         private const int BULLET_SPAWN_POS = -100;
+        private const int COOLDOWN_TIME = 20;
 
         protected TypeShip type;
+        private int shotCooldown;
         private const double ENEMY_SPEED = 0.7;
         private  int enemyHP = 5;
         private bool isAlive = true;
@@ -87,6 +89,38 @@ namespace POO_TP1
             {
                 bullets[i] = new Bullet(content.Load<Texture2D>("Graphics\\sprites\\EnemyBullet"), new Vector2(BULLET_SPAWN_POS, BULLET_SPAWN_POS));
                 bullets[i].IsEnemyBullet = true;
+            }
+        }
+        public bool Shoot()
+        {
+            foreach (Bullet bullet in bullets)
+            {
+                if (!bullet.IsShooted)
+                {
+                    bullet.RotationAngle = this.rotationAngle;
+                    bullet.Velocity = new Vector2((float)Math.Sin((double)rotationAngle) * 10, -(float)Math.Cos((double)rotationAngle) * 10);
+                    bullet.IsShooted = true;
+                    shotCooldown = COOLDOWN_TIME;
+                    return true;
+                }
+            }
+            return false;
+        }
+        /// <summary>
+        /// Gets or sets the cooldown.
+        /// </summary>
+        /// <value>
+        /// The cooldown.
+        /// </value>
+        public int Cooldown
+        {
+            get
+            {
+                return shotCooldown;
+            }
+            set
+            {
+                shotCooldown = value;
             }
         }
 
