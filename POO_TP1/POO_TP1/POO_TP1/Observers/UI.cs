@@ -163,7 +163,6 @@ namespace POO_TP1
                 if (!(subject as PlayerShip).IsAlive)
                 {
                     UpdateLife(PlayerShip.GetInstance().NumberOfLifes);
-                    NotifyAllObservers();
                 }
                 else if ((subject as PlayerShip).NumberOfLifes != this.numberOfLife)
                 {
